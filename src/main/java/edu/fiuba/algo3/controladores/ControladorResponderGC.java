@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.controladores;
 
+import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.excepciones.JugadorInexistente;
 import edu.fiuba.algo3.vista.VistaTableroJugadores;
 import edu.fiuba.algo3.vista.botones.BotonGC;
 import javafx.collections.ObservableList;
@@ -16,26 +18,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ControladorResponderGC implements EventHandler<ActionEvent> {
-    private Stage stage;
+public class ControladorResponderGC extends ControladorResponderAbstracto {
     private ObservableList<Node> opciones;
-    private ObservableList<Node> poderes;
-    private AudioClip sonidoResponder;
-    private AudioClip sonidoSinSeleccion;
 
     public ControladorResponderGC(Stage stage, ObservableList<Node> opciones, ObservableList<Node> poderes, VistaTableroJugadores tablero) {
-        this.stage = stage;
+        super(stage,tablero,poderes);
         this.opciones = opciones;
-        this.poderes = poderes;
-        File archivo = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/responder.wav");
-        Media media = new Media(archivo.toURI().toString());
-        this.sonidoResponder = new AudioClip(media.getSource());
-        this.sonidoResponder.setVolume(0.1);
-        File archivo2 = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/sinSeleccion.wav");
-        Media media2 = new Media(archivo2.toURI().toString());
-        this.sonidoSinSeleccion = new AudioClip(media2.getSource());
-
     }
+
     @Override
     public void handle(ActionEvent actionEvent) {
         List<BotonGC> opcionesSeleccionadas = opciones.stream()
@@ -63,15 +53,39 @@ public class ControladorResponderGC implements EventHandler<ActionEvent> {
 
         } else {
             sonidoResponder.play();
-            opcionesSeleccionadas.forEach(o -> {
-               if (o.getGrupoSeleccionado() == 1) {
-                   System.out.println("rosa - " + o.getText());
-               } else {
-                   System.out.println("verde - " + o.getText());
-                }
 
-            });
+            // Busco el jugador actual en la lista de AlgoHoot
+            Jugador jugador = obtenerJugadorActual();
 
+            if (jugador != null) {
+                AlgoHoot a = AlgoHoot.getInstancia();
+                opcionesSeleccionadas.forEach(o -> {
+                    if (o.getGrupoSeleccionado() == 1) {
+                        System.out.println("rosa - " + o.getText());
+                    } else {
+                        System.out.println("verde - " + o.getText());
+                    }});
+
+                List<ModificadorIndividual> mi = obtenerModificadoresIndividuales();
+
+                List<ModificadorGlobal> mg = obtenerModificadoresGlobales();
+
+                Respuesta[] respuestas = opcionesSeleccionadas.stream()
+                        .filter(b -> b.getGrupoSeleccionado() == 1)
+                        .map(b -> new Respuesta(b.getText()))
+                        .toArray(Respuesta[]::new);
+
+                a.jugarRondaDePreguntas(jugador,
+                        mi,
+                        mg,
+                        respuestas
+                );
+
+                tablero.siguienteJugador();
+
+            }else {
+                throw new JugadorInexistente("Se quiso responder una pregunta con un jugador que no fue registrado");
+            }
         }
     }
 }
