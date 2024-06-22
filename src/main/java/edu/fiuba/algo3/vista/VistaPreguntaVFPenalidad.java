@@ -1,43 +1,36 @@
 package edu.fiuba.algo3.vista;
 
-import edu.fiuba.algo3.controladores.ControladorResponderMC;
-import edu.fiuba.algo3.modelo.Opcion;
-import edu.fiuba.algo3.modelo.PreguntaMC;
-import edu.fiuba.algo3.modelo.PreguntaOC;
-import edu.fiuba.algo3.vista.botones.BotonMC;
+import edu.fiuba.algo3.controladores.ControladorResponderVF;
+import edu.fiuba.algo3.modelo.PreguntaVF;
+import edu.fiuba.algo3.modelo.PreguntaVFPenalidad;
 import edu.fiuba.algo3.vista.botones.BotonPoder;
+import edu.fiuba.algo3.vista.botones.BotonVF;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.lang.Math.floor;
 
-public class VistaPreguntaMC extends Scene {
+public class VistaPreguntaVFPenalidad extends Scene {
     private FlowPane root;
-
-    public VistaPreguntaMC(Stage stage, double width, double height, PreguntaMC pregunta, VistaTableroJugadores tablero) {
+    public VistaPreguntaVFPenalidad(Stage stage, double width, double height, PreguntaVFPenalidad pregunta, VistaTableroJugadores tablero) {
         super(new FlowPane(), width, height);
         double margenAncho = width/32;
         double margenAlto = height/18;
         this.root = (FlowPane) this.getRoot();
-        BackgroundImage imagenFondo = new BackgroundImage(new Image("file:"+System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/imagenes/background.png"),BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT);
+        BackgroundImage imagenFondo = new BackgroundImage(new Image("file:"+System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/imagenes/background.png"), BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         Background fondo = new Background(imagenFondo);
         this.root.setBackground(fondo);
-        this.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        this.getStylesheets().add("styles.css");
 
         FlowPane panelTableroJugadores = new FlowPane();
         panelTableroJugadores.setPrefHeight(height - 2*margenAlto);
@@ -47,11 +40,11 @@ public class VistaPreguntaMC extends Scene {
         panelTableroJugadores.getChildren().add(tablero);
         if (!tablero.getItems().isEmpty()) {tablero.resaltarSiguienteJugador();}
 
+
         FlowPane panelPregunta = new FlowPane();
         panelPregunta.setPrefHeight(height);
         panelPregunta.setPrefWidth(floor(width * 2/3));
         this.root.getChildren().add(panelPregunta);
-
 
         Label textoPregunta = new Label(pregunta.getPregunta());
         textoPregunta.setPrefHeight(height*2/5 - 2*margenAlto);
@@ -61,6 +54,7 @@ public class VistaPreguntaMC extends Scene {
         cambiarTamanoFuente(textoPregunta, 32);
 
         textoPregunta.setWrapText(true);
+
         StackPane contenidoPregunta= new StackPane();
         contenidoPregunta.setPrefWidth(floor(width * 2/3));
         contenidoPregunta.setPrefHeight(height/3);
@@ -68,7 +62,7 @@ public class VistaPreguntaMC extends Scene {
 
         HBox contenedorTipo = new HBox();
         contenedorTipo.setPrefWidth(floor(width * 2/3));
-        Label tipoDePregunta = new Label("Multiple Choice");
+        Label tipoDePregunta = new Label("Verdadero/Falso con Penalidad");
         contenedorTipo.setPrefHeight(tipoDePregunta.getPrefHeight());
 
         establecerEstilo(tipoDePregunta);
@@ -78,7 +72,7 @@ public class VistaPreguntaMC extends Scene {
         tipoDePregunta.setPadding(new Insets(0,6,2,6));
 
         StackPane.setMargin(contenedorTipo,new Insets(margenAlto/3, margenAncho/2, 0, 0));
-        contenidoPregunta.getChildren().addAll(textoPregunta,contenedorTipo);
+        contenidoPregunta.getChildren().addAll(textoPregunta, contenedorTipo);
 
         panelPregunta.getChildren().add(contenidoPregunta);
 
@@ -111,6 +105,20 @@ public class VistaPreguntaMC extends Scene {
         botonResponder.setStyle("-fx-background-color: transparent;");
         panelBotonResponder.getChildren().add(botonResponder);
 
+        HBox opciones = new HBox();
+        opciones.setPrefHeight(panelOpciones.getPrefHeight());
+        opciones.setPrefWidth(panelOpciones.getPrefWidth());
+        opciones.setAlignment(Pos.CENTER);
+        opciones.setSpacing(margenAncho);
+        ToggleGroup grupoOpciones = new ToggleGroup();
+        panelOpciones.getChildren().add(opciones);
+        pregunta.getOpciones().stream().forEach( o -> {
+            ToggleButton botonOpcion = new BotonVF(o.getOpcion(),panelOpciones.getPrefWidth()/3);
+            botonOpcion.setToggleGroup(grupoOpciones);
+            opciones.getChildren().add(botonOpcion);
+
+        });
+
         FlowPane panelBotonesPoderes = new FlowPane();
         panelBotonesPoderes.setPrefHeight(panelBotonesControl.getPrefHeight() - panelBotonResponder.getPrefHeight());
         panelBotonesPoderes.setPrefWidth(panelBotonesControl.getPrefWidth());
@@ -123,25 +131,13 @@ public class VistaPreguntaMC extends Scene {
         poderes.setSpacing(margenAlto/2);
         panelBotonesPoderes.getChildren().add(poderes);
 
-
-        VBox opciones = new VBox();
-        opciones.setPrefHeight(panelOpciones.getPrefHeight());
-        opciones.setPrefWidth(panelOpciones.getPrefWidth());
-        opciones.setAlignment(Pos.CENTER);
-        opciones.setSpacing(25);
-        panelOpciones.getChildren().add(opciones);
-
-        List<String> stringOpciones = pregunta.getOpciones().stream().map(Opcion::getOpcion).collect(Collectors.toList());
-        Collections.shuffle(stringOpciones);
-        stringOpciones.forEach(o -> {
-            opciones.getChildren().add(new BotonMC(o));
-        });
-
+        // Poderes pregunta penalidad
         ToggleButton botonAnulador = new BotonPoder("anulador");
-        ToggleButton botonExclusividad = new BotonPoder("exclusividad");
-        poderes.getChildren().addAll(botonAnulador,botonExclusividad);
+        ToggleButton botonDuplicador = new BotonPoder("exclusividad");
+        ToggleButton botonTriplicador = new BotonPoder("triplicador");
+        poderes.getChildren().addAll(botonAnulador,botonDuplicador,botonTriplicador);
 
-        ControladorResponderMC controlador = new ControladorResponderMC(stage, opciones.getChildren(), poderes.getChildren(), tablero);
+        ControladorResponderVF controlador = new ControladorResponderVF(stage, grupoOpciones, poderes.getChildren(), tablero);
         botonResponder.setOnAction(controlador);
     }
 
@@ -159,5 +155,4 @@ public class VistaPreguntaMC extends Scene {
         String estiloAnterior = nodo.getStyle();
         nodo.setStyle(estiloAnterior + "-fx-font-size: "+size+";");
     }
-
 }

@@ -3,6 +3,7 @@ package edu.fiuba.algo3.vista;
 import edu.fiuba.algo3.controladores.ControladorResponderMC;
 import edu.fiuba.algo3.modelo.Opcion;
 import edu.fiuba.algo3.modelo.PreguntaMC;
+import edu.fiuba.algo3.modelo.PreguntaMCParcial;
 import edu.fiuba.algo3.modelo.PreguntaOC;
 import edu.fiuba.algo3.vista.botones.BotonMC;
 import edu.fiuba.algo3.vista.botones.BotonPoder;
@@ -26,10 +27,10 @@ import java.util.stream.Collectors;
 
 import static java.lang.Math.floor;
 
-public class VistaPreguntaMC extends Scene {
+public class VistaPreguntaMCParcial extends Scene {
     private FlowPane root;
 
-    public VistaPreguntaMC(Stage stage, double width, double height, PreguntaMC pregunta, VistaTableroJugadores tablero) {
+    public VistaPreguntaMCParcial(Stage stage, double width, double height, PreguntaMCParcial pregunta, VistaTableroJugadores tablero) {
         super(new FlowPane(), width, height);
         double margenAncho = width/32;
         double margenAlto = height/18;
@@ -68,7 +69,7 @@ public class VistaPreguntaMC extends Scene {
 
         HBox contenedorTipo = new HBox();
         contenedorTipo.setPrefWidth(floor(width * 2/3));
-        Label tipoDePregunta = new Label("Multiple Choice");
+        Label tipoDePregunta = new Label("Multiple Choice Puntaje Parcial");
         contenedorTipo.setPrefHeight(tipoDePregunta.getPrefHeight());
 
         establecerEstilo(tipoDePregunta);
@@ -161,3 +162,4 @@ public class VistaPreguntaMC extends Scene {
     }
 
 }
+
