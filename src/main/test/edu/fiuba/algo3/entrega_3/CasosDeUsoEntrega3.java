@@ -5,7 +5,6 @@ import edu.fiuba.algo3.modelo.excepciones.JugadorNoEsperado;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,7 +34,7 @@ public class CasosDeUsoEntrega3 {
         ArrayList<ModificadorIndividual> modsInd2 = new ArrayList<>();
         modsInd2.add(new Triplicador());
         ArrayList<ModificadorIndividual> modsInd3 = new ArrayList<>();
-        modsInd3.add(new ModificadorBase());
+        modsInd3.add(new ModificadorIndividualBase());
 
         ArrayList<ModificadorGlobal> modsGlob1 = new ArrayList<>();
         modsGlob1.add(new ModificadorGlobalBase());

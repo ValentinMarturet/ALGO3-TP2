@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.vista;
 
 import edu.fiuba.algo3.controladores.ControladorResponderVF;
-import edu.fiuba.algo3.modelo.PreguntaVF;
 import edu.fiuba.algo3.modelo.PreguntaVFPenalidad;
 import edu.fiuba.algo3.vista.botones.BotonPoder;
 import edu.fiuba.algo3.vista.botones.BotonVF;
@@ -38,7 +37,7 @@ public class VistaPreguntaVFPenalidad extends Scene {
         FlowPane.setMargin(panelTableroJugadores,new Insets(margenAlto, 0, margenAlto, margenAncho));
         this.root.getChildren().add(panelTableroJugadores);
         panelTableroJugadores.getChildren().add(tablero);
-        if (!tablero.getItems().isEmpty()) {tablero.resaltarSiguienteJugador();}
+        if (!tablero.getItems().isEmpty()) {tablero.siguienteJugador();}
 
 
         FlowPane panelPregunta = new FlowPane();

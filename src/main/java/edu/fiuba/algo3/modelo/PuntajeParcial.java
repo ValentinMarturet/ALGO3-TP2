@@ -11,12 +11,12 @@ public class PuntajeParcial {
     public PuntajeParcial() {
         this.puntajeBase = 0;
         this.modificadores = new ArrayList<ModificadorIndividual>();
-        this.modificadores.add(new ModificadorBase());
+        this.modificadores.add(new ModificadorIndividualBase());
     }
     public PuntajeParcial(int puntajeInicial) {
         this.puntajeBase = puntajeInicial;
         this.modificadores = new ArrayList<ModificadorIndividual>();
-        this.modificadores.add(new ModificadorBase());
+        this.modificadores.add(new ModificadorIndividualBase());
     }
 
     public void sumar(PuntajeParcial otroPuntaje) {

@@ -43,7 +43,7 @@ public class VistaPreguntaGC extends Scene {
         FlowPane.setMargin(panelTableroJugadores,new Insets(margenAlto, 0, margenAlto, margenAncho));
         this.root.getChildren().add(panelTableroJugadores);
         panelTableroJugadores.getChildren().add(tablero);
-        if (!tablero.getItems().isEmpty()) {tablero.resaltarSiguienteJugador();}
+        if (!tablero.getItems().isEmpty()) {tablero.siguienteJugador();}
 
         FlowPane panelPregunta = new FlowPane();
         panelPregunta.setPrefHeight(height);

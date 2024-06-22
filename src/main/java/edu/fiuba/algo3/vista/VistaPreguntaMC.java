@@ -3,7 +3,6 @@ package edu.fiuba.algo3.vista;
 import edu.fiuba.algo3.controladores.ControladorResponderMC;
 import edu.fiuba.algo3.modelo.Opcion;
 import edu.fiuba.algo3.modelo.PreguntaMC;
-import edu.fiuba.algo3.modelo.PreguntaOC;
 import edu.fiuba.algo3.vista.botones.BotonMC;
 import edu.fiuba.algo3.vista.botones.BotonPoder;
 import javafx.geometry.Insets;
@@ -14,12 +13,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,7 +40,7 @@ public class VistaPreguntaMC extends Scene {
         FlowPane.setMargin(panelTableroJugadores,new Insets(margenAlto, 0, margenAlto, margenAncho));
         this.root.getChildren().add(panelTableroJugadores);
         panelTableroJugadores.getChildren().add(tablero);
-        if (!tablero.getItems().isEmpty()) {tablero.resaltarSiguienteJugador();}
+        if (!tablero.getItems().isEmpty()) {tablero.siguienteJugador();}
 
         FlowPane panelPregunta = new FlowPane();
         panelPregunta.setPrefHeight(height);

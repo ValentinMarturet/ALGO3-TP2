@@ -71,7 +71,7 @@ public class AlgoHootTest {
 
         // Act
         ArrayList<ModificadorIndividual> modsInd = new ArrayList<>();
-        modsInd.add(new ModificadorBase());
+        modsInd.add(new ModificadorIndividualBase());
 
 
         ArrayList<ModificadorGlobal> modsGlob = new ArrayList<>();
@@ -116,7 +116,7 @@ public class AlgoHootTest {
 
         // Act
         ArrayList<ModificadorIndividual> modsInd = new ArrayList<>();
-        modsInd.add(new ModificadorBase());
+        modsInd.add(new ModificadorIndividualBase());
 
 
         ArrayList<ModificadorGlobal> modsGlob = new ArrayList<>();
@@ -159,7 +159,7 @@ public class AlgoHootTest {
 
         // Act
         ArrayList<ModificadorIndividual> modsInd = new ArrayList<>();
-        modsInd.add(new ModificadorBase());
+        modsInd.add(new ModificadorIndividualBase());
 
 
         ArrayList<ModificadorGlobal> modsGlob = new ArrayList<>();

@@ -43,4 +43,8 @@ public class VistaJugadorConPuntaje extends FlowPane {
                 "-fx-background-color: white;"
         );
     }
+
+    public String getNombre() {
+        return nombreLabel.getText();
+    }
 }

@@ -18,11 +18,15 @@ public class Jugador {
         return this.nombre.equals(j.nombre);
     }
 
+    public boolean equals(String j) {
+        return this.nombre.equals(j);
+    }
+
     public void gastar(ModificadorIndividual mod) {
         if (duplicador.equals(mod)) {
-            duplicador = new ModificadorBase();
+            duplicador = new ModificadorIndividualBase();
         } else if (triplicador.equals(mod)) {
-            triplicador = new ModificadorBase();
+            triplicador = new ModificadorIndividualBase();
         }
     }
 

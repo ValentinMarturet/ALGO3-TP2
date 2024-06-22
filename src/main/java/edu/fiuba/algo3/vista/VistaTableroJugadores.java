@@ -65,7 +65,7 @@ public class VistaTableroJugadores extends ListView {
         this.getItems().setAll(jugadores);
     }
 
-    public void resaltarSiguienteJugador() {
+    public void siguienteJugador() {
         if (cursor == null || !cursor.hasNext()) {
             cursor = jugadores.listIterator();
         }
@@ -75,5 +75,9 @@ public class VistaTableroJugadores extends ListView {
         jugadorActual = cursor.next();
         jugadorActual.resaltar();
         this.scrollTo(jugadorActual);
+    }
+
+    public String getJugadoractual() {
+        return jugadorActual.getNombre();
     }
 }
