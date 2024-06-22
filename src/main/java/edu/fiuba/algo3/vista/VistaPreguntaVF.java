@@ -108,7 +108,7 @@ public class VistaPreguntaVF extends Scene {
         opciones.setSpacing(margenAncho);
         ToggleGroup grupoOpciones = new ToggleGroup();
         panelOpciones.getChildren().add(opciones);
-        pregunta.getOpciones().stream().forEach( o -> {
+        pregunta.getOpciones().forEach(o -> {
             ToggleButton botonOpcion = new BotonVF(o.getOpcion(),panelOpciones.getPrefWidth()/3);
             botonOpcion.setToggleGroup(grupoOpciones);
             opciones.getChildren().add(botonOpcion);

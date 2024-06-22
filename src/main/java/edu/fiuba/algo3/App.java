@@ -16,7 +16,11 @@ public class App extends Application {
         stage.getIcons().add(icono);
         stage.setResizable(false);
         VistaTableroJugadores tablero = new VistaTableroJugadores();
-        tablero.agregarJugador("test",0);
+        tablero.agregarJugador("jugador1",0);
+        AlgoHoot a = AlgoHoot.getInstancia();
+        a.agregarJugador(new Jugador("jugador1"));
+        tablero.agregarJugador("jugador2",0);
+        a.agregarJugador(new Jugador("jugador2"));
 
         VistaPreguntaVF vistaVF = new VistaPreguntaVF(stage, 1280, 720,
                 new PreguntaVF("los patos saben volar??????", "peces", "sos crak respondiste", new OpcionCorrecta("mas vale"), new OpcionIncorrecta("q van a volar los pajaros esos")),
@@ -36,7 +40,7 @@ public class App extends Application {
                         new Grupo("malos", new Opcion("anakin el hijo d la fuerza"), new Opcion("el guason hijo d la sociedad corrupta"))),
                 tablero);
 
-        stage.setScene(vistaGC);
+        stage.setScene(vistaVF);
         stage.show();
 
     }

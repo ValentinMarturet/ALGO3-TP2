@@ -74,13 +74,13 @@ public class ControladorResponderGC extends ControladorResponderAbstracto {
                         .filter(b -> b.getGrupoSeleccionado() == 1)
                         .map(b -> new Respuesta(b.getText()))
                         .toArray(Respuesta[]::new);
-
+                /*
                 a.jugarRondaDePreguntas(jugador,
                         mi,
                         mg,
                         respuestas
                 );
-
+                */
                 tablero.siguienteJugador();
 
             }else {

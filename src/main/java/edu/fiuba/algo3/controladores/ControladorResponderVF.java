@@ -3,26 +3,16 @@ package edu.fiuba.algo3.controladores;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.excepciones.JugadorInexistente;
 import edu.fiuba.algo3.vista.VistaTableroJugadores;
-import edu.fiuba.algo3.vista.botones.BotonPoder;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
 import javafx.stage.Stage;
-
-import java.io.File;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class ControladorResponderVF extends ControladorResponderAbstracto {
-    private Stage stage;
-    private ToggleGroup opciones;
-    private VistaTableroJugadores tablero;
+    private final ToggleGroup opciones;
     private ObservableList<Node> poderes;
 
     public ControladorResponderVF(Stage stage, ToggleGroup opciones, ObservableList<Node> poderes, VistaTableroJugadores tablero) {
@@ -49,15 +39,16 @@ public class ControladorResponderVF extends ControladorResponderAbstracto {
                 System.out.println("seleccionaste: " + eleccion.getText());
 
                 List<ModificadorIndividual> mi = obtenerModificadoresIndividuales();
-
+                mi.forEach(System.out::println);
                 List<ModificadorGlobal> mg = obtenerModificadoresGlobales();
-
+                mg.forEach(System.out::println);
+                /*
                 a.jugarRondaDePreguntas(jugador,
                         mi,
                         mg,
                         new Respuesta(eleccion.getText())
                 );
-
+                */
                 tablero.siguienteJugador();
 
             } else {

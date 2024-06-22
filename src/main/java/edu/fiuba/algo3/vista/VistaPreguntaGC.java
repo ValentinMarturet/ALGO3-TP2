@@ -54,7 +54,7 @@ public class VistaPreguntaGC extends Scene {
         textoPregunta.setPrefHeight(height*2/5 - 2*margenAlto);
         textoPregunta.setPrefWidth(width * 2/3 - 2*margenAncho);
         establecerEstilo(textoPregunta);
-        cambiarTamanoFuente(textoPregunta, 30);
+        cambiarTamanoFuente(textoPregunta, 32);
 
         StackPane contenidoPreguntaGrupos = new StackPane();
         contenidoPreguntaGrupos.setPrefWidth(floor(width * 2/3));

@@ -25,10 +25,12 @@ public abstract class ControladorResponderAbstracto implements EventHandler<Acti
     protected Stage stage;
     protected VistaTableroJugadores tablero;
     protected List<Object> modificadores;
+    private ObservableList<Node> botonesPoderes;
 
     public ControladorResponderAbstracto(Stage stage, VistaTableroJugadores tablero, ObservableList<Node> poderes) {
         this.stage = stage;
         this.tablero = tablero;
+        this.botonesPoderes = poderes;
         File archivo = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/responder.wav");
         Media media = new Media(archivo.toURI().toString());
         this.sonidoResponder = new AudioClip(media.getSource());
@@ -36,18 +38,6 @@ public abstract class ControladorResponderAbstracto implements EventHandler<Acti
         File archivo2 = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/sinSeleccion.wav");
         Media media2 = new Media(archivo2.toURI().toString());
         this.sonidoSinSeleccion = new AudioClip(media2.getSource());
-
-        // Obtengo los modificadores que seleccionó el jugador
-        Jugador j = obtenerJugadorActual();
-        List<Object> modificadores = poderes.stream()
-                .map(p -> {
-                    if (p instanceof BotonPoder) {
-                        return ((BotonPoder) p).obtenerModificador( j );
-                    }
-                    return null;
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -61,6 +51,7 @@ public abstract class ControladorResponderAbstracto implements EventHandler<Acti
     }
 
     protected List<ModificadorIndividual> obtenerModificadoresIndividuales() {
+        actualizarModificadores();
         return  modificadores.stream()
                 .map(m -> {
                     if (m instanceof ModificadorIndividual) {
@@ -73,10 +64,24 @@ public abstract class ControladorResponderAbstracto implements EventHandler<Acti
     }
 
     protected List<ModificadorGlobal> obtenerModificadoresGlobales() {
+        actualizarModificadores();
         return  modificadores.stream()
                 .map(m -> {
                     if (m instanceof ModificadorGlobal) {
                         return (ModificadorGlobal) m;
+                    }
+                    return null;
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
+    private void actualizarModificadores() {
+        Jugador j = obtenerJugadorActual();
+        modificadores = botonesPoderes.stream()
+                .map(p -> {
+                    if (p instanceof BotonPoder) {
+                        return ((BotonPoder) p).obtenerModificador( j );
                     }
                     return null;
                 })
