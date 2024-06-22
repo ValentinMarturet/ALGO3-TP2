@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import javafx.util.Pair;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,4 +44,7 @@ public class PreguntaGC implements Pregunta {
 
     public String getTematica() {return this.tematica;}
     public String getTextoRespuesta() {return this.textoRespuesta;}
+    public Pair<String,String> getNombreDeGrupos() {
+        return new Pair<>(unGrupo.getNombre(), otroGrupo.getNombre());
+    }
 }

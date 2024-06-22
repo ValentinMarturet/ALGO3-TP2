@@ -14,6 +14,8 @@ public class FabricaGC implements Fabrica{
         String respuesta = datos.getString("Respuesta");
         String tematica = datos.getString("Tema");
         String textoRepuesta = datos.getString("Texto respuesta");
+        String nombreA = datos.getString("Grupo A");
+        String nombreB = datos.getString("Grupo B");
         String datosA = "";
         String datosB = "";
 
@@ -44,11 +46,9 @@ public class FabricaGC implements Fabrica{
         }
 
 
-        Grupo grupoA = new Grupo(opcionesA.toArray(new Opcion[0]));
-        Grupo grupoB = new Grupo(opcionesB.toArray(new Opcion[0]));
+        Grupo grupoA = new Grupo(nombreA, opcionesA.toArray(new Opcion[0]));
+        Grupo grupoB = new Grupo(nombreB, opcionesB.toArray(new Opcion[0]));
 
-        Pregunta nuevaPregunta = new PreguntaGC(pregunta,tematica,textoRepuesta,grupoA,grupoB);
-
-        return nuevaPregunta;
+        return new PreguntaGC(pregunta,tematica,textoRepuesta,grupoA,grupoB);
     }
 }

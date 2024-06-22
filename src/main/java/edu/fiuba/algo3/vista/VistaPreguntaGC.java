@@ -1,7 +1,10 @@
 package edu.fiuba.algo3.vista;
 
+import edu.fiuba.algo3.controladores.ControladorResponderGC;
+import edu.fiuba.algo3.modelo.Opcion;
+import edu.fiuba.algo3.modelo.PreguntaGC;
 import edu.fiuba.algo3.vista.botones.BotonPoder;
-import edu.fiuba.algo3.vista.botones.BotonGroupChoice;
+import edu.fiuba.algo3.vista.botones.BotonGC;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -9,26 +12,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
-import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.Math.floor;
 
-public class VistaGroupChoice extends Scene {
+public class VistaPreguntaGC extends Scene {
     private FlowPane root;
-    private VBox opciones;
-    public VistaGroupChoice(double width, double height) {
+
+    public VistaPreguntaGC(Stage stage, double width, double height, PreguntaGC pregunta, VistaTableroJugadores tablero) {
         super(new FlowPane(), width, height);
         double margenAncho = width/32;
         double margenAlto = height/18;
@@ -43,36 +42,19 @@ public class VistaGroupChoice extends Scene {
         panelTableroJugadores.setPrefWidth(floor(width/3 - margenAncho));
         FlowPane.setMargin(panelTableroJugadores,new Insets(margenAlto, 0, margenAlto, margenAncho));
         this.root.getChildren().add(panelTableroJugadores);
-        VistaTableroJugadores tablero = new VistaTableroJugadores(panelTableroJugadores.getPrefWidth(), panelTableroJugadores.getPrefHeight());
-
         panelTableroJugadores.getChildren().add(tablero);
-        tablero.agregarJugador("agus",666);
-        tablero.agregarJugador("valen",999);
-        tablero.agregarJugador("nahu",2);
-        tablero.agregarJugador("pat",3);
-        tablero.agregarJugador("estebannnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",12);
-        tablero.agregarJugador("estebannnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",12);
-        tablero.agregarJugador("estebannnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",12);
-        tablero.agregarJugador("estebannnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",12);
-        tablero.agregarJugador("estebannnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",12);
-        tablero.agregarJugador("estebannnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",12);
-        tablero.agregarJugador("estebannnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",12);
-        tablero.agregarJugador("estebannnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",12);
-        tablero.resaltarSiguienteJugador();
+        if (!tablero.getItems().isEmpty()) {tablero.resaltarSiguienteJugador();}
 
         FlowPane panelPregunta = new FlowPane();
         panelPregunta.setPrefHeight(height);
         panelPregunta.setPrefWidth(floor(width * 2/3));
         this.root.getChildren().add(panelPregunta);
 
-        // ESTO NO SE TOCA.
-        Label textoPregunta = new Label("Asigne las siguientes leyendas del deporte nacional a disciplina grupales (Fútbol, Básquet, Voley, Rugby,) o individuales (atletismo, tenis, artes marciales, ajedrez, etc):");
+        Label textoPregunta = new Label(pregunta.getPregunta());
         textoPregunta.setPrefHeight(height*2/5 - 2*margenAlto);
         textoPregunta.setPrefWidth(width * 2/3 - 2*margenAncho);
         establecerEstilo(textoPregunta);
         cambiarTamanoFuente(textoPregunta, 30);
-
-        //NO TOCAR, sufriran consecuencias
 
         StackPane contenidoPreguntaGrupos = new StackPane();
         contenidoPreguntaGrupos.setPrefWidth(floor(width * 2/3));
@@ -81,20 +63,23 @@ public class VistaGroupChoice extends Scene {
 
         HBox contenedorTema = new HBox();
         contenedorTema.setPrefWidth(floor(width * 2/3));
-        Label tema = new Label("Group choice");
-        contenedorTema.setPrefHeight(tema.getPrefHeight());
+        Label tipoDePregunta = new Label("Group Choice");
+        contenedorTema.setPrefHeight(tipoDePregunta.getPrefHeight());
 
-        establecerEstilo(tema);
-        cambiarTamanoFuente(tema, 25);
-        contenedorTema.getChildren().add(tema);
+        establecerEstilo(tipoDePregunta);
+        cambiarTamanoFuente(tipoDePregunta, 25);
+        contenedorTema.getChildren().add(tipoDePregunta);
         contenedorTema.setAlignment(Pos.TOP_RIGHT);
-        tema.setPadding(new Insets(0,6,2,6));
+        tipoDePregunta.setPadding(new Insets(0,6,2,6));
 
 
         HBox grupos = new HBox();
         grupos.setPrefWidth(floor(width * 2/3));
-        Label grupo1 = new Label("Deportes Grupales");
-        Label grupo2 = new Label("Deportes Individuales");
+
+        Pair<String,String> nombresGrupos = pregunta.getNombreDeGrupos();
+
+        Label grupo1 = new Label(nombresGrupos.getKey());
+        Label grupo2 = new Label(nombresGrupos.getValue());
         grupos.setAlignment(Pos.BOTTOM_CENTER);
         grupos.setSpacing(50);
         grupo1.setPadding(new Insets(0,6,2,6));
@@ -142,14 +127,6 @@ public class VistaGroupChoice extends Scene {
         Button botonResponder = new Button("", imagenResponder);
         botonResponder.setStyle("-fx-background-color: transparent;");
         panelBotonResponder.getChildren().add(botonResponder);
-        File archivoSonidoResponder = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/responder.wav");
-        Media mediaResponder = new Media(archivoSonidoResponder.toURI().toString());
-        AudioClip sonidoResponder = new AudioClip(mediaResponder.getSource());
-        sonidoResponder.setVolume(0.1);
-        botonResponder.setOnAction(e -> {
-            sonidoResponder.play();
-            tablero.resaltarSiguienteJugador();
-        });
 
         FlowPane panelBotonesPoderes = new FlowPane();
         panelBotonesPoderes.setPrefHeight(panelBotonesControl.getPrefHeight() - panelBotonResponder.getPrefHeight());
@@ -163,35 +140,27 @@ public class VistaGroupChoice extends Scene {
         poderes.setSpacing(margenAlto/2);
         panelBotonesPoderes.getChildren().add(poderes);
 
-
-        // ejemplo de ingreso de rtas
-        List<String> opcionesLista = new ArrayList<>();
-
-        opcionesLista.add("Lio Messi");
-        opcionesLista.add("Manu Ginóbili");
-        opcionesLista.add("Juan Martín del Potro");
-        opcionesLista.add("Miguel Najdorf");
-        opcionesLista.add("Hugo Conte");
-        opcionesLista.add("José Meolans");
-
-        //no toques lpm
-        //niño toca, papa paga
-
-        this.opciones = new VBox();
+        VBox opciones = new VBox();
         opciones.setPrefHeight(panelOpciones.getPrefHeight());
         opciones.setPrefWidth(panelOpciones.getPrefWidth());
         opciones.setAlignment(Pos.CENTER);
         opciones.setSpacing(10);
         panelOpciones.getChildren().add(opciones);
 
-        definirCantidadOpciones(opcionesLista);
+        List<String> opcionesLista = pregunta.getOpciones().stream().map(Opcion::getOpcion).collect(Collectors.toList());
+        Collections.shuffle(opcionesLista);
+        opcionesLista.forEach(opcion -> {
+            BotonGC boton = new BotonGC(opcion);
+            opciones.getChildren().add(boton);
+        });
 
-        // como es una pregunta VF sin penalidad, se puede usar anulador o exclusividad
 
         ToggleButton botonAnulador = new BotonPoder("anulador");
         ToggleButton botonExclusividad = new BotonPoder("exclusividad");
         poderes.getChildren().addAll(botonAnulador,botonExclusividad);
 
+        ControladorResponderGC controlador = new ControladorResponderGC(stage, opciones.getChildren(), poderes.getChildren(), tablero);
+        botonResponder.setOnAction(controlador);
     }
 
 
@@ -207,15 +176,5 @@ public class VistaGroupChoice extends Scene {
     private void cambiarTamanoFuente(Node nodo, int size) {
         String estiloAnterior = nodo.getStyle();
         nodo.setStyle(estiloAnterior + "-fx-font-size: "+size+";");
-    }
-
-
-    private void definirCantidadOpciones(List<String> opcionesLista) {
-        for (int i = 0; i < opcionesLista.size(); i++) {
-            BotonGroupChoice opcion = new BotonGroupChoice(opcionesLista.get(i));
-            opciones.getChildren().add(opcion);
-
-        }
-
     }
 }

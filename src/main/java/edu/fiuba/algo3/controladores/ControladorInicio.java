@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.controladores;
 
-import edu.fiuba.algo3.vista.VistaGroupChoice;
+import edu.fiuba.algo3.vista.VistaPreguntaGC;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
@@ -16,8 +16,6 @@ public class ControladorInicio implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        // AlgoHoot.getInstance().obtenerSiguientePregunta();
-        VistaGroupChoice vistaPregunta = new VistaGroupChoice( stage.getScene().getWidth(), stage.getScene().getHeight());
-        stage.setScene(vistaPregunta);
+
     }
 }

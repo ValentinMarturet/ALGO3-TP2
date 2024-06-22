@@ -1,5 +1,10 @@
 package edu.fiuba.algo3.vista;
 
+import edu.fiuba.algo3.controladores.ControladorResponderMC;
+import edu.fiuba.algo3.modelo.Opcion;
+import edu.fiuba.algo3.modelo.PreguntaMC;
+import edu.fiuba.algo3.modelo.PreguntaOC;
+import edu.fiuba.algo3.vista.botones.BotonMC;
 import edu.fiuba.algo3.vista.botones.BotonPoder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,16 +16,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
+import javafx.stage.Stage;
+
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.Math.floor;
 
 public class VistaPreguntaMC extends Scene {
     private FlowPane root;
-    private VBox opciones;
-    public VistaPreguntaMC(double width, double height) {
+
+    public VistaPreguntaMC(Stage stage, double width, double height, PreguntaMC pregunta, VistaTableroJugadores tablero) {
         super(new FlowPane(), width, height);
         double margenAncho = width/32;
         double margenAlto = height/18;
@@ -35,24 +44,16 @@ public class VistaPreguntaMC extends Scene {
         panelTableroJugadores.setPrefWidth(floor(width/3 - margenAncho));
         FlowPane.setMargin(panelTableroJugadores,new Insets(margenAlto, 0, margenAlto, margenAncho));
         this.root.getChildren().add(panelTableroJugadores);
-        VistaTableroJugadores tablero = new VistaTableroJugadores(panelTableroJugadores.getPrefWidth(), panelTableroJugadores.getPrefHeight());
-
         panelTableroJugadores.getChildren().add(tablero);
-        tablero.agregarJugador("agus",666);
-        tablero.agregarJugador("valen",999);
-        tablero.agregarJugador("nahu",2);
-        tablero.agregarJugador("pat",3);
-        tablero.agregarJugador("estebannnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",12);
-        tablero.agregarJugador("estebannnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",12);
-        tablero.resaltarSiguienteJugador();
+        if (!tablero.getItems().isEmpty()) {tablero.resaltarSiguienteJugador();}
 
         FlowPane panelPregunta = new FlowPane();
         panelPregunta.setPrefHeight(height);
         panelPregunta.setPrefWidth(floor(width * 2/3));
         this.root.getChildren().add(panelPregunta);
 
-        // ESTO NO SE TOCA.
-        Label textoPregunta = new Label("¿Cuál fue el aporte más conocido del científico inglés Edgard Codd a la computación?   ");
+
+        Label textoPregunta = new Label(pregunta.getPregunta());
         textoPregunta.setPrefHeight(height*2/5 - 2*margenAlto);
         textoPregunta.setPrefWidth(width * 2/3 - 2*margenAncho);
         FlowPane.setMargin(textoPregunta,new Insets(margenAlto, margenAncho, margenAlto, margenAncho));
@@ -65,19 +66,19 @@ public class VistaPreguntaMC extends Scene {
         contenidoPregunta.setPrefHeight(height/3);
         StackPane.setMargin(textoPregunta,new Insets(margenAlto, margenAncho, margenAlto, margenAncho));
 
-        HBox contenedorTema = new HBox();
-        contenedorTema.setPrefWidth(floor(width * 2/3));
-        Label tema = new Label("Multiple Choice");
-        contenedorTema.setPrefHeight(tema.getPrefHeight());
+        HBox contenedorTipo = new HBox();
+        contenedorTipo.setPrefWidth(floor(width * 2/3));
+        Label tipoDePregunta = new Label("Multiple Choice");
+        contenedorTipo.setPrefHeight(tipoDePregunta.getPrefHeight());
 
-        establecerEstilo(tema);
-        cambiarTamanoFuente(tema, 25);
-        contenedorTema.getChildren().add(tema);
-        contenedorTema.setAlignment(Pos.TOP_RIGHT);
-        tema.setPadding(new Insets(0,6,2,6));
+        establecerEstilo(tipoDePregunta);
+        cambiarTamanoFuente(tipoDePregunta, 25);
+        contenedorTipo.getChildren().add(tipoDePregunta);
+        contenedorTipo.setAlignment(Pos.TOP_RIGHT);
+        tipoDePregunta.setPadding(new Insets(0,6,2,6));
 
-        StackPane.setMargin(contenedorTema,new Insets(margenAlto/3, margenAncho/2, 0, 0));
-        contenidoPregunta.getChildren().addAll(textoPregunta,contenedorTema);
+        StackPane.setMargin(contenedorTipo,new Insets(margenAlto/3, margenAncho/2, 0, 0));
+        contenidoPregunta.getChildren().addAll(textoPregunta,contenedorTipo);
 
         panelPregunta.getChildren().add(contenidoPregunta);
 
@@ -109,14 +110,6 @@ public class VistaPreguntaMC extends Scene {
         Button botonResponder = new Button("", imagenResponder);
         botonResponder.setStyle("-fx-background-color: transparent;");
         panelBotonResponder.getChildren().add(botonResponder);
-        File archivoSonidoResponder = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/responder.wav");
-        Media mediaResponder = new Media(archivoSonidoResponder.toURI().toString());
-        AudioClip sonidoResponder = new AudioClip(mediaResponder.getSource());
-        sonidoResponder.setVolume(0.1);
-        botonResponder.setOnAction(e -> {
-            sonidoResponder.play();
-            tablero.resaltarSiguienteJugador();
-        });
 
         FlowPane panelBotonesPoderes = new FlowPane();
         panelBotonesPoderes.setPrefHeight(panelBotonesControl.getPrefHeight() - panelBotonResponder.getPrefHeight());
@@ -131,50 +124,25 @@ public class VistaPreguntaMC extends Scene {
         panelBotonesPoderes.getChildren().add(poderes);
 
 
-        // ejemplo de ingreso de rtas
-        List<String> opcionesLista = new ArrayList<>();
-
-        opcionesLista.add("El disco rígido");
-        opcionesLista.add("El sistema operativo Solaris");
-        opcionesLista.add("Las bases de datos relacionales");
-        opcionesLista.add("El algoritmo quicksort");
-        opcionesLista.add("Los lenguajes tipados");
-
-        this.opciones = new VBox();
+        VBox opciones = new VBox();
         opciones.setPrefHeight(panelOpciones.getPrefHeight());
         opciones.setPrefWidth(panelOpciones.getPrefWidth());
         opciones.setAlignment(Pos.CENTER);
         opciones.setSpacing(25);
         panelOpciones.getChildren().add(opciones);
 
-        definirCantidadOpciones(opcionesLista);
-
-        File archivoSonidoSeleccionar = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/seleccionar.wav");
-        Media mediaSeleccionar = new Media(archivoSonidoSeleccionar.toURI().toString());
-        AudioClip sonidoSeleccionar = new AudioClip(mediaSeleccionar.getSource());
-        sonidoSeleccionar.setVolume(0.2);
-
-        //aplico sonidos  a opciones
-        for (int i = 0; i < opcionesLista.size(); i++) {
-            Node opcion =  opciones.getChildren().get(i);
-            opcion.setOnMouseClicked(e-> sonidoSeleccionar.play());
-
-        }
-
-
-
-        // opcion1.getStyleClass().add("custom-toggle-button");
-        // opcion2.getStyleClass().add("custom-toggle-button");
-        // opcion1.setPrefWidth(panelOpciones.getPrefWidth()/3);
-        // opcion2.setPrefWidth(panelOpciones.getPrefWidth()/3);
-
-
-        // como es una pregunta VF sin penalidad, se puede usar anulador o exclusividad
+        List<String> stringOpciones = pregunta.getOpciones().stream().map(Opcion::getOpcion).collect(Collectors.toList());
+        Collections.shuffle(stringOpciones);
+        stringOpciones.forEach(o -> {
+            opciones.getChildren().add(new BotonMC(o));
+        });
 
         ToggleButton botonAnulador = new BotonPoder("anulador");
         ToggleButton botonExclusividad = new BotonPoder("exclusividad");
         poderes.getChildren().addAll(botonAnulador,botonExclusividad);
 
+        ControladorResponderMC controlador = new ControladorResponderMC(stage, opciones.getChildren(), poderes.getChildren(), tablero);
+        botonResponder.setOnAction(controlador);
     }
 
 
@@ -192,18 +160,4 @@ public class VistaPreguntaMC extends Scene {
         nodo.setStyle(estiloAnterior + "-fx-font-size: "+size+";");
     }
 
-    private void definirCantidadOpciones(List<String> opcionesLista) {
-        for (int i = 0; i < opcionesLista.size(); i++) {
-            ToggleButton opcion = new ToggleButton(opcionesLista.get(i));
-            opcion.getStyleClass().add("custom-toggle-button");
-            opciones.getChildren().add(opcion);
-            String optionText = opcionesLista.get(i);
-            // double textWidth = opcion.getFont().getSize() * optionText.length();
-            // double availableWidth = opciones.getPrefWidth();
-            // if (textWidth > availableWidth) {
-            //     double newFontSize = availableWidth / optionText.length();
-            //     cambiarTamanoFuente(opcion, (int) newFontSize);
-            // }
-        }
-    }
 }

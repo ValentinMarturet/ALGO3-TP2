@@ -6,14 +6,14 @@ import javafx.scene.media.Media;
 
 import java.io.File;
 
-public class BotonGroupChoice extends ToggleButton {
-        private String estilo;
+public class BotonGC extends ToggleButton {
+        private int grupo; // 0-sin seleccionar 1-rosa 2-verde
         private AudioClip sonido;
 
-        public BotonGroupChoice(String text) {
+        public BotonGC(String text) {
             super(text);
             this.getStyleClass().add("GP-toggle-button");
-            this.estilo = this.getStyle();
+            this.grupo = 0;
             File archivoSonidoSeleccionar = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/seleccionar.wav");
             Media mediaSeleccionar = new Media(archivoSonidoSeleccionar.toURI().toString());
             this.sonido  = new AudioClip(mediaSeleccionar.getSource());
@@ -30,18 +30,18 @@ public class BotonGroupChoice extends ToggleButton {
             if (this.isSelected()) {
                 this.getStyleClass().remove("selected-color1");
                 this.getStyleClass().add("selected-color2");
-                this.estilo = "selected-color2";
-                System.out.println(this.estilo);
+                this.grupo = 2;
+
             } else {
                 this.getStyleClass().remove("selected-color2");
                 this.getStyleClass().add("selected-color1");
-                this.estilo = "selected-color1";
-                System.out.println(this.estilo);
+                this.grupo = 1;
+
             }
         }
 
-         public String getEstilo() {
-            return estilo;
+         public int getGrupoSeleccionado() {
+            return grupo;
          }
     }
 

@@ -1,6 +1,9 @@
 package edu.fiuba.algo3.vista;
 
+import edu.fiuba.algo3.controladores.ControladorResponderVF;
+import edu.fiuba.algo3.modelo.PreguntaVF;
 import edu.fiuba.algo3.vista.botones.BotonPoder;
+import edu.fiuba.algo3.vista.botones.BotonVF;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -9,15 +12,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import java.io.File;
+
 import static java.lang.Math.floor;
 import javafx.stage.Stage;
 
 public class VistaPreguntaVF extends Scene {
     private FlowPane root;
-    public VistaPreguntaVF(Stage stage, double width, double height) {
+    public VistaPreguntaVF(Stage stage, double width, double height, PreguntaVF pregunta, VistaTableroJugadores tablero) {
         super(new FlowPane(), width, height);
         double margenAncho = width/32;
         double margenAlto = height/18;
@@ -32,25 +33,19 @@ public class VistaPreguntaVF extends Scene {
         panelTableroJugadores.setPrefWidth(floor(width/3 - margenAncho));
         FlowPane.setMargin(panelTableroJugadores,new Insets(margenAlto, 0, margenAlto, margenAncho));
         this.root.getChildren().add(panelTableroJugadores);
-        VistaTableroJugadores tablero = new VistaTableroJugadores(panelTableroJugadores.getPrefWidth(), panelTableroJugadores.getPrefHeight());
         panelTableroJugadores.getChildren().add(tablero);
-        tablero.agregarJugador("agus",666);
-        tablero.agregarJugador("valen",999);
-        tablero.agregarJugador("nahu",2);
-        tablero.agregarJugador("pat",3);
-        tablero.agregarJugador("estebannnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",12);
-        tablero.resaltarSiguienteJugador();
+        if (!tablero.getItems().isEmpty()) {tablero.resaltarSiguienteJugador();}
+
 
         FlowPane panelPregunta = new FlowPane();
         panelPregunta.setPrefHeight(height);
         panelPregunta.setPrefWidth(floor(width * 2/3));
         this.root.getChildren().add(panelPregunta);
 
-        // ESTO NO SE TOCA.
-        Label textoPregunta = new Label("El punto de ebullición del agua a 3300m del mar es 100 grados centígrados");
+        Label textoPregunta = new Label(pregunta.getPregunta());
         textoPregunta.setPrefHeight(height*2/5 - 2*margenAlto);
         textoPregunta.setPrefWidth(width * 2/3 - 2*margenAncho);
-        //FlowPane.setMargin(textoPregunta,new Insets(margenAlto, margenAncho, margenAlto, margenAncho));
+        FlowPane.setMargin(textoPregunta,new Insets(margenAlto, margenAncho, margenAlto, margenAncho));
         establecerEstilo(textoPregunta);
         cambiarTamanoFuente(textoPregunta, 32);
 
@@ -61,19 +56,19 @@ public class VistaPreguntaVF extends Scene {
         contenidoPregunta.setPrefHeight(height/3);
         StackPane.setMargin(textoPregunta,new Insets(margenAlto, margenAncho, margenAlto, margenAncho));
 
-        HBox contenedorTema = new HBox();
-        contenedorTema.setPrefWidth(floor(width * 2/3));
-        Label tema = new Label("Verdadero/Falso");
-        contenedorTema.setPrefHeight(tema.getPrefHeight());
+        HBox contenedorTipo = new HBox();
+        contenedorTipo.setPrefWidth(floor(width * 2/3));
+        Label tipoDePregunta = new Label("Verdadero/Falso");
+        contenedorTipo.setPrefHeight(tipoDePregunta.getPrefHeight());
 
-        establecerEstilo(tema);
-        cambiarTamanoFuente(tema, 25);
-        contenedorTema.getChildren().add(tema);
-        contenedorTema.setAlignment(Pos.TOP_RIGHT);
-        tema.setPadding(new Insets(0,6,2,6));
+        establecerEstilo(tipoDePregunta);
+        cambiarTamanoFuente(tipoDePregunta, 25);
+        contenedorTipo.getChildren().add(tipoDePregunta);
+        contenedorTipo.setAlignment(Pos.TOP_RIGHT);
+        tipoDePregunta.setPadding(new Insets(0,6,2,6));
 
-        StackPane.setMargin(contenedorTema,new Insets(margenAlto/3, margenAncho/2, 0, 0));
-        contenidoPregunta.getChildren().addAll(textoPregunta,contenedorTema);
+        StackPane.setMargin(contenedorTipo,new Insets(margenAlto/3, margenAncho/2, 0, 0));
+        contenidoPregunta.getChildren().addAll(textoPregunta, contenedorTipo);
 
         panelPregunta.getChildren().add(contenidoPregunta);
 
@@ -105,19 +100,21 @@ public class VistaPreguntaVF extends Scene {
         Button botonResponder = new Button("", imagenResponder);
         botonResponder.setStyle("-fx-background-color: transparent;");
         panelBotonResponder.getChildren().add(botonResponder);
-        File archivoSonidoResponder = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/responder.wav");
-        Media mediaResponder = new Media(archivoSonidoResponder.toURI().toString());
-        AudioClip sonidoResponder = new AudioClip(mediaResponder.getSource());
-        sonidoResponder.setVolume(0.1);
 
-        ///modificado para mostrar en entrega 3
-        botonResponder.setOnAction(e -> {
-            sonidoResponder.play();
-            //tablero.resaltarSiguienteJugador();
-            VistaPreguntaOrdered vistaPregunta = new VistaPreguntaOrdered( stage, stage.getScene().getWidth(), stage.getScene().getHeight());
-            stage.setScene(vistaPregunta);
+        HBox opciones = new HBox();
+        opciones.setPrefHeight(panelOpciones.getPrefHeight());
+        opciones.setPrefWidth(panelOpciones.getPrefWidth());
+        opciones.setAlignment(Pos.CENTER);
+        opciones.setSpacing(margenAncho);
+        ToggleGroup grupoOpciones = new ToggleGroup();
+        panelOpciones.getChildren().add(opciones);
+        pregunta.getOpciones().stream().forEach( o -> {
+            ToggleButton botonOpcion = new BotonVF(o.getOpcion(),panelOpciones.getPrefWidth()/3);
+            botonOpcion.setToggleGroup(grupoOpciones);
+            opciones.getChildren().add(botonOpcion);
+
         });
-        //fin modificado
+
         FlowPane panelBotonesPoderes = new FlowPane();
         panelBotonesPoderes.setPrefHeight(panelBotonesControl.getPrefHeight() - panelBotonResponder.getPrefHeight());
         panelBotonesPoderes.setPrefWidth(panelBotonesControl.getPrefWidth());
@@ -130,37 +127,13 @@ public class VistaPreguntaVF extends Scene {
         poderes.setSpacing(margenAlto/2);
         panelBotonesPoderes.getChildren().add(poderes);
 
-        // esto es propio de la pregunta VF.
-        HBox opciones = new HBox();
-        opciones.setPrefHeight(panelOpciones.getPrefHeight());
-        opciones.setPrefWidth(panelOpciones.getPrefWidth());
-        opciones.setAlignment(Pos.CENTER);
-        opciones.setSpacing(margenAncho);
-        panelOpciones.getChildren().add(opciones);
-        ToggleButton opcion1 = new ToggleButton("Verdadero");
-        ToggleButton opcion2 = new ToggleButton("Falso");
-        File archivoSonidoSeleccionar = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/seleccionar.wav");
-        Media mediaSeleccionar = new Media(archivoSonidoSeleccionar.toURI().toString());
-        AudioClip sonidoSeleccionar = new AudioClip(mediaSeleccionar.getSource());
-        sonidoSeleccionar.setVolume(0.2);
-        opcion1.setOnMouseClicked(e-> sonidoSeleccionar.play());
-        opcion2.setOnMouseClicked(e-> sonidoSeleccionar.play());
-        opcion1.getStyleClass().add("custom-toggle-button");
-        opcion2.getStyleClass().add("custom-toggle-button");
-        ToggleGroup grupoOpciones = new ToggleGroup();
-        opcion1.setToggleGroup(grupoOpciones);
-        opcion2.setToggleGroup(grupoOpciones);
-        opcion1.setPrefWidth(panelOpciones.getPrefWidth()/3);
-        opcion2.setPrefWidth(panelOpciones.getPrefWidth()/3);
-        opciones.getChildren().addAll(opcion1,opcion2);
-
-        // como es una pregunta VF sin penalidad, se puede usar anulador o exclusividad
-
+        // Poderes pregunta clásica
         ToggleButton botonAnulador = new BotonPoder("anulador");
-        ToggleButton botonDuplicador = new BotonPoder("duplicador");
-        ToggleButton botonTriplicador = new BotonPoder("triplicador");
-        poderes.getChildren().addAll(botonAnulador,botonDuplicador,botonTriplicador);
+        ToggleButton botonExclusividad = new BotonPoder("exclusividad");
+        poderes.getChildren().addAll(botonAnulador,botonExclusividad);
 
+        ControladorResponderVF controlador = new ControladorResponderVF(stage, grupoOpciones, poderes.getChildren(), tablero);
+        botonResponder.setOnAction(controlador);
     }
 
 

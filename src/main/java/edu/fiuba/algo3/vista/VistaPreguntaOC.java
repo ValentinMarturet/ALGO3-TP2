@@ -1,6 +1,10 @@
 package edu.fiuba.algo3.vista;
 
+import edu.fiuba.algo3.controladores.ControladorResponderOC;
+import edu.fiuba.algo3.modelo.Opcion;
+import edu.fiuba.algo3.modelo.PreguntaOC;
 import edu.fiuba.algo3.vista.botones.BotonPoder;
+import edu.fiuba.algo3.vista.botones.CeldaOrdenable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -10,23 +14,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
 import javafx.stage.Stage;
 
-import java.io.File;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.Math.floor;
 
-public class VistaPreguntaOrdered extends Scene {
+public class VistaPreguntaOC extends Scene {
     private FlowPane root;
 
-    public VistaPreguntaOrdered(Stage stage, double width, double height) {
+    public VistaPreguntaOC(Stage stage, double width, double height, PreguntaOC pregunta, VistaTableroJugadores tablero) {
         super(new FlowPane(), width, height);
         double margenAncho = width / 32;
         double margenAlto = height / 18;
@@ -41,22 +41,16 @@ public class VistaPreguntaOrdered extends Scene {
         panelTableroJugadores.setPrefWidth(floor(width / 3 - margenAncho));
         FlowPane.setMargin(panelTableroJugadores, new Insets(margenAlto, 0, margenAlto, margenAncho));
         this.root.getChildren().add(panelTableroJugadores);
-        VistaTableroJugadores tablero = new VistaTableroJugadores(panelTableroJugadores.getPrefWidth(), panelTableroJugadores.getPrefHeight());
         panelTableroJugadores.getChildren().add(tablero);
-        tablero.agregarJugador("agus", 666);
-        tablero.agregarJugador("valen", 999);
-        tablero.agregarJugador("nahu", 2);
-        tablero.agregarJugador("pat", 3);
-        tablero.agregarJugador("estebannnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", 12);
-        tablero.resaltarSiguienteJugador();
+        if (!tablero.getItems().isEmpty()) {tablero.resaltarSiguienteJugador();}
 
         FlowPane panelPregunta = new FlowPane();
         panelPregunta.setPrefHeight(height);
         panelPregunta.setPrefWidth(floor(width * 2/3));
         this.root.getChildren().add(panelPregunta);
 
-        // ESTO NO SE TOCA.
-        Label textoPregunta = new Label("¿Ordene las siguientes superficies de juego de tenis de acuerdo a su velocidad, de LENTAS a RAPIDAS");
+
+        Label textoPregunta = new Label(pregunta.getPregunta());
         textoPregunta.setPrefHeight(height*2/5 - 2*margenAlto);
         textoPregunta.setPrefWidth(width * 2/3 - 2*margenAncho);
         FlowPane.setMargin(textoPregunta,new Insets(margenAlto, margenAncho, margenAlto, margenAncho));
@@ -69,19 +63,19 @@ public class VistaPreguntaOrdered extends Scene {
         contenidoPregunta.setPrefHeight(height/3);
         StackPane.setMargin(textoPregunta,new Insets(margenAlto, margenAncho, margenAlto, margenAncho));
 
-        HBox contenedorTema = new HBox();
-        contenedorTema.setPrefWidth(floor(width * 2/3));
-        Label tema = new Label("Ordered Choice");
-        contenedorTema.setPrefHeight(tema.getPrefHeight());
+        HBox contenedorTipo = new HBox();
+        contenedorTipo.setPrefWidth(floor(width * 2/3));
+        Label tipoDePregunta = new Label("Ordered Choice");
+        contenedorTipo.setPrefHeight(tipoDePregunta.getPrefHeight());
 
-        establecerEstilo(tema);
-        cambiarTamanoFuente(tema, 25);
-        contenedorTema.getChildren().add(tema);
-        contenedorTema.setAlignment(Pos.TOP_RIGHT);
-        tema.setPadding(new Insets(0,6,2,6));
+        establecerEstilo(tipoDePregunta);
+        cambiarTamanoFuente(tipoDePregunta, 25);
+        contenedorTipo.getChildren().add(tipoDePregunta);
+        contenedorTipo.setAlignment(Pos.TOP_RIGHT);
+        tipoDePregunta.setPadding(new Insets(0,6,2,6));
 
-        StackPane.setMargin(contenedorTema,new Insets(margenAlto/3, margenAncho/2, 0, 0));
-        contenidoPregunta.getChildren().addAll(textoPregunta,contenedorTema);
+        StackPane.setMargin(contenedorTipo,new Insets(margenAlto/3, margenAncho/2, 0, 0));
+        contenidoPregunta.getChildren().addAll(textoPregunta,contenedorTipo);
 
         panelPregunta.getChildren().add(contenidoPregunta);
 
@@ -114,21 +108,6 @@ public class VistaPreguntaOrdered extends Scene {
         Button botonResponder = new Button("", imagenResponder);
         botonResponder.setStyle("-fx-background-color: transparent;");
         panelBotonResponder.getChildren().add(botonResponder);
-        File archivoSonidoResponder = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/responder.wav");
-        Media mediaResponder = new Media(archivoSonidoResponder.toURI().toString());
-        AudioClip sonidoResponder = new AudioClip(mediaResponder.getSource());
-        sonidoResponder.setVolume(0.1);
-
-        ///modificado para entrega 3
-        botonResponder.setOnAction(e -> {
-            sonidoResponder.play();
-        //    tablero.resaltarSiguienteJugador();
-            VistaPreguntaMC vistaPregunta = new VistaPreguntaMC(stage.getScene().getWidth(), stage.getScene().getHeight());
-            stage.setScene(vistaPregunta);
-
-        });
-        //fin modificado
-
 
         FlowPane panelBotonesPoderes = new FlowPane();
         panelBotonesPoderes.setPrefHeight(panelBotonesControl.getPrefHeight() - panelBotonResponder.getPrefHeight());
@@ -142,19 +121,18 @@ public class VistaPreguntaOrdered extends Scene {
         poderes.setSpacing(margenAlto/2);
         panelBotonesPoderes.getChildren().add(poderes);
 
+        // Poderes pregunta clásica
         ToggleButton botonAnulador = new BotonPoder("anulador");
         ToggleButton botonExclusividad = new BotonPoder("exclusividad");
         poderes.getChildren().addAll(botonAnulador,botonExclusividad);
 
-        // Define ListView for birds
-        ObservableList<String> opciones = FXCollections.observableArrayList(
-                "Carpeta sintética",
-                "Cemento",
-                "Polvo de Ladrillo Naranja"
-        );
+        // Opciones
+        List<String> listaOpcionesStrings = pregunta.getOpciones().stream().map(Opcion::getOpcion).collect(Collectors.toList());
+        Collections.shuffle(listaOpcionesStrings);
+        ObservableList<String> opciones = FXCollections.observableList(listaOpcionesStrings);
         ListView<String> listaOpciones = new ListView<>(opciones);
 
-        listaOpciones.setCellFactory(param -> new BirdCell());
+        listaOpciones.setCellFactory(param -> new CeldaOrdenable());
         listaOpciones.setPrefWidth(panelOpciones.getPrefWidth()-margenAncho*2);
         listaOpciones.setOnMouseExited(e -> listaOpciones.getSelectionModel().clearSelection());
         listaOpciones.setOnMouseDragExited(e -> listaOpciones.getSelectionModel().clearSelection());
@@ -163,88 +141,11 @@ public class VistaPreguntaOrdered extends Scene {
         cambiarTamanoFuente(listaOpciones,32);
 
         panelOpciones.getChildren().add(listaOpciones);
+
+        ControladorResponderOC controlador = new ControladorResponderOC(stage,opciones,poderes.getChildren(),tablero);
+        botonResponder.setOnAction(controlador);
     }
 
-    private class BirdCell extends ListCell<String> {
-        @Override
-        public void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-            if (empty || item == null) {
-                setText(null);
-                setGraphic(null);
-            } else {
-                setText(item);
-                setGraphic(null);
-                setContentDisplay(ContentDisplay.TEXT_ONLY);
-                setAlignment(Pos.CENTER); // Center text alignment
-            }
-        }
-
-        public BirdCell() {
-            ListCell<String> thisCell = this;
-
-            setContentDisplay(ContentDisplay.TEXT_ONLY);
-            setAlignment(Pos.CENTER);
-
-            setOnDragDetected(event -> {
-                if (getItem() == null) {
-                    return;
-                }
-
-                Dragboard dragboard = startDragAndDrop(TransferMode.MOVE);
-                ClipboardContent content = new ClipboardContent();
-                content.putString(getItem());
-                dragboard.setContent(content);
-
-                event.consume();
-            });
-
-            setOnDragOver(event -> {
-                if (event.getGestureSource() != thisCell && event.getDragboard().hasString()) {
-                    event.acceptTransferModes(TransferMode.MOVE);
-                }
-
-                event.consume();
-            });
-
-            setOnDragEntered(event -> {
-                if (event.getGestureSource() != thisCell && event.getDragboard().hasString()) {
-                    setOpacity(0.3);
-                }
-            });
-
-            setOnDragExited(event -> {
-                if (event.getGestureSource() != thisCell && event.getDragboard().hasString()) {
-                    setOpacity(1);
-                }
-            });
-
-            setOnDragDropped(event -> {
-                if (getItem() == null) {
-                    return;
-                }
-
-                Dragboard db = event.getDragboard();
-                boolean success = false;
-
-                if (db.hasString()) {
-                    ObservableList<String> items = getListView().getItems();
-                    int draggedIdx = items.indexOf(db.getString());
-                    int thisIdx = items.indexOf(getItem());
-
-                    items.set(draggedIdx, getItem());
-                    items.set(thisIdx, db.getString());
-
-                    success = true;
-                }
-                event.setDropCompleted(success);
-
-                event.consume();
-            });
-
-            setOnDragDone(DragEvent::consume);
-        }
-    }
     private void establecerEstilo(Node nodo) {
         nodo.setStyle("-fx-background-color: white;" +
                 "-fx-border-width: 4px;" +

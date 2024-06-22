@@ -3,7 +3,6 @@ package edu.fiuba.algo3.controladores;
 import edu.fiuba.algo3.modelo.AlgoHoot;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.excepciones.ArchivoInexistente;
-import edu.fiuba.algo3.vista.VistaGroupChoice;
 import edu.fiuba.algo3.vista.botones.NumberField;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -19,7 +18,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
-import java.util.List;
 
 public class ControladorConfigurarPartida implements EventHandler<ActionEvent>  {
     private Stage stage;

@@ -6,9 +6,9 @@ import javafx.scene.media.Media;
 
 import java.io.File;
 
-public class BotonVF extends ToggleButton {
+public class BotonMC extends ToggleButton {
     private AudioClip sonido;
-    public BotonVF(String texto, double ancho) {
+    public BotonMC(String texto) {
         super(texto);
         File archivoSonido = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/seleccionar.wav");
         Media media = new Media(archivoSonido.toURI().toString());
@@ -18,7 +18,6 @@ public class BotonVF extends ToggleButton {
             this.sonido.play();
         });
         this.getStyleClass().add("custom-toggle-button");
-        this.setPrefWidth(ancho);
         this.setWrapText(true);
     }
 
