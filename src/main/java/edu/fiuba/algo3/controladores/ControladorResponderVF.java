@@ -13,7 +13,6 @@ import java.util.List;
 
 public class ControladorResponderVF extends ControladorResponderAbstracto {
     private final ToggleGroup opciones;
-    private ObservableList<Node> poderes;
 
     public ControladorResponderVF(Stage stage, ToggleGroup opciones, ObservableList<Node> poderes, VistaTableroJugadores tablero) {
         super(stage, tablero, poderes);

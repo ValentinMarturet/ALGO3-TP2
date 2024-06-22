@@ -25,9 +25,11 @@ public class BotonPoder extends ToggleButton {
         File archivoSonidoON = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/poderOn.wav");
         Media mediaON = new Media(archivoSonidoON.toURI().toString());
         sonidoON = new AudioClip(mediaON.getSource());
+        sonidoON.setVolume(0.25);
         File archivoSonidoOFF = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/poderOff.wav");
         Media mediaOFF = new Media(archivoSonidoOFF.toURI().toString());
         sonidoOFF = new AudioClip(mediaOFF.getSource());
+        sonidoOFF.setVolume(0.25);
         this.setGraphic(graficoOFF);
         this.setStyle("-fx-background-color: transparent;");
         this.setOnMouseClicked(e -> this.pulsar());
