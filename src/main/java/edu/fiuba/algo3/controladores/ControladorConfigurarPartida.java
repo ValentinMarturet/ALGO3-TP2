@@ -7,6 +7,7 @@ import edu.fiuba.algo3.vista.botones.NumberField;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -40,9 +41,18 @@ public class ControladorConfigurarPartida implements EventHandler<ActionEvent>  
     public void handle(ActionEvent actionEvent) {
         if (jugadores.getItems().isEmpty() || limitePreguntas.getText().isEmpty() || limitePuntaje.getText().isEmpty()) {
             sonidoError.play();
-            if (jugadores.getItems().isEmpty()) { highlight(jugadores); }
-            if (limitePreguntas.getText().isEmpty()) { highlight(limitePreguntas); }
-            if (limitePuntaje.getText().isEmpty()) { highlight(limitePuntaje); }
+            if (jugadores.getItems().isEmpty()) {
+                highlight(jugadores);
+                temblor(jugadores);
+            }
+            if (limitePreguntas.getText().isEmpty()) {
+                highlight(limitePreguntas);
+                temblor(limitePreguntas);
+            }
+            if (limitePuntaje.getText().isEmpty()) {
+                highlight(limitePuntaje);
+                temblor(limitePuntaje);
+            }
         } else {
             AlgoHoot a = AlgoHoot.getInstancia();
             try {
@@ -57,6 +67,16 @@ public class ControladorConfigurarPartida implements EventHandler<ActionEvent>  
                 archivoInexistente.show();
             }
         }
+    }
+
+    private void temblor(Node nodo){
+        TranslateTransition translate = new TranslateTransition();
+        translate.setNode(nodo);
+        translate.setByX(2);
+        translate.setAutoReverse(true);
+        translate.setDuration(Duration.millis(65));
+        translate.setCycleCount(10);
+        translate.play();
     }
 
     private void highlight(Node nodo) {
