@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.controladores;
 
+import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.excepciones.JugadorInexistente;
 import edu.fiuba.algo3.vista.VistaTableroJugadores;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,27 +14,47 @@ import javafx.scene.media.Media;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.List;
 
-public class ControladorResponderOC implements EventHandler<ActionEvent> {
-    private Stage stage;
+public class ControladorResponderOC extends ControladorResponderAbstracto {
     private ObservableList<String> opciones;
-    private ObservableList<Node> poderes;
-    private AudioClip sonidoResponder;
 
     public ControladorResponderOC(Stage stage, ObservableList<String> opciones, ObservableList<Node> poderes, VistaTableroJugadores tablero) {
-        this.stage = stage;
+        super(stage,tablero,poderes);
         this.opciones = opciones;
-        this.poderes = poderes;
-        File archivo = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/responder.wav");
-        Media media = new Media(archivo.toURI().toString());
-        this.sonidoResponder = new AudioClip(media.getSource());
-        this.sonidoResponder.setVolume(0.1);
-
     }
     @Override
     public void handle(ActionEvent actionEvent) {
-        sonidoResponder.play();
-        opciones.forEach(System.out::println);
-        System.out.println(" ");
+
+        // Busco el jugador actual en la lista de AlgoHoot
+        Jugador jugador = obtenerJugadorActual();
+
+        if (jugador != null) {
+
+            AlgoHoot a = AlgoHoot.getInstancia();
+            sonidoResponder.play();
+            opciones.forEach(System.out::println);
+            System.out.println(" ");
+
+            List<ModificadorIndividual> mi = obtenerModificadoresIndividuales();
+
+            List<ModificadorGlobal> mg = obtenerModificadoresGlobales();
+
+            Respuesta[] respuestas = opciones.stream()
+                    .map(Respuesta::new)
+                    .toArray(Respuesta[]::new);
+
+                /*
+                a.jugarRondaDePreguntas(jugador,
+                        mi,
+                        mg,
+                        respuestas
+                );
+                */
+            tablero.siguienteJugador();
+
+        }else {
+            throw new JugadorInexistente("Se quiso responder una pregunta con un jugador que no fue registrado");
+        }
     }
 }
