@@ -16,6 +16,7 @@ public class App extends Application {
         stage.getIcons().add(icono);
         stage.setResizable(false);
         AlgoHoot a = AlgoHoot.getInstancia();
+        /*
         a.agregarJugador(new Jugador("jugador1"));
         a.agregarJugador(new Jugador("jugador2"));
 
@@ -52,7 +53,7 @@ public class App extends Application {
         VistaFinPregunta vistaFin = new VistaFinPregunta(stage, 1280, 720,
                 "La torta no lleva ni suqwero no crema de leche: la masa se hace con yemas, harina y azúcar, el relleno es DDL, y arriba tiene merengue italiano. Chocotorta para la próxima",
                 tableroFin);
-
+        */
         VistaMenuPrincipal vistaMenu = new VistaMenuPrincipal(stage, 1280, 720);
         stage.setScene(vistaMenu);
         stage.show();

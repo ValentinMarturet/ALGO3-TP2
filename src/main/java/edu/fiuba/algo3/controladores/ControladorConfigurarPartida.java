@@ -3,6 +3,8 @@ package edu.fiuba.algo3.controladores;
 import edu.fiuba.algo3.modelo.AlgoHoot;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.excepciones.ArchivoInexistente;
+import edu.fiuba.algo3.vista.CambiadorDeVistas;
+import edu.fiuba.algo3.vista.VistaTableroJugadores;
 import edu.fiuba.algo3.vista.elementos.NumberField;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -35,6 +37,7 @@ public class ControladorConfigurarPartida implements EventHandler<ActionEvent>  
         File archivoSonido = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/sinSeleccion.wav");
         Media media = new Media(archivoSonido.toURI().toString());
         sonidoError = new AudioClip(media.getSource());
+
     }
 
     @Override
@@ -57,9 +60,14 @@ public class ControladorConfigurarPartida implements EventHandler<ActionEvent>  
             AlgoHoot a = AlgoHoot.getInstancia();
             try {
                 a.inicializarGestorDePreguntas();
-                jugadores.getItems().forEach(j -> a.agregarJugador(new Jugador(j)));
+                VistaTableroJugadores tablero = new VistaTableroJugadores();
+                jugadores.getItems().forEach(j -> {
+                    tablero.agregarJugador(new Jugador(j));
+                    a.agregarJugador(new Jugador(j));
+                });
                 a.setMaximoPreguntas(Integer.parseInt(limitePreguntas.getText()));
                 a.setPuntajeMaximo(Integer.parseInt(limitePuntaje.getText()));
+                CambiadorDeVistas.cambiarVistaANuevaPregunta(stage,tablero);
             } catch (ArchivoInexistente e) {
                 Alert archivoInexistente = new Alert(Alert.AlertType.ERROR);
                 archivoInexistente.setTitle("Archivo no encontrado");
