@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.vista;
 
+import edu.fiuba.algo3.modelo.AlgoHoot;
+import edu.fiuba.algo3.modelo.Pregunta;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -13,6 +15,8 @@ import javafx.stage.Stage;
 import static java.lang.Math.floor;
 
 public class VistaFinPregunta extends Scene {
+    private Stage stage;
+    private VistaTableroJugadores tablero;
 
     public VistaFinPregunta(Stage stage, double width, double height, String textoFin, VistaTableroJugadores tablero) {
         super(new FlowPane(), width, height);
@@ -23,6 +27,9 @@ public class VistaFinPregunta extends Scene {
         Background fondo = new Background(imagenFondo);
         root.setBackground(fondo);
         this.getStylesheets().add("styles.css");
+
+        this.stage = stage;
+        this.tablero = tablero;
 
 
         FlowPane segundaColumna = new FlowPane();
@@ -53,6 +60,12 @@ public class VistaFinPregunta extends Scene {
         Button boton = new Button("", imagen);
         boton.setStyle("-fx-background-color: transparent;");
         panelBoton.getChildren().add(boton);
+
+        boton.setOnAction(event -> {
+            AlgoHoot a = AlgoHoot.getInstancia();
+            a.comenzarNuevaRondaDePreguntas();
+            CambiadorDeVistas.cambiarVistaANuevaPregunta(stage,tablero);
+        });
 
         FlowPane panelTableroJugadores = new FlowPane();
         panelTableroJugadores.setPrefHeight(height - 2*margenAlto);

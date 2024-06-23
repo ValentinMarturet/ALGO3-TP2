@@ -73,7 +73,6 @@ public class ControladorResponderMC extends ControladorResponderAbstracto {
                     a.jugarRondaDePreguntas(jugadorActual,mi,mg,respuestas);
                     a.terminarRondaDePreguntas();
                     CambiadorDeVistas.cambiarAVistaFin(stage,tablero);
-
                 }else{
                     Jugador jugadorActual = obtenerJugadorActual();
                     a.jugarRondaDePreguntas(jugadorActual,mi,mg,respuestas);

@@ -2,6 +2,7 @@ package edu.fiuba.algo3.controladores;
 
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.excepciones.JugadorInexistente;
+import edu.fiuba.algo3.vista.CambiadorDeVistas;
 import edu.fiuba.algo3.vista.VistaTableroJugadores;
 import edu.fiuba.algo3.vista.elementos.BotonGC;
 import javafx.collections.ObservableList;
@@ -15,10 +16,12 @@ import java.util.stream.Collectors;
 
 public class ControladorResponderGC extends ControladorResponderAbstracto {
     private ObservableList<Node> opciones;
+    private boolean ultimoTurno;
 
     public ControladorResponderGC(Stage stage, ObservableList<Node> opciones, ObservableList<Node> poderes, VistaTableroJugadores tablero) {
         super(stage,tablero,poderes);
         this.opciones = opciones;
+        this.ultimoTurno = false;
     }
 
     @Override
@@ -77,7 +80,17 @@ public class ControladorResponderGC extends ControladorResponderAbstracto {
                         respuestas
                 );
                 */
-                tablero.siguienteJugador();
+                if(this.ultimoTurno){
+                    Jugador jugadorActual = obtenerJugadorActual();
+                    a.jugarRondaDePreguntas(jugadorActual,mi,mg,respuestas);
+                    a.terminarRondaDePreguntas();
+                    CambiadorDeVistas.cambiarAVistaFin(stage,tablero);
+                }else{
+                    Jugador jugadorActual = obtenerJugadorActual();
+                    a.jugarRondaDePreguntas(jugadorActual,mi,mg,respuestas);
+                    tablero.siguienteJugador();
+                    this.ultimoTurno = tablero.esElUltimoJugador();
+                }
 
             }else {
                 throw new JugadorInexistente("Se quiso responder una pregunta con un jugador que no fue registrado");
