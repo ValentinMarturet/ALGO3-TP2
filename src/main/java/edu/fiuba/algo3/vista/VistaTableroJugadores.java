@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vista;
 
+import edu.fiuba.algo3.modelo.Jugador;
 import javafx.event.Event;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +17,9 @@ public class VistaTableroJugadores extends ListView {
     private List<VistaJugadorConPuntaje> jugadores;
     private ListIterator<VistaJugadorConPuntaje> cursor;
     private VistaJugadorConPuntaje jugadorActual;
+    private List<Jugador> jugadoresTotales;
+    private ListIterator<Jugador> cursorJugador;
+    private Jugador jugadorEntidadActual;
 
     public VistaTableroJugadores(double ancho, double alto) {
         super();
@@ -59,9 +63,12 @@ public class VistaTableroJugadores extends ListView {
                 "-fx-border-color: black;");
     }
 
-    public void agregarJugador(String nombre, int puntaje) {
-        VistaJugadorConPuntaje nuevoJugador = new VistaJugadorConPuntaje(nombre,puntaje,ancho*4/5,floor(alto/8));
-        jugadores.add(nuevoJugador);
+    public void agregarJugador(Jugador unJugador) {
+        String nombreDeJugador = unJugador.obtenerNombre();
+        int puntosDeJugador = unJugador.obtenerPuntaje();
+        VistaJugadorConPuntaje nuevoJugadorEnVista = new VistaJugadorConPuntaje(nombreDeJugador,puntosDeJugador,ancho*4/5,floor(alto/8));
+        jugadores.add(nuevoJugadorEnVista);
+        jugadoresTotales.add(unJugador);
         this.getItems().setAll(jugadores);
     }
 
@@ -79,5 +86,30 @@ public class VistaTableroJugadores extends ListView {
 
     public String getJugadoractual() {
         return jugadorActual.getNombre();
+    }
+
+    public boolean esElUltimoJugador(){
+        return !this.cursor.hasNext();
+    }
+
+    public void limpiarTabla(){
+        this.jugadores.clear();
+        this.jugadoresTotales.clear();
+    }
+
+    public void actualizarTabla(List<Jugador> jugadores){
+        limpiarTabla();
+        for (Jugador jugador : jugadores) {
+            agregarJugador(jugador);
+
+        }
+    }
+
+    public Jugador obtenerJugadorActual(){
+        if(cursorJugador==null || cursorJugador.hasNext()){
+            cursorJugador = jugadoresTotales.listIterator();
+        }
+        jugadorEntidadActual = cursorJugador.next();
+        return jugadorEntidadActual;
     }
 }
