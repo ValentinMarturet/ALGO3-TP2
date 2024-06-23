@@ -31,6 +31,7 @@ public class VistaTableroJugadores extends ListView {
         this.getItems().setAll(jugadores);
         this.cursor = null;
         this.jugadorActual = null;
+        this.jugadoresTotales = new ArrayList<>();
         this.addEventFilter(MouseEvent.MOUSE_PRESSED, Event::consume);
         this.addEventFilter(MouseEvent.MOUSE_CLICKED, Event::consume);
         this.addEventFilter(MouseEvent.MOUSE_ENTERED, Event::consume);
@@ -52,6 +53,7 @@ public class VistaTableroJugadores extends ListView {
         this.getItems().setAll(jugadores);
         this.cursor = null;
         this.jugadorActual = null;
+        this.jugadoresTotales = new ArrayList<>();
         this.addEventFilter(MouseEvent.MOUSE_PRESSED, Event::consume);
         this.addEventFilter(MouseEvent.MOUSE_CLICKED, Event::consume);
         this.addEventFilter(MouseEvent.MOUSE_ENTERED, Event::consume);
