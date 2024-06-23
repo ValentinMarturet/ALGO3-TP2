@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.vista;
 
 import edu.fiuba.algo3.controladores.ControladorConfigurarPartida;
-import edu.fiuba.algo3.vista.botones.NumberField;
+import edu.fiuba.algo3.vista.elementos.NumberField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -15,7 +15,6 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 
 import java.io.File;
-import java.util.concurrent.Flow;
 
 import static java.lang.Math.floor;
 

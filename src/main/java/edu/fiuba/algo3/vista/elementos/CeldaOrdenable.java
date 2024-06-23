@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.vista.botones;
+package edu.fiuba.algo3.vista.elementos;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;

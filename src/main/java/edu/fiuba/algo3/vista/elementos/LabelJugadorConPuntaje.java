@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.vista;
+package edu.fiuba.algo3.vista.elementos;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -6,12 +6,12 @@ import javafx.scene.layout.FlowPane;
 
 import static java.lang.Math.floor;
 
-public class VistaJugadorConPuntaje extends FlowPane {
+public class LabelJugadorConPuntaje extends FlowPane {
 
     private Label nombreLabel;
     private Label puntajeLabel;
 
-    public VistaJugadorConPuntaje(String nombre, int puntaje, double ancho, double alto) {
+    public LabelJugadorConPuntaje(String nombre, int puntaje, double ancho, double alto) {
         super();
         this.setPrefSize(ancho, alto);
         nombreLabel = new Label(nombre);

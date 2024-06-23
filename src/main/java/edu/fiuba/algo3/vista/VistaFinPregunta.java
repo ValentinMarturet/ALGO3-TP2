@@ -24,12 +24,6 @@ public class VistaFinPregunta extends Scene {
         root.setBackground(fondo);
         this.getStylesheets().add("styles.css");
 
-        FlowPane panelTableroJugadores = new FlowPane();
-        panelTableroJugadores.setPrefHeight(height - 2*margenAlto);
-        panelTableroJugadores.setPrefWidth(floor(width/3 - margenAncho));
-        FlowPane.setMargin(panelTableroJugadores,new Insets(margenAlto, 0, margenAlto, margenAncho));
-        root.getChildren().add(panelTableroJugadores);
-        panelTableroJugadores.getChildren().add(tablero);
 
         FlowPane segundaColumna = new FlowPane();
         segundaColumna.setPrefHeight(height);
@@ -50,8 +44,6 @@ public class VistaFinPregunta extends Scene {
         labelTextoFin.setWrapText(true);
         panelTextoFin.getChildren().add(labelTextoFin);
 
-
-
         StackPane panelBoton = new StackPane();
         panelBoton.setPrefWidth(floor(width * 2/3));
         panelBoton.setPrefHeight(floor(height * 2/3));
@@ -61,11 +53,15 @@ public class VistaFinPregunta extends Scene {
         Button boton = new Button("", imagen);
         boton.setStyle("-fx-background-color: transparent;");
         panelBoton.getChildren().add(boton);
+
+        FlowPane panelTableroJugadores = new FlowPane();
+        panelTableroJugadores.setPrefHeight(height - 2*margenAlto);
+        panelTableroJugadores.setPrefWidth(floor(width/3 - margenAncho));
+        FlowPane.setMargin(panelTableroJugadores,new Insets(margenAlto, 0, margenAlto, margenAncho));
+        root.getChildren().add(panelTableroJugadores);
+        panelTableroJugadores.getChildren().add(tablero);
     }
 
-    public void cambiarTablero() {
-
-    }
 
     private void establecerEstilo(Node nodo) {
         nodo.setStyle("-fx-background-color: white;" +

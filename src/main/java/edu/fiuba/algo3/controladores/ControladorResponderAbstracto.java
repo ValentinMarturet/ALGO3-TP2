@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.ModificadorGlobal;
 import edu.fiuba.algo3.modelo.ModificadorIndividual;
 import edu.fiuba.algo3.vista.VistaTableroJugadores;
-import edu.fiuba.algo3.vista.botones.BotonPoder;
+import edu.fiuba.algo3.vista.elementos.BotonPoder;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -45,7 +45,7 @@ public abstract class ControladorResponderAbstracto implements EventHandler<Acti
 
     protected Jugador obtenerJugadorActual() {
         return  AlgoHoot.getInstancia().obtenerJugadores().stream()
-                .filter(j -> j.equals(tablero.getJugadoractual()))
+                .filter(j -> j.equals(tablero.getJugadorActual()))
                 .findFirst()
                 .orElse(null);
     }

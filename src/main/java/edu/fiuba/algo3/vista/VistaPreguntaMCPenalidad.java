@@ -2,8 +2,8 @@ package edu.fiuba.algo3.vista;
 
 import edu.fiuba.algo3.controladores.ControladorResponderMC;
 import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.vista.botones.BotonMC;
-import edu.fiuba.algo3.vista.botones.BotonPoder;
+import edu.fiuba.algo3.vista.elementos.BotonMC;
+import edu.fiuba.algo3.vista.elementos.BotonPoder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

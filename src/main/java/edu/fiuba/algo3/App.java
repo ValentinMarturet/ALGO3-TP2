@@ -53,7 +53,7 @@ public class App extends Application {
                 "La torta no lleva ni suero no crema de leche: la masa se hace con yemas, harina y azúcar, el relleno es DDL, y arriba tiene merengue italiano. Chocotorta para la próxima",
                 tableroFin);
 
-        stage.setScene(vistaFin);
+        stage.setScene(vistaConfig);
         stage.show();
 
     }

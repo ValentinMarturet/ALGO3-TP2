@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.vista.botones;
+package edu.fiuba.algo3.vista.elementos;
 
 import edu.fiuba.algo3.modelo.*;
 import javafx.scene.control.ToggleButton;

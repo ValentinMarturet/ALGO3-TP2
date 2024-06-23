@@ -2,8 +2,8 @@ package edu.fiuba.algo3.vista;
 
 import edu.fiuba.algo3.controladores.ControladorResponderVF;
 import edu.fiuba.algo3.modelo.PreguntaVF;
-import edu.fiuba.algo3.vista.botones.BotonPoder;
-import edu.fiuba.algo3.vista.botones.BotonVF;
+import edu.fiuba.algo3.vista.elementos.BotonPoder;
+import edu.fiuba.algo3.vista.elementos.BotonVF;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

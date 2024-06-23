@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.vista.botones;
+package edu.fiuba.algo3.vista.elementos;
 
 import javafx.scene.control.ToggleButton;
 import javafx.scene.media.AudioClip;
@@ -6,9 +6,9 @@ import javafx.scene.media.Media;
 
 import java.io.File;
 
-public class BotonMC extends ToggleButton {
+public class BotonVF extends ToggleButton {
     private AudioClip sonido;
-    public BotonMC(String texto) {
+    public BotonVF(String texto, double ancho) {
         super(texto);
         File archivoSonido = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/seleccionar.wav");
         Media media = new Media(archivoSonido.toURI().toString());
@@ -18,6 +18,7 @@ public class BotonMC extends ToggleButton {
             this.sonido.play();
         });
         this.getStyleClass().add("custom-toggle-button");
+        this.setPrefWidth(ancho);
         this.setWrapText(true);
     }
 

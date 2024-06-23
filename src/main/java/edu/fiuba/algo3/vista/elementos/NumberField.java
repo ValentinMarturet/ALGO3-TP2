@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.vista.botones;
+package edu.fiuba.algo3.vista.elementos;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

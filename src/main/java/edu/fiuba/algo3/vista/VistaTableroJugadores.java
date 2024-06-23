@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.vista;
 
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.vista.elementos.LabelJugadorConPuntaje;
 import javafx.event.Event;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -11,12 +12,12 @@ import java.util.ListIterator;
 
 import static java.lang.Math.floor;
 
-public class VistaTableroJugadores extends ListView {
+public class VistaTableroJugadores extends ListView<LabelJugadorConPuntaje> {
     private double ancho;
     private double alto;
-    private List<VistaJugadorConPuntaje> jugadores;
-    private ListIterator<VistaJugadorConPuntaje> cursor;
-    private VistaJugadorConPuntaje jugadorActual;
+    private List<LabelJugadorConPuntaje> jugadores;
+    private ListIterator<LabelJugadorConPuntaje> cursor;
+    private LabelJugadorConPuntaje jugadorActual;
     private List<Jugador> jugadoresTotales;
     private ListIterator<Jugador> cursorJugador;
     private Jugador jugadorEntidadActual;
@@ -28,6 +29,7 @@ public class VistaTableroJugadores extends ListView {
         this.ancho = ancho;
         this.alto = alto;
         this.jugadores = new ArrayList<>();
+        this.jugadoresTotales = new ArrayList<>();
         this.getItems().setAll(jugadores);
         this.cursor = null;
         this.jugadorActual = null;
@@ -50,6 +52,7 @@ public class VistaTableroJugadores extends ListView {
         this.setPrefSize(ancho, alto);
         this.setMaxSize(ancho, alto);
         this.jugadores = new ArrayList<>();
+        this.jugadoresTotales = new ArrayList<>();
         this.getItems().setAll(jugadores);
         this.cursor = null;
         this.jugadorActual = null;
@@ -68,7 +71,7 @@ public class VistaTableroJugadores extends ListView {
     public void agregarJugador(Jugador unJugador) {
         String nombreDeJugador = unJugador.obtenerNombre();
         int puntosDeJugador = unJugador.obtenerPuntaje();
-        VistaJugadorConPuntaje nuevoJugadorEnVista = new VistaJugadorConPuntaje(nombreDeJugador,puntosDeJugador,ancho*4/5,floor(alto/8));
+        LabelJugadorConPuntaje nuevoJugadorEnVista = new LabelJugadorConPuntaje(nombreDeJugador,puntosDeJugador,ancho*4/5,floor(alto/8));
         jugadores.add(nuevoJugadorEnVista);
         jugadoresTotales.add(unJugador);
         this.getItems().setAll(jugadores);
@@ -86,7 +89,7 @@ public class VistaTableroJugadores extends ListView {
         this.scrollTo(jugadorActual);
     }
 
-    public String getJugadoractual() {
+    public String getJugadorActual() {
         return jugadorActual.getNombre();
     }
 
@@ -101,10 +104,7 @@ public class VistaTableroJugadores extends ListView {
 
     public void actualizarTabla(List<Jugador> jugadores){
         limpiarTabla();
-        for (Jugador jugador : jugadores) {
-            agregarJugador(jugador);
-
-        }
+        jugadores.forEach(this::agregarJugador);
     }
 
     public Jugador obtenerJugadorActual(){
