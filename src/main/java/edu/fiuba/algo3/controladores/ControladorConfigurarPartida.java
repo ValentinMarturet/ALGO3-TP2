@@ -32,7 +32,7 @@ public class ControladorConfigurarPartida implements EventHandler<ActionEvent>  
         this.jugadores = jugadores;
         this.limitePuntaje = limitePuntaje;
         this.limitePreguntas = limitePreguntas;
-        File archivoSonido = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/error.wav");
+        File archivoSonido = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/sinSeleccion.wav");
         Media media = new Media(archivoSonido.toURI().toString());
         sonidoError = new AudioClip(media.getSource());
     }
@@ -40,7 +40,7 @@ public class ControladorConfigurarPartida implements EventHandler<ActionEvent>  
     @Override
     public void handle(ActionEvent actionEvent) {
         if (jugadores.getItems().isEmpty() || limitePreguntas.getText().isEmpty() || limitePuntaje.getText().isEmpty()) {
-            sonidoError.play();
+            if (!sonidoError.isPlaying()) sonidoError.play();
             if (jugadores.getItems().isEmpty()) {
                 highlight(jugadores);
                 temblor(jugadores);
@@ -89,7 +89,7 @@ public class ControladorConfigurarPartida implements EventHandler<ActionEvent>  
                 "-fx-border-color: red;";
         // Duración del resaltado
         Duration highlightDuration = Duration.seconds(0.25);
-        Duration fadeDuration = Duration.seconds(0.25);
+        Duration fadeDuration = Duration.seconds(0.45);
 
         // Timeline para cambiar el color de fondo
         Timeline timeline = new Timeline(

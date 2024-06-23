@@ -50,10 +50,11 @@ public class App extends Application {
         VistaTableroJugadores tableroFin = new VistaTableroJugadores();
         a.obtenerJugadores().forEach(tableroFin::agregarJugador);
         VistaFinPregunta vistaFin = new VistaFinPregunta(stage, 1280, 720,
-                "La torta no lleva ni suero no crema de leche: la masa se hace con yemas, harina y azúcar, el relleno es DDL, y arriba tiene merengue italiano. Chocotorta para la próxima",
+                "La torta no lleva ni suqwero no crema de leche: la masa se hace con yemas, harina y azúcar, el relleno es DDL, y arriba tiene merengue italiano. Chocotorta para la próxima",
                 tableroFin);
 
-        stage.setScene(vistaConfig);
+        VistaMenuPrincipal vistaMenu = new VistaMenuPrincipal(stage, 1280, 720);
+        stage.setScene(vistaMenu);
         stage.show();
 
     }
