@@ -17,7 +17,7 @@ public class Lector {
             JSONArray jsonArray = new JSONArray(content);
             Fabrica fabrica = new FabricaOC();
 
-            for(int i=0;i<24;i++){
+            for(int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String tipo = jsonObject.getString("Tipo");
 
