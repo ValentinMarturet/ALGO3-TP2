@@ -130,6 +130,7 @@ PuntajeParcial --> Jugador
 Respuesta ..> PuntajeParcial
 
 PuntajeTotal --> "*" PuntajeParcial
+PuntajeParcial --> "*" ModificadorIndividual
 
 Jugador --> "2" ModificadorIndividual
 RondaDePreguntas -->"*" ModificadorGlobal
