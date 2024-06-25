@@ -132,7 +132,7 @@ public class VistaPreguntaMCPenalidad extends Scene {
         });
 
         ToggleButton botonAnulador = new BotonPoder("anulador");
-        ToggleButton botonDuplicador = new BotonPoder("exclusividad");
+        ToggleButton botonDuplicador = new BotonPoder("duplicador");
         ToggleButton botonTriplicador = new BotonPoder("triplicador");
         poderes.getChildren().addAll(botonAnulador,botonDuplicador,botonTriplicador);
 
