@@ -16,7 +16,7 @@ public class CambiadorDeVistas {
     public static void cambiarAVistaFin(Stage stage, VistaTableroJugadores tablero){
         AlgoHoot a = AlgoHoot.getInstancia();
         Pregunta pregunta = a.obtenerPreguntaActual();
-        tablero.actualizarTabla(a.obtenerJugadores());
+        tablero.actualizarTabla();
         VistaFinPregunta nuevaVista = new VistaFinPregunta(stage,1280,720, pregunta.getTextoRespuesta(),tablero);
         stage.setScene(nuevaVista);
     }

@@ -44,10 +44,7 @@ public abstract class ControladorResponderAbstracto implements EventHandler<Acti
     public abstract void handle(ActionEvent actionEvent);
 
     protected Jugador obtenerJugadorActual() {
-        return  AlgoHoot.getInstancia().obtenerJugadores().stream()
-                .filter(j -> j.equals(tablero.getJugadorActual()))
-                .findFirst()
-                .orElse(null);
+        return  tablero.obtenerJugadorActual();
     }
 
     protected List<ModificadorIndividual> obtenerModificadoresIndividuales() {

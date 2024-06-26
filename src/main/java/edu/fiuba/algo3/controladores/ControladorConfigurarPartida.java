@@ -60,11 +60,10 @@ public class ControladorConfigurarPartida implements EventHandler<ActionEvent>  
             AlgoHoot a = AlgoHoot.getInstancia();
             try {
                 a.inicializarGestorDePreguntas();
-                VistaTableroJugadores tablero = new VistaTableroJugadores();
                 jugadores.getItems().forEach(j -> {
-                    tablero.agregarJugador(new Jugador(j));
                     a.agregarJugador(new Jugador(j));
                 });
+                VistaTableroJugadores tablero = new VistaTableroJugadores(a.obtenerJugadores(), 368,640);
                 a.setMaximoPreguntas(Integer.parseInt(limitePreguntas.getText()));
                 a.setPuntajeMaximo(Integer.parseInt(limitePuntaje.getText()));
                 CambiadorDeVistas.cambiarVistaANuevaPregunta(stage,tablero);

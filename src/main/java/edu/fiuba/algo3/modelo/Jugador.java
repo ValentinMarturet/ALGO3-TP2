@@ -18,7 +18,7 @@ public class Jugador {
         return this.nombre.equals(j.nombre);
     }
 
-    public boolean equals(String j) {
+    public boolean tieneNombre(String j) {
         return this.nombre.equals(j);
     }
 
