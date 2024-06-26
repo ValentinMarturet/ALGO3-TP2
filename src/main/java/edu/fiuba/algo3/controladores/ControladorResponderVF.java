@@ -12,7 +12,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import java.util.List;
 
-public class ControladorResponderVF extends ControladorResponderAbstracto {
+public class ControladorResponderVF extends ControladorResponder {
     private final ToggleGroup opciones;
     private boolean ultimoTurno;
     public ControladorResponderVF(Stage stage, ToggleGroup opciones, ObservableList<Node> poderes, VistaTableroJugadores tablero) {

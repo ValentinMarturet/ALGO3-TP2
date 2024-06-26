@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.controladores;
 
-import edu.fiuba.algo3.modelo.AlgoHoot;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.ModificadorGlobal;
 import edu.fiuba.algo3.modelo.ModificadorIndividual;
@@ -19,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public abstract class ControladorResponderAbstracto implements EventHandler<ActionEvent> {
+public abstract class ControladorResponder implements EventHandler<ActionEvent> {
     protected AudioClip sonidoResponder;
     protected AudioClip sonidoSinSeleccion;
     protected Stage stage;
@@ -27,7 +26,7 @@ public abstract class ControladorResponderAbstracto implements EventHandler<Acti
     protected List<Object> modificadores;
     private ObservableList<Node> botonesPoderes;
 
-    public ControladorResponderAbstracto(Stage stage, VistaTableroJugadores tablero, ObservableList<Node> poderes) {
+    public ControladorResponder(Stage stage, VistaTableroJugadores tablero, ObservableList<Node> poderes) {
         this.stage = stage;
         this.tablero = tablero;
         this.botonesPoderes = poderes;

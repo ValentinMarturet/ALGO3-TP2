@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ControladorResponderGC extends ControladorResponderAbstracto {
+public class ControladorResponderGC extends ControladorResponder {
     private ObservableList<Node> opciones;
     private boolean ultimoTurno;
 

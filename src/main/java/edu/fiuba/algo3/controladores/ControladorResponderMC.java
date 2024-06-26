@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ControladorResponderMC extends ControladorResponderAbstracto {
+public class ControladorResponderMC extends ControladorResponder {
     private ObservableList<Node> opciones;
     private boolean ultimoTurno;
 
