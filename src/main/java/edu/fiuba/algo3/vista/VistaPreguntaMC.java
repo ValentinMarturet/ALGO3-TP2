@@ -3,22 +3,13 @@ package edu.fiuba.algo3.vista;
 import edu.fiuba.algo3.controladores.ControladorResponderMC;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.vista.elementos.BotonMC;
-import edu.fiuba.algo3.vista.elementos.BotonPoder;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.lang.Math.floor;
 
 public class VistaPreguntaMC extends VistaPregunta {
     private List<String> stringOpciones;
@@ -50,7 +41,7 @@ public class VistaPreguntaMC extends VistaPregunta {
         opciones.setSpacing(25);
 
         stringOpciones = pregunta.getOpciones().stream().map(Opcion::getOpcion).collect(Collectors.toList());
-        reestablecerOpciones();
+        restablecerOpciones();
 
         agregarAlPanelOpciones(opciones);
 
@@ -59,7 +50,7 @@ public class VistaPreguntaMC extends VistaPregunta {
     }
 
     @Override
-    public void reestablecerOpciones() {
+    public void restablecerOpciones() {
         opciones.getChildren().removeAll(opciones.getChildren());
         Collections.shuffle(stringOpciones);
         stringOpciones.forEach(o -> {

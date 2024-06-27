@@ -1,8 +1,7 @@
 package edu.fiuba.algo3.controladores;
 
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.ModificadorGlobal;
-import edu.fiuba.algo3.modelo.ModificadorIndividual;
+import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.vista.CambiadorDeVistas;
 import edu.fiuba.algo3.vista.VistaPregunta;
 import edu.fiuba.algo3.vista.VistaTableroJugadores;
 import edu.fiuba.algo3.vista.elementos.BotonPoder;
@@ -43,15 +42,13 @@ public abstract class ControladorResponder implements EventHandler<ActionEvent> 
     @Override
     public abstract void handle(ActionEvent actionEvent);
 
-    protected Jugador obtenerJugadorActual() {
-        return  tablero.obtenerJugadorActual();
-    }
 
     protected List<ModificadorIndividual> obtenerModificadoresIndividuales() {
         actualizarModificadores();
         return  modificadores.stream()
                 .map(m -> {
                     if (m instanceof ModificadorIndividual) {
+                        tablero.obtenerJugadorActual().gastar((ModificadorIndividual) m);
                         return (ModificadorIndividual) m;
                     }
                     return null;
@@ -65,6 +62,7 @@ public abstract class ControladorResponder implements EventHandler<ActionEvent> 
         return  modificadores.stream()
                 .map(m -> {
                     if (m instanceof ModificadorGlobal) {
+                        tablero.obtenerJugadorActual().gastar((ModificadorGlobal) m);
                         return (ModificadorGlobal) m;
                     }
                     return null;
@@ -74,10 +72,11 @@ public abstract class ControladorResponder implements EventHandler<ActionEvent> 
     }
 
     private void actualizarModificadores() {
-        Jugador j = obtenerJugadorActual();
+        Jugador j = tablero.obtenerJugadorActual();
         modificadores = botonesPoderes.stream()
                 .map(p -> {
-                    if (p instanceof BotonPoder) {
+                    BotonPoder b = (BotonPoder) p;
+                    if (b.isSelected()) {
                         return ((BotonPoder) p).obtenerModificador( j );
                     }
                     return null;
@@ -88,7 +87,24 @@ public abstract class ControladorResponder implements EventHandler<ActionEvent> 
 
     protected void reestablecerPregunta() {
         VistaPregunta vista = (VistaPregunta) stage.getScene();
-        vista.reestablecerOpciones();
-        vista.reestablecerPoderes();
+        vista.restablecerOpciones();
+        vista.restablecerPoderes(tablero.obtenerJugadorActual());
+    }
+
+    protected void responderPregunta(Respuesta... respuestas) {
+        AlgoHoot a = AlgoHoot.getInstancia();
+        List<ModificadorIndividual> mi = obtenerModificadoresIndividuales();
+        List<ModificadorGlobal> mg = obtenerModificadoresGlobales();
+        if(tablero.esElUltimoJugador()){
+            Jugador jugadorActual = tablero.obtenerJugadorActual();
+            a.jugarRondaDePreguntas(jugadorActual,mi,mg,respuestas);
+            a.terminarRondaDePreguntas();
+            CambiadorDeVistas.cambiarAVistaFin(stage,tablero);
+        }else{
+            Jugador jugadorActual = tablero.obtenerJugadorActual();
+            a.jugarRondaDePreguntas(jugadorActual,mi,mg,respuestas);
+            tablero.siguienteJugador();
+            reestablecerPregunta();
+        }
     }
 }

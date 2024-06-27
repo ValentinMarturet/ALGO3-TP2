@@ -3,22 +3,14 @@ package edu.fiuba.algo3.vista;
 import edu.fiuba.algo3.controladores.ControladorResponderGC;
 import edu.fiuba.algo3.modelo.Opcion;
 import edu.fiuba.algo3.modelo.PreguntaGC;
-import edu.fiuba.algo3.vista.elementos.BotonPoder;
 import edu.fiuba.algo3.vista.elementos.BotonGC;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,7 +59,7 @@ public class VistaPreguntaGC extends VistaPregunta {
         agregarAlPanelOpciones(opciones);
 
         opcionesLista = pregunta.getOpciones().stream().map(Opcion::getOpcion).collect(Collectors.toList());
-        reestablecerOpciones();
+        restablecerOpciones();
 
         agregarPoderesClasicos();
 
@@ -77,7 +69,7 @@ public class VistaPreguntaGC extends VistaPregunta {
 
 
     @Override
-    public void reestablecerOpciones() {
+    public void restablecerOpciones() {
         opciones.getChildren().removeAll(opciones.getChildren());
         Collections.shuffle(opcionesLista);
         opcionesLista.forEach(opcion -> {

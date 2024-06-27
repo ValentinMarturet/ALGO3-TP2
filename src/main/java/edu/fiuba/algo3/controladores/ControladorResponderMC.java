@@ -15,12 +15,10 @@ import java.util.stream.Collectors;
 
 public class ControladorResponderMC extends ControladorResponder {
     private ObservableList<Node> opciones;
-    private boolean ultimoTurno;
 
     public ControladorResponderMC(Stage stage, ObservableList<Node> opciones, ObservableList<Node> poderes, VistaTableroJugadores tablero) {
         super(stage,tablero,poderes);
         this.opciones = opciones;
-        this.ultimoTurno = false;
     }
 
     @Override
@@ -44,39 +42,13 @@ public class ControladorResponderMC extends ControladorResponder {
             System.out.println("no seleccionaste ninguna opcion");
 
         } else {
-            AlgoHoot a = AlgoHoot.getInstancia();
-            // Busco el jugador actual en la lista de AlgoHoot
-            Jugador jugador = obtenerJugadorActual();
+            sonidoResponder.play();
 
-            if (jugador != null) {
+            Respuesta[] respuestas = opcionesSeleccionadas.stream()
+                    .map(Respuesta::new)
+                    .toArray(Respuesta[]::new);
 
-                sonidoResponder.play();
-                opcionesSeleccionadas.forEach(System.out::println);
-
-                List<ModificadorIndividual> mi = obtenerModificadoresIndividuales();
-
-                List<ModificadorGlobal> mg = obtenerModificadoresGlobales();
-
-                Respuesta[] respuestas = opcionesSeleccionadas.stream()
-                        .map(Respuesta::new)
-                        .toArray(Respuesta[]::new);
-
-                if(this.ultimoTurno){
-                    Jugador jugadorActual = obtenerJugadorActual();
-                    a.jugarRondaDePreguntas(jugadorActual,mi,mg,respuestas);
-                    a.terminarRondaDePreguntas();
-                    CambiadorDeVistas.cambiarAVistaFin(stage,tablero);
-                }else{
-                    Jugador jugadorActual = obtenerJugadorActual();
-                    a.jugarRondaDePreguntas(jugadorActual,mi,mg,respuestas);
-                    tablero.siguienteJugador();
-                    this.ultimoTurno = tablero.esElUltimoJugador();
-                }
-
-
-            }else {
-                throw new JugadorInexistente("Se quiso responder una pregunta con un jugador que no fue registrado");
-            }
+            responderPregunta(respuestas);
         }
     }
 }

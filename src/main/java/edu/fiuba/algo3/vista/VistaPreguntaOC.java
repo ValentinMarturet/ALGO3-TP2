@@ -3,25 +3,15 @@ package edu.fiuba.algo3.vista;
 import edu.fiuba.algo3.controladores.ControladorResponderOC;
 import edu.fiuba.algo3.modelo.Opcion;
 import edu.fiuba.algo3.modelo.PreguntaOC;
-import edu.fiuba.algo3.vista.elementos.BotonPoder;
 import edu.fiuba.algo3.vista.elementos.CeldaOrdenable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.lang.Math.floor;
 
 public class VistaPreguntaOC extends VistaPregunta {
     private List<String> listaOpcionesStrings;
@@ -34,7 +24,7 @@ public class VistaPreguntaOC extends VistaPregunta {
         // Opciones
         listaOpcionesStrings = pregunta.getOpciones().stream().map(Opcion::getOpcion).collect(Collectors.toList());
         listaOpciones = new ListView<>();
-        reestablecerOpciones();
+        restablecerOpciones();
 
         listaOpciones.setCellFactory(param -> new CeldaOrdenable());
         listaOpciones.setPrefWidth(panelOpciones.getPrefWidth()-height/9);
@@ -53,7 +43,7 @@ public class VistaPreguntaOC extends VistaPregunta {
     }
 
     @Override
-    public void reestablecerOpciones() {
+    public void restablecerOpciones() {
         Collections.shuffle(listaOpcionesStrings);
         opciones = FXCollections.observableList(listaOpcionesStrings);
         listaOpciones.getItems().removeAll(listaOpciones.getItems());

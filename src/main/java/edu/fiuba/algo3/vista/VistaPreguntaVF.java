@@ -66,7 +66,7 @@ public class VistaPreguntaVF extends VistaPregunta {
     }
 
     @Override
-    public void reestablecerOpciones() {
+    public void restablecerOpciones() {
         opciones.getChildren().forEach(n -> {
             ((ToggleButton) n).setSelected(false);
         });

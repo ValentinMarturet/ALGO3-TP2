@@ -5,12 +5,16 @@ public class Jugador {
     private PuntajeTotal puntosTotales;
     private ModificadorIndividual duplicador;
     private ModificadorIndividual triplicador;
+    private ModificadorGlobal anulador;
+    private ModificadorGlobal exclusividad;
 
 
     public Jugador(String nombre) {
         this.nombre = nombre;
         this.duplicador = new Duplicador();
         this.triplicador = new Triplicador();
+        this.anulador = new Anulador(this);
+        this.exclusividad = new Exclusividad();
         this.puntosTotales = new PuntajeTotal();
     }
 
@@ -23,12 +27,26 @@ public class Jugador {
     }
 
     public void gastar(ModificadorIndividual mod) {
-        if (duplicador.equals(mod)) {
+        if (duplicador.getClass().equals(mod.getClass())) {
             duplicador = new ModificadorIndividualBase();
-        } else if (triplicador.equals(mod)) {
+        } else if (triplicador.getClass().equals(mod.getClass())) {
             triplicador = new ModificadorIndividualBase();
         }
     }
+
+    public void gastar(ModificadorGlobal mod) {
+        if (anulador.getClass().equals(mod.getClass())) {
+            anulador = new ModificadorGlobalBase();
+        } else if (exclusividad.getClass().equals(mod.getClass())) {
+            exclusividad = new ModificadorGlobalBase();
+        }
+    }
+
+    public boolean tieneDisponible(Object mod) {
+        return exclusividad.getClass().equals(mod.getClass()) || anulador.getClass().equals(mod.getClass()) ||
+                duplicador.getClass().equals(mod.getClass()) || triplicador.getClass().equals(mod.getClass());
+    }
+
 
     public void sumarPuntos(PuntajeParcial puntos) {
         this.puntosTotales.agregar(puntos);

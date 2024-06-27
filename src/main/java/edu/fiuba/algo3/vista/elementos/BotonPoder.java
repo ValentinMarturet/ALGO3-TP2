@@ -10,11 +10,11 @@ import javafx.scene.media.Media;
 import java.io.File;
 
 public class BotonPoder extends ToggleButton {
-    private ImageView graficoON;
-    private ImageView graficoOFF;
-    private AudioClip sonidoON;
-    private AudioClip sonidoOFF;
-    private String tipo;
+    private final ImageView graficoON;
+    private final ImageView graficoOFF;
+    private final AudioClip sonidoON;
+    private final AudioClip sonidoOFF;
+    private final String tipo;
 
     public BotonPoder(String tipo) {
         super();
@@ -57,13 +57,13 @@ public class BotonPoder extends ToggleButton {
     public Object obtenerModificador(Jugador j) {
         switch (tipo) {
             case "anulador":
-                return isSelected() ? new Anulador(j) : new ModificadorGlobalBase();
+                return new Anulador(j);
             case "exclusividad":
-                return isSelected() ? new Exclusividad() : new ModificadorGlobalBase();
+                return new Exclusividad();
             case "duplicador":
-                return isSelected() ? new Duplicador() : new ModificadorIndividualBase();
+                return new Duplicador();
             default:
-                return isSelected() ? new Triplicador() : new ModificadorIndividualBase();
+                return new Triplicador();
         }
     }
 

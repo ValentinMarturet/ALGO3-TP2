@@ -7,19 +7,19 @@ import javafx.stage.Stage;
 public class FabricaVistasPreguntas {
     public static Scene crearVista(Pregunta pregunta, Stage stage, VistaTableroJugadores tablero) {
         if (pregunta instanceof PreguntaVF) {
-            return new VistaPreguntaVF(stage, stage.getWidth(), stage.getHeight(), (PreguntaVF) pregunta, tablero);
+            return new VistaPreguntaVF(stage, stage.getScene().getWidth(), stage.getScene().getHeight(), (PreguntaVF) pregunta, tablero);
         } else if (pregunta instanceof PreguntaVFPenalidad) {
-            return new VistaPreguntaVF(stage, stage.getWidth(), stage.getHeight(), (PreguntaVFPenalidad) pregunta, tablero);
+            return new VistaPreguntaVF(stage, stage.getScene().getWidth(), stage.getScene().getHeight(), (PreguntaVFPenalidad) pregunta, tablero);
         } else if (pregunta instanceof PreguntaMC) {
-            return new VistaPreguntaMC(stage, stage.getWidth(), stage.getHeight(), (PreguntaMC) pregunta, tablero);
+            return new VistaPreguntaMC(stage, stage.getScene().getWidth(), stage.getScene().getHeight(), (PreguntaMC) pregunta, tablero);
         } else if (pregunta instanceof PreguntaMCParcial) {
-            return new VistaPreguntaMC(stage, stage.getWidth(), stage.getHeight(), (PreguntaMCParcial) pregunta, tablero);
+            return new VistaPreguntaMC(stage, stage.getScene().getWidth(), stage.getScene().getHeight(), (PreguntaMCParcial) pregunta, tablero);
         } else if (pregunta instanceof PreguntaMCPenalidad) {
-            return new VistaPreguntaMC(stage, stage.getWidth(), stage.getHeight(), (PreguntaMCPenalidad) pregunta, tablero);
+            return new VistaPreguntaMC(stage, stage.getScene().getWidth(), stage.getScene().getHeight(), (PreguntaMCPenalidad) pregunta, tablero);
         } else if (pregunta instanceof PreguntaGC) {
-            return new VistaPreguntaGC(stage, stage.getWidth(), stage.getHeight(), (PreguntaGC) pregunta, tablero);
+            return new VistaPreguntaGC(stage, stage.getScene().getWidth(), stage.getScene().getHeight(), (PreguntaGC) pregunta, tablero);
         } else {
-            return new VistaPreguntaOC(stage, stage.getWidth(), stage.getHeight(), (PreguntaOC) pregunta, tablero);
+            return new VistaPreguntaOC(stage, stage.getScene().getWidth(), stage.getScene().getHeight(), (PreguntaOC) pregunta, tablero);
         }
     }
 }

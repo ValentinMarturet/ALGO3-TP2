@@ -1,8 +1,7 @@
 package edu.fiuba.algo3.vista;
 
 import edu.fiuba.algo3.controladores.ControladorResponder;
-import edu.fiuba.algo3.modelo.ModificadorGlobal;
-import edu.fiuba.algo3.modelo.ModificadorIndividual;
+import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Pregunta;
 import edu.fiuba.algo3.vista.elementos.BotonPoder;
 import javafx.geometry.Insets;
@@ -28,11 +27,13 @@ public abstract class VistaPregunta extends Scene {
     private final Button botonResponder;
     protected final FlowPane panelOpciones;
     private final List<BotonPoder> botonesPoderes;
+    private final VistaTableroJugadores tablero;
 
     public VistaPregunta(Stage stage, double width, double height, Pregunta pregunta, VistaTableroJugadores tablero) {
         super(new FlowPane(), width, height);
         double margenAncho = width/32;
         double margenAlto = height/18;
+        this.tablero = tablero;
         FlowPane root = (FlowPane) this.getRoot();
         BackgroundImage imagenFondo = new BackgroundImage(new Image("file:"+System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/imagenes/background.png"), BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         Background fondo = new Background(imagenFondo);
@@ -139,7 +140,7 @@ public abstract class VistaPregunta extends Scene {
         BotonPoder a = new BotonPoder("anulador");
         BotonPoder e = new BotonPoder("exclusividad");
         poderes.getChildren().addAll(a,e);
-
+        restablecerPoderes(tablero.obtenerJugadorActual());
     }
 
     protected void agregarPoderesPenalidad() {
@@ -147,9 +148,11 @@ public abstract class VistaPregunta extends Scene {
         botonesPoderes.add(new BotonPoder("duplicador"));
         botonesPoderes.add(new BotonPoder("triplicador"));
         poderes.getChildren().addAll(botonesPoderes);
+        restablecerPoderes(tablero.obtenerJugadorActual());
     }
 
     protected void establecerControladorBotonResponder(ControladorResponder controlador) {
+
         botonResponder.setOnAction(controlador);
     }
 
@@ -161,28 +164,19 @@ public abstract class VistaPregunta extends Scene {
         stackInformacionPregunta.getChildren().add(nodo);
     }
 
-    public void desactivarPoder(ModificadorIndividual tipo) {
-        poderes.getChildren().forEach(n -> {
-            BotonPoder b = (BotonPoder) n;
-            if(b.esDelTipo(tipo)) {n.setDisable(true);}
-        });
-    }
 
-    public void desactivarPoder(ModificadorGlobal tipo) {
-        poderes.getChildren().forEach(n -> {
-            BotonPoder b = (BotonPoder) n;
-            if(b.esDelTipo(tipo)) {n.setDisable(true);}
-        });
-    }
-
-    public void reestablecerPoderes() {
+    public void restablecerPoderes(Jugador jugador) {
         poderes.getChildren().forEach(n -> {
             BotonPoder b = (BotonPoder) n;
             b.setSelected(false);
-            b.setDisable(false);
+            if (jugador.tieneDisponible(b.obtenerModificador(jugador))) {
+                b.setDisable(false);
+            } else {
+                b.setDisable(true);
+            }
             b.actualizarGraficos();
         });
     }
 
-    public abstract void reestablecerOpciones();
+    public abstract void restablecerOpciones();
 }
