@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.excepciones.JugadorInexistente;
 import edu.fiuba.algo3.vista.CambiadorDeVistas;
 import edu.fiuba.algo3.vista.VistaTableroJugadores;
+import edu.fiuba.algo3.vista.elementos.BotonPoder;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -32,7 +33,7 @@ public class ControladorResponderVF extends ControladorResponder {
         } else {
             AlgoHoot a = AlgoHoot.getInstancia();
             sonidoResponder.play();
-
+            reestablecerPregunta();
             // Busco el jugador actual en la lista de AlgoHoot
             Jugador jugador = obtenerJugadorActual();
 

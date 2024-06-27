@@ -39,6 +39,11 @@ public class PreguntaMCParcial implements Pregunta {
     }
 
     @Override
+    public String getTipo() {
+        return "Multiple Choice Parcial";
+    }
+
+    @Override
     public String getPregunta() {
         return this.pregunta;
     }

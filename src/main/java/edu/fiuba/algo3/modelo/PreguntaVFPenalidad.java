@@ -40,6 +40,11 @@ public class PreguntaVFPenalidad implements Pregunta{
         return acumulador;
     }
 
+    @Override
+    public String getTipo() {
+        return "Verdadero/Falso Penalidad";
+    }
+
     public String getTematica() {return this.tematica;}
     public String getTextoRespuesta() {return this.textoRespuesta;}
 }

@@ -29,6 +29,11 @@ public class PreguntaMCPenalidad implements Pregunta{
     }
 
     @Override
+    public String getTipo() {
+        return "Multiple Choice Penalidad";
+    }
+
+    @Override
     public String getPregunta() {
         return this.pregunta;
     }

@@ -1,9 +1,9 @@
 package edu.fiuba.algo3.vista;
 
 import edu.fiuba.algo3.controladores.ControladorResponder;
-import edu.fiuba.algo3.controladores.ControladorResponderGC;
-import edu.fiuba.algo3.modelo.Opcion;
-import edu.fiuba.algo3.vista.elementos.BotonGC;
+import edu.fiuba.algo3.modelo.ModificadorGlobal;
+import edu.fiuba.algo3.modelo.ModificadorIndividual;
+import edu.fiuba.algo3.modelo.Pregunta;
 import edu.fiuba.algo3.vista.elementos.BotonPoder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,27 +11,25 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.lang.Math.floor;
 
-public class VistaPregunta extends Scene {
-    protected Label textoPregunta;
-    protected Label tipoDePregunta;
-    private VBox contenedorPoderes;
-    private StackPane stackInformacionPregunta;
-    private Button botonResponder;
+public abstract class VistaPregunta extends Scene {
 
-    public VistaPregunta(Stage stage, double width, double height, VistaTableroJugadores tablero) {
+    protected final VBox poderes;
+    private final StackPane stackInformacionPregunta;
+    private final Button botonResponder;
+    protected final FlowPane panelOpciones;
+    private final List<BotonPoder> botonesPoderes;
+
+    public VistaPregunta(Stage stage, double width, double height, Pregunta pregunta, VistaTableroJugadores tablero) {
         super(new FlowPane(), width, height);
         double margenAncho = width/32;
         double margenAlto = height/18;
@@ -58,7 +56,7 @@ public class VistaPregunta extends Scene {
         stackInformacionPregunta.setPrefWidth(floor(width * 2/3));
         stackInformacionPregunta.setPrefHeight(height/3);
 
-        textoPregunta = new Label();
+        Label textoPregunta = new Label(pregunta.getPregunta());
         textoPregunta.setPrefHeight(height*2/5 - 2*margenAlto);
         textoPregunta.setPrefWidth(width * 2/3 - 2*margenAncho);
         textoPregunta.setWrapText(true);
@@ -69,11 +67,12 @@ public class VistaPregunta extends Scene {
         HBox contenedorTema = new HBox();
         contenedorTema.setPrefWidth(floor(width * 2/3));
         contenedorTema.setAlignment(Pos.TOP_RIGHT);
-        tipoDePregunta = new Label();
+        Label tipoDePregunta = new Label(pregunta.getTipo());
         establecerEstilo(tipoDePregunta);
         cambiarTamanoFuente(tipoDePregunta, 25);
         contenedorTema.getChildren().add(tipoDePregunta);
         tipoDePregunta.setPadding(new Insets(0,6,2,6));
+        StackPane.setMargin(contenedorTema,new Insets(margenAlto/3, margenAncho/2, 0, 0));
 
         stackInformacionPregunta.getChildren().addAll(textoPregunta, contenedorTema);
         panelPregunta.getChildren().add(stackInformacionPregunta);
@@ -84,7 +83,7 @@ public class VistaPregunta extends Scene {
         FlowPane.setMargin(panelBotones,new Insets(0, margenAncho, 0, margenAncho));
         panelPregunta.getChildren().add(panelBotones);
 
-        FlowPane panelOpciones = new FlowPane();
+        panelOpciones = new FlowPane();
         panelOpciones.setPrefHeight(height/2);
         panelOpciones.setPrefWidth(floor((panelBotones.getPrefWidth())*3/4));
         panelOpciones.setAlignment(Pos.CENTER);
@@ -110,17 +109,18 @@ public class VistaPregunta extends Scene {
         panelBotonesPoderes.setPrefHeight(panelBotonesControl.getPrefHeight() - panelBotonResponder.getPrefHeight());
         panelBotonesPoderes.setPrefWidth(panelBotonesControl.getPrefWidth());
         panelBotonesControl.getChildren().add(panelBotonesPoderes);
-        contenedorPoderes = new VBox();
-        contenedorPoderes.setPrefHeight(panelBotonesPoderes.getPrefHeight());
-        contenedorPoderes.setPrefWidth(panelBotonesPoderes.getPrefWidth());
-        contenedorPoderes.setAlignment(Pos.CENTER);
-        contenedorPoderes.setPadding(new Insets(margenAlto,0,0,0));
-        contenedorPoderes.setSpacing(margenAlto/2);
-        panelBotonesPoderes.getChildren().add(contenedorPoderes);
+        poderes = new VBox();
+        poderes.setPrefHeight(panelBotonesPoderes.getPrefHeight());
+        poderes.setPrefWidth(panelBotonesPoderes.getPrefWidth());
+        poderes.setAlignment(Pos.CENTER);
+        poderes.setPadding(new Insets(margenAlto,0,0,0));
+        poderes.setSpacing(margenAlto/2);
+        panelBotonesPoderes.getChildren().add(poderes);
+        botonesPoderes = new ArrayList<>();
     }
 
 
-    private void establecerEstilo(Node nodo) {
+    protected void establecerEstilo(Node nodo) {
         nodo.setStyle("-fx-background-color: white;" +
                 "-fx-border-width: 4px;" +
                 "-fx-text-fill: black;" +
@@ -129,29 +129,60 @@ public class VistaPregunta extends Scene {
                 "-fx-border-color: black;");
     }
 
-    private void cambiarTamanoFuente(Node nodo, int size) {
+    protected void cambiarTamanoFuente(Node nodo, int size) {
         String estiloAnterior = nodo.getStyle();
         nodo.setStyle(estiloAnterior + "-fx-font-size: "+size+";");
     }
 
-    protected void agregarAlStackInfoPregunta(Node nodo) {
-        stackInformacionPregunta.getChildren().add(nodo);
-    }
 
     protected void agregarPoderesClasicos() {
-        ToggleButton botonAnulador = new BotonPoder("anulador");
-        ToggleButton botonExclusividad = new BotonPoder("exclusividad");
-        contenedorPoderes.getChildren().addAll(botonAnulador,botonExclusividad);
+        BotonPoder a = new BotonPoder("anulador");
+        BotonPoder e = new BotonPoder("exclusividad");
+        poderes.getChildren().addAll(a,e);
+
     }
 
     protected void agregarPoderesPenalidad() {
-        ToggleButton botonAnulador = new BotonPoder("anulador");
-        ToggleButton botonDuplicador = new BotonPoder("duplicador");
-        ToggleButton botonTriplicador = new BotonPoder("triplicador");
-        contenedorPoderes.getChildren().addAll(botonAnulador,botonDuplicador,botonTriplicador);
+        botonesPoderes.add(new BotonPoder("anulador"));
+        botonesPoderes.add(new BotonPoder("duplicador"));
+        botonesPoderes.add(new BotonPoder("triplicador"));
+        poderes.getChildren().addAll(botonesPoderes);
     }
 
     protected void establecerControladorBotonResponder(ControladorResponder controlador) {
         botonResponder.setOnAction(controlador);
     }
+
+    protected void agregarAlPanelOpciones(Node nodo) {
+        panelOpciones.getChildren().add(nodo);
+    }
+
+    protected void agregarAlStackInformacionPregunta(Node nodo) {
+        stackInformacionPregunta.getChildren().add(nodo);
+    }
+
+    public void desactivarPoder(ModificadorIndividual tipo) {
+        poderes.getChildren().forEach(n -> {
+            BotonPoder b = (BotonPoder) n;
+            if(b.esDelTipo(tipo)) {n.setDisable(true);}
+        });
+    }
+
+    public void desactivarPoder(ModificadorGlobal tipo) {
+        poderes.getChildren().forEach(n -> {
+            BotonPoder b = (BotonPoder) n;
+            if(b.esDelTipo(tipo)) {n.setDisable(true);}
+        });
+    }
+
+    public void reestablecerPoderes() {
+        poderes.getChildren().forEach(n -> {
+            BotonPoder b = (BotonPoder) n;
+            b.setSelected(false);
+            b.setDisable(false);
+            b.actualizarGraficos();
+        });
+    }
+
+    public abstract void reestablecerOpciones();
 }

@@ -58,4 +58,9 @@ public class PreguntaMC implements Pregunta{
         return new PuntajeParcial(1);
     }
 
+    @Override
+    public String getTipo() {
+        return "Multiple Choice";
+    }
+
 }

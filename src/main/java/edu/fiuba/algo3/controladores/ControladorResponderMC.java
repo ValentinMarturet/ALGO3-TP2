@@ -61,13 +61,6 @@ public class ControladorResponderMC extends ControladorResponder {
                         .map(Respuesta::new)
                         .toArray(Respuesta[]::new);
 
-                /*
-                a.jugarRondaDePreguntas(jugador,
-                        mi,
-                        mg,
-                        respuestas
-                );
-                */
                 if(this.ultimoTurno){
                     Jugador jugadorActual = obtenerJugadorActual();
                     a.jugarRondaDePreguntas(jugadorActual,mi,mg,respuestas);

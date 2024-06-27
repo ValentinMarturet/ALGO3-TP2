@@ -33,6 +33,11 @@ public class PreguntaOC implements Pregunta{
         return ordenCorrecto.puntuar(respuestas);
     }
 
+    @Override
+    public String getTipo() {
+        return "Ordered Choice";
+    }
+
     public String getTematica() {return this.tematica;}
     public String getTextoRespuesta() {return this.textoRespuesta;}
 }

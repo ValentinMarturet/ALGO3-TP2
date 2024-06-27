@@ -23,6 +23,11 @@ public class PreguntaVF implements Pregunta{
     }
 
     @Override
+    public String getTipo() {
+        return "Verdadero/Falso";
+    }
+
+    @Override
     public String getPregunta() {
         return this.pregunta;
     }

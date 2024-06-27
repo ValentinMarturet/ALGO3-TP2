@@ -42,6 +42,11 @@ public class PreguntaGC implements Pregunta {
         return acumuluador;
     }
 
+    @Override
+    public String getTipo() {
+        return "Group Choice";
+    }
+
     public String getTematica() {return this.tematica;}
     public String getTextoRespuesta() {return this.textoRespuesta;}
     public Pair<String,String> getNombreDeGrupos() {

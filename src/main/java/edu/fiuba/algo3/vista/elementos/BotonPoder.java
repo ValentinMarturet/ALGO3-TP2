@@ -32,16 +32,25 @@ public class BotonPoder extends ToggleButton {
         sonidoOFF.setVolume(0.25);
         this.setGraphic(graficoOFF);
         this.setStyle("-fx-background-color: transparent;");
-        this.setOnMouseClicked(e -> this.pulsar());
+        this.setOnMouseClicked(e -> {
+            reproducirSonido();
+            actualizarGraficos();
+        });
     }
 
-    private void pulsar() {
+    private void reproducirSonido() {
         if (this.isSelected()) {
-            this.setGraphic(graficoON);
             sonidoON.play();
         } else {
-            this.setGraphic(graficoOFF);
             sonidoOFF.play();
+        }
+    }
+
+    public void actualizarGraficos() {
+        if (this.isSelected()) {
+            this.setGraphic(graficoON);
+        } else {
+            this.setGraphic(graficoOFF);
         }
     }
 
@@ -56,5 +65,13 @@ public class BotonPoder extends ToggleButton {
             default:
                 return isSelected() ? new Triplicador() : new ModificadorIndividualBase();
         }
+    }
+
+    public boolean esDelTipo(ModificadorIndividual tipo) {
+        return true;
+    }
+
+    public boolean esDelTipo(ModificadorGlobal tipo) {
+        return true;
     }
 }

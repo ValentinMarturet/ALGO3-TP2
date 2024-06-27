@@ -3,6 +3,7 @@ package edu.fiuba.algo3.controladores;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.ModificadorGlobal;
 import edu.fiuba.algo3.modelo.ModificadorIndividual;
+import edu.fiuba.algo3.vista.VistaPregunta;
 import edu.fiuba.algo3.vista.VistaTableroJugadores;
 import edu.fiuba.algo3.vista.elementos.BotonPoder;
 import javafx.collections.ObservableList;
@@ -83,5 +84,11 @@ public abstract class ControladorResponder implements EventHandler<ActionEvent> 
                 })
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
+    }
+
+    protected void reestablecerPregunta() {
+        VistaPregunta vista = (VistaPregunta) stage.getScene();
+        vista.reestablecerOpciones();
+        vista.reestablecerPoderes();
     }
 }

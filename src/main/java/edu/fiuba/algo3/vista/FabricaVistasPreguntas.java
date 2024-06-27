@@ -6,17 +6,16 @@ import javafx.stage.Stage;
 
 public class FabricaVistasPreguntas {
     public static Scene crearVista(Pregunta pregunta, Stage stage, VistaTableroJugadores tablero) {
-        Scene vista;
         if (pregunta instanceof PreguntaVF) {
             return new VistaPreguntaVF(stage, stage.getWidth(), stage.getHeight(), (PreguntaVF) pregunta, tablero);
         } else if (pregunta instanceof PreguntaVFPenalidad) {
-            return new VistaPreguntaVFPenalidad(stage, stage.getWidth(), stage.getHeight(), (PreguntaVFPenalidad) pregunta, tablero);
+            return new VistaPreguntaVF(stage, stage.getWidth(), stage.getHeight(), (PreguntaVFPenalidad) pregunta, tablero);
         } else if (pregunta instanceof PreguntaMC) {
             return new VistaPreguntaMC(stage, stage.getWidth(), stage.getHeight(), (PreguntaMC) pregunta, tablero);
         } else if (pregunta instanceof PreguntaMCParcial) {
-            return new VistaPreguntaMCParcial(stage, stage.getWidth(), stage.getHeight(), (PreguntaMCParcial) pregunta, tablero);
+            return new VistaPreguntaMC(stage, stage.getWidth(), stage.getHeight(), (PreguntaMCParcial) pregunta, tablero);
         } else if (pregunta instanceof PreguntaMCPenalidad) {
-            return new VistaPreguntaMCPenalidad(stage, stage.getWidth(), stage.getHeight(), (PreguntaMCPenalidad) pregunta, tablero);
+            return new VistaPreguntaMC(stage, stage.getWidth(), stage.getHeight(), (PreguntaMCPenalidad) pregunta, tablero);
         } else if (pregunta instanceof PreguntaGC) {
             return new VistaPreguntaGC(stage, stage.getWidth(), stage.getHeight(), (PreguntaGC) pregunta, tablero);
         } else {

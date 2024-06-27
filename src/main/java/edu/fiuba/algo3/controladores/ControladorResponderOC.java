@@ -32,7 +32,6 @@ public class ControladorResponderOC extends ControladorResponder {
             sonidoResponder.play();
             opciones.forEach(System.out::println);
             System.out.println(" ");
-
             List<ModificadorIndividual> mi = obtenerModificadoresIndividuales();
 
             List<ModificadorGlobal> mg = obtenerModificadoresGlobales();
