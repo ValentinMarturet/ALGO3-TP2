@@ -12,7 +12,7 @@ public class AlgoHoot {
 
     private int maximoPreguntas;
     private int puntajeMaximo;
-    private boolean juegoTerminado;
+
     private int preguntasJugadas;
 
     private AlgoHoot(){
@@ -20,7 +20,6 @@ public class AlgoHoot {
         maximoPreguntas = 0;
         this.puntajeMaximo = 0;
         this.preguntasJugadas = 1;
-        this.juegoTerminado = false;
     }
 
     public static AlgoHoot getInstancia() {
@@ -41,13 +40,8 @@ public class AlgoHoot {
     }
 
     public void comenzarNuevaRondaDePreguntas(){
-        int puntajeMaximoActual = obtenerJugadorConMayorPuntaje().obtenerPuntaje();
-        if(this.preguntasJugadas < this.maximoPreguntas && puntajeMaximoActual < this.puntajeMaximo){
-            gestorDeTurnos.comenzarNuevaRonda();
-            this.preguntasJugadas++;
-        }else{
-            this.juegoTerminado = true;
-        }
+        gestorDeTurnos.comenzarNuevaRonda();
+        this.preguntasJugadas++;
     }
 
     public void jugarRondaDePreguntas(Jugador j, List<ModificadorIndividual> mis, List<ModificadorGlobal> mgs, Respuesta... respuestas){
@@ -74,19 +68,16 @@ public class AlgoHoot {
         gestorDeTurnos.reiniciarListaDeJugadores();
     }
 
-    public boolean elJuegoTermino(){return this.juegoTerminado;};
-
-    public Jugador obtenerJugadorConMayorPuntaje(){
-        List<Jugador> jugadores = obtenerJugadores();
-        Jugador jugadorconMaximoPuntaje = null;
-        int puntajeMaximo = 0;
-        for(Jugador jugador : jugadores){
-            int puntajeActual = jugador.obtenerPuntaje();
-            if(puntajeActual>=puntajeMaximo){
-                jugadorconMaximoPuntaje = jugador;
-                puntajeMaximo = puntajeActual;
-            }
+    public boolean elJuegoTermino(){
+        if(gestorDeTurnos.obtenerJugadorConMayorPuntaje().obtenerPuntaje()>=puntajeMaximo || preguntasJugadas>=maximoPreguntas){
+            return true;
+        } else{
+            return false;
         }
-        return jugadorconMaximoPuntaje;
     }
+
+    public Jugador obtenerGanador(){
+        return gestorDeTurnos.obtenerJugadorConMayorPuntaje();
+    }
+
 }

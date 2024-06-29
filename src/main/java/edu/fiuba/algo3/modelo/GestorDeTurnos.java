@@ -8,11 +8,11 @@ import java.util.List;
 public class GestorDeTurnos {
     private LinkedList<RondaDePreguntas> rondasDePreguntas;
     private GestorDePreguntas gestorDePreguntas;
-    private List<Jugador> jugadores;
+    private TablaDeJugadores tablaDeJugadores;
 
     public GestorDeTurnos() {
         this.rondasDePreguntas = new LinkedList<>();
-        jugadores = new LinkedList<Jugador>();
+        tablaDeJugadores = new TablaDeJugadores();
     }
 
     public void inicializarGestorDePreguntas() throws ArchivoInexistente {
@@ -48,14 +48,20 @@ public class GestorDeTurnos {
     }
 
     public void agregarJugador(Jugador j) {
-        jugadores.add(j);
+        tablaDeJugadores.add(j);
     }
 
     public List<Jugador> obtenerJugadores() {
-        return jugadores;
+        return tablaDeJugadores;
     }
 
     public void reiniciarListaDeJugadores(){
-        jugadores.clear();
+        tablaDeJugadores.clear();
     }
+
+    public Jugador obtenerJugadorConMayorPuntaje(){
+        return tablaDeJugadores.obtenerJugadorConMayorPuntaje();
+    }
+
+
 }
