@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.ArchivoInexistente;
-import edu.fiuba.algo3.modelo.excepciones.JugadorNoEsperado;
 
 import java.util.List;
 
@@ -51,7 +50,7 @@ public class AlgoHoot {
         }
     }
 
-    public void jugarRondaDePreguntas(Jugador j, List<ModificadorIndividual> mis, List<ModificadorGlobal> mgs, Respuesta... respuestas) throws JugadorNoEsperado {
+    public void jugarRondaDePreguntas(Jugador j, List<ModificadorIndividual> mis, List<ModificadorGlobal> mgs, Respuesta... respuestas){
         gestorDeTurnos.jugarRondaActual(j, mis, mgs, respuestas);
     }
 

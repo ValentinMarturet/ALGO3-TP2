@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.ArchivoInexistente;
-import edu.fiuba.algo3.modelo.excepciones.JugadorNoEsperado;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class GestorDeTurnos {
 
     public void comenzarNuevaRonda() {
         Pregunta p = gestorDePreguntas.obtenerSiguientePregunta();
-        RondaDePreguntas nuevoRondaDePreguntas = new RondaDePreguntas(p, new OrdenDeRonda(this.jugadores));
+        RondaDePreguntas nuevoRondaDePreguntas = new RondaDePreguntas(p);
         rondasDePreguntas.add(nuevoRondaDePreguntas);
     }
 
@@ -37,7 +36,7 @@ public class GestorDeTurnos {
         return rondasDePreguntas.getLast().getPregunta();
     }
 
-    public void jugarRondaActual(Jugador j, List<ModificadorIndividual> mis, List<ModificadorGlobal> mgs, Respuesta... respuestas) throws JugadorNoEsperado {
+    public void jugarRondaActual(Jugador j, List<ModificadorIndividual> mis, List<ModificadorGlobal> mgs, Respuesta... respuestas){
         RondaDePreguntas rondaDePreguntas = rondasDePreguntas.getLast();
 
         rondaDePreguntas.jugar(j, mis, mgs, respuestas);

@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.entrega_3;
 
 import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.modelo.excepciones.JugadorNoEsperado;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CasosDeUsoEntrega3 {
     @Test
-    public void testUnTurno() throws JugadorNoEsperado {
+    public void testUnTurno(){
         // Arrange
         PreguntaVFPenalidad p = new PreguntaVFPenalidad("cuantos dedos tiene mi mano derecha?","SENTIDO COMUN", "La mano derecha de Pat tiene 5 dedos.",
                 new OpcionCorrecta("5"),
@@ -23,7 +22,7 @@ public class CasosDeUsoEntrega3 {
         jugadores.add(j1);
         jugadores.add(j2);
         jugadores.add(j3);
-        RondaDePreguntas rondaDePreguntas = new RondaDePreguntas(p, new OrdenDeRonda(jugadores));
+        RondaDePreguntas rondaDePreguntas = new RondaDePreguntas(p);
         int puntosEsperadosJ1 = 2;
         int puntosEsperadosJ2 = -3;
         int puntosEsperadosJ3 = -1;
