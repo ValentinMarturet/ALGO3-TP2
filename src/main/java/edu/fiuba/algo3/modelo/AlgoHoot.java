@@ -2,13 +2,16 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.ArchivoInexistente;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class AlgoHoot {
 
     private static AlgoHoot instancia;
 
-    private GestorDeTurnos gestorDeTurnos;
+    private LinkedList<RondaDePreguntas> rondasDePreguntas;
+    private GestorDePreguntas gestorDePreguntas;
+    private TablaDeJugadores tablaDeJugadores;
 
     private int maximoPreguntas;
     private int puntajeMaximo;
@@ -16,10 +19,11 @@ public class AlgoHoot {
     private int preguntasJugadas;
 
     private AlgoHoot(){
-        gestorDeTurnos = new GestorDeTurnos();
         maximoPreguntas = 0;
         this.puntajeMaximo = 0;
-        this.preguntasJugadas = 1;
+        this.preguntasJugadas = 0;
+        this.rondasDePreguntas = new LinkedList<>();
+        tablaDeJugadores = new TablaDeJugadores();
     }
 
     public static AlgoHoot getInstancia() {
@@ -32,44 +36,59 @@ public class AlgoHoot {
     public void setPuntajeMaximo(int puntajeMaximo) {this.puntajeMaximo = puntajeMaximo;}
     public void setMaximoPreguntas(int maximoPreguntas) {this.maximoPreguntas = maximoPreguntas;}
 
+
+
     public void inicializarGestorDePreguntas() throws ArchivoInexistente {
-        gestorDeTurnos.inicializarGestorDePreguntas();
-    }
-    public void inicializarGestorDePreguntas(boolean mezclado) throws ArchivoInexistente {
-        gestorDeTurnos.inicializarGestorDePreguntas(mezclado);
+        gestorDePreguntas = new GestorDePreguntas();
     }
 
-    public void comenzarNuevaRondaDePreguntas(){
-        gestorDeTurnos.comenzarNuevaRonda();
+    public void inicializarGestorDePreguntas(boolean mezclado) throws ArchivoInexistente {
+        gestorDePreguntas = new GestorDePreguntas(mezclado);
+    }
+
+    public void comenzarNuevaRondaDePreguntas() {
+        Pregunta p = gestorDePreguntas.obtenerSiguientePregunta();
+        RondaDePreguntas nuevoRondaDePreguntas = new RondaDePreguntas(p);
+        rondasDePreguntas.add(nuevoRondaDePreguntas);
         this.preguntasJugadas++;
     }
 
-    public void jugarRondaDePreguntas(Jugador j, List<ModificadorIndividual> mis, List<ModificadorGlobal> mgs, Respuesta... respuestas){
-        gestorDeTurnos.jugarRondaActual(j, mis, mgs, respuestas);
-    }
-
-    public void terminarRondaDePreguntas(){
-        gestorDeTurnos.terminarRondaActual();
-    }
-
     public Pregunta obtenerPreguntaActual(){
-        return gestorDeTurnos.obtenerPreguntaRondaActual();
+        if(rondasDePreguntas.isEmpty()){
+            comenzarNuevaRondaDePreguntas();
+        }
+        return rondasDePreguntas.getLast().getPregunta();
     }
 
-    public void agregarJugador(Jugador jugador) {
-        gestorDeTurnos.agregarJugador(jugador);
+    public void jugarRondaDePreguntas(Jugador j, List<ModificadorIndividual> mis, List<ModificadorGlobal> mgs, Respuesta... respuestas){
+        RondaDePreguntas rondaDePreguntas = rondasDePreguntas.getLast();
+
+        rondaDePreguntas.jugar(j, mis, mgs, respuestas);
     }
 
-    public List<Jugador> obtenerJugadores(){
-        return gestorDeTurnos.obtenerJugadores();
+    public void terminarRondaDePreguntas() {
+        RondaDePreguntas rondaDePreguntas = rondasDePreguntas.getLast();
+        rondaDePreguntas.terminar();
     }
 
-    public void reiniciarListaDeJugadores() {
-        gestorDeTurnos.reiniciarListaDeJugadores();
+    public void agregarJugador(Jugador j) {
+        tablaDeJugadores.add(j);
+    }
+
+    public TablaDeJugadores obtenerJugadores() {
+        return tablaDeJugadores;
+    }
+
+    public void reiniciarListaDeJugadores(){
+        tablaDeJugadores.clear();
+    }
+
+    private Jugador obtenerJugadorConMayorPuntaje(){
+        return tablaDeJugadores.obtenerJugadorConMayorPuntaje();
     }
 
     public boolean juegoFinalizado(){
-        if(gestorDeTurnos.obtenerJugadorConMayorPuntaje().obtenerPuntaje()>=puntajeMaximo || preguntasJugadas>=maximoPreguntas){
+        if(obtenerJugadorConMayorPuntaje().obtenerPuntaje()>=puntajeMaximo || preguntasJugadas>=maximoPreguntas){
             return true;
         } else{
             return false;
@@ -78,7 +97,7 @@ public class AlgoHoot {
 
     public Jugador obtenerGanador(){
         if(this.juegoFinalizado()){
-            return gestorDeTurnos.obtenerJugadorConMayorPuntaje();
+            return obtenerJugadorConMayorPuntaje();
         }
         return null;
     }
