@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class CambiadorDeVistas {
     public static void cambiarVistaANuevaPregunta(Stage stage, VistaTableroJugadores tablero){
         AlgoHoot a = AlgoHoot.getInstancia();
-        if(a.elJuegoTermino()){
+        if(a.juegoFinalizado()){
             Jugador jugadorGanador = a.obtenerGanador();
             Scene escena = new VistaFinal(1280,720, jugadorGanador.obtenerNombre());
             stage.setScene(escena);

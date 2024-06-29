@@ -68,7 +68,7 @@ public class AlgoHoot {
         gestorDeTurnos.reiniciarListaDeJugadores();
     }
 
-    public boolean elJuegoTermino(){
+    public boolean juegoFinalizado(){
         if(gestorDeTurnos.obtenerJugadorConMayorPuntaje().obtenerPuntaje()>=puntajeMaximo || preguntasJugadas>=maximoPreguntas){
             return true;
         } else{
@@ -77,7 +77,10 @@ public class AlgoHoot {
     }
 
     public Jugador obtenerGanador(){
-        return gestorDeTurnos.obtenerJugadorConMayorPuntaje();
+        if(this.juegoFinalizado()){
+            return gestorDeTurnos.obtenerJugadorConMayorPuntaje();
+        }
+        return null;
     }
 
 }
