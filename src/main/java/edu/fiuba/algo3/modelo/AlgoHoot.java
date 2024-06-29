@@ -13,11 +13,15 @@ public class AlgoHoot {
 
     private int maximoPreguntas;
     private int puntajeMaximo;
+    private boolean juegoTerminado;
+    private int preguntasJugadas;
 
     private AlgoHoot(){
         gestorDeTurnos = new GestorDeTurnos();
-        maximoPreguntas = 25;
-        puntajeMaximo = 100;
+        maximoPreguntas = 0;
+        this.puntajeMaximo = 0;
+        this.preguntasJugadas = 1;
+        this.juegoTerminado = false;
     }
 
     public static AlgoHoot getInstancia() {
@@ -38,7 +42,13 @@ public class AlgoHoot {
     }
 
     public void comenzarNuevaRondaDePreguntas(){
-        gestorDeTurnos.comenzarNuevaRonda();
+        int puntajeMaximoActual = obtenerJugadorConMayorPuntaje().obtenerPuntaje();
+        if(this.preguntasJugadas < this.maximoPreguntas && puntajeMaximoActual < this.puntajeMaximo){
+            gestorDeTurnos.comenzarNuevaRonda();
+            this.preguntasJugadas++;
+        }else{
+            this.juegoTerminado = true;
+        }
     }
 
     public void jugarRondaDePreguntas(Jugador j, List<ModificadorIndividual> mis, List<ModificadorGlobal> mgs, Respuesta... respuestas) throws JugadorNoEsperado {
@@ -63,5 +73,21 @@ public class AlgoHoot {
 
     public void reiniciarListaDeJugadores() {
         gestorDeTurnos.reiniciarListaDeJugadores();
+    }
+
+    public boolean elJuegoTermino(){return this.juegoTerminado;};
+
+    public Jugador obtenerJugadorConMayorPuntaje(){
+        List<Jugador> jugadores = obtenerJugadores();
+        Jugador jugadorconMaximoPuntaje = null;
+        int puntajeMaximo = 0;
+        for(Jugador jugador : jugadores){
+            int puntajeActual = jugador.obtenerPuntaje();
+            if(puntajeActual>=puntajeMaximo){
+                jugadorconMaximoPuntaje = jugador;
+                puntajeMaximo = puntajeActual;
+            }
+        }
+        return jugadorconMaximoPuntaje;
     }
 }
