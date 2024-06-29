@@ -32,16 +32,6 @@ class RondaDePreguntas {
     + getPregunta(): Pregunta
 }
 
-class OrdenDeRonda {
-    - turno: int
-    + OrdenDeRonda(jugadores:List<Jugador>)
-    + obtenerJugadorActual():Jugador
-    + obtenerTurno():int
-    + avanzarTurno():void
-    + rondaFinalizada():bool
-
-}
-
 class GestorPreguntas {
     - contador: int
     + GestorPreguntas()
@@ -122,8 +112,6 @@ GestorPreguntas o-->"*" Pregunta
 GestorPreguntas ..> Lector
 RondaDePreguntas --> Pregunta
 RondaDePreguntas --> "*" Respuesta
-RondaDePreguntas --> OrdenDeRonda
-OrdenDeRonda --> "*" Jugador
 AlgoHoot --> GestorDeTurnos
 GestorDeTurnos -left->"*" Jugador
 PuntajeParcial --> Jugador
