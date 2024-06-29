@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.vista.elementos;
 
-import edu.fiuba.algo3.modelo.*;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,19 +8,16 @@ import javafx.scene.media.Media;
 
 import java.io.File;
 
-public class BotonPoder extends ToggleButton {
+public class CustomToggleButton extends ToggleButton {
     private final ImageView graficoON;
     private final ImageView graficoOFF;
     private final AudioClip sonidoON;
     private final AudioClip sonidoOFF;
-    private final String tipo;
 
-    public BotonPoder(String tipo) {
+    public CustomToggleButton(Image imagenOn, Image imagenOff) {
         super();
-        this.tipo = tipo;
-        this.graficoON = new ImageView(new Image("file:"+System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/imagenes/"+tipo+"On.png"));
-        this.graficoOFF = new ImageView(new Image("file:"+System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/imagenes/"+tipo+"Off.png"));
-
+        this.graficoON = new ImageView(imagenOn);
+        this.graficoOFF = new ImageView(imagenOff);
         File archivoSonidoON = new File(System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/sonidos/poderOn.wav");
         Media mediaON = new Media(archivoSonidoON.toURI().toString());
         sonidoON = new AudioClip(mediaON.getSource());
@@ -32,6 +28,7 @@ public class BotonPoder extends ToggleButton {
         sonidoOFF.setVolume(0.25);
         this.setGraphic(graficoOFF);
         this.setStyle("-fx-background-color: transparent;");
+
         this.setOnMouseClicked(e -> {
             reproducirSonido();
             actualizarGraficos();
@@ -52,26 +49,5 @@ public class BotonPoder extends ToggleButton {
         } else {
             this.setGraphic(graficoOFF);
         }
-    }
-
-    public Object obtenerModificador(Jugador j) {
-        switch (tipo) {
-            case "anulador":
-                return new Anulador(j);
-            case "exclusividad":
-                return new Exclusividad();
-            case "duplicador":
-                return new Duplicador();
-            default:
-                return new Triplicador();
-        }
-    }
-
-    public boolean esDelTipo(ModificadorIndividual tipo) {
-        return true;
-    }
-
-    public boolean esDelTipo(ModificadorGlobal tipo) {
-        return true;
     }
 }

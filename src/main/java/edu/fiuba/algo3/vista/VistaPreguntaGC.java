@@ -61,7 +61,7 @@ public class VistaPreguntaGC extends VistaPregunta {
         opcionesLista = pregunta.getOpciones().stream().map(Opcion::getOpcion).collect(Collectors.toList());
         restablecerOpciones();
 
-        agregarPoderesClasicos();
+        establecerPoderesClasicos();
 
         ControladorResponderGC controlador = new ControladorResponderGC(stage, opciones.getChildren(), poderes.getChildren(), tablero);
         establecerControladorBotonResponder(controlador);

@@ -36,7 +36,7 @@ public class VistaPreguntaOC extends VistaPregunta {
 
         agregarAlPanelOpciones(listaOpciones);
 
-        agregarPoderesClasicos();
+        establecerPoderesClasicos();
 
         ControladorResponderOC controlador = new ControladorResponderOC(stage,opciones,poderes.getChildren(),tablero);
         establecerControladorBotonResponder(controlador);

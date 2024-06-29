@@ -4,7 +4,9 @@ import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.vista.CambiadorDeVistas;
 import edu.fiuba.algo3.vista.VistaPregunta;
 import edu.fiuba.algo3.vista.VistaTableroJugadores;
-import edu.fiuba.algo3.vista.elementos.BotonPoder;
+import edu.fiuba.algo3.vista.elementos.BotonPoderGlobal;
+import edu.fiuba.algo3.vista.elementos.BotonPoderIndividual;
+import edu.fiuba.algo3.vista.elementos.CustomToggleButton;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,7 +25,6 @@ public abstract class ControladorResponder implements EventHandler<ActionEvent> 
     protected AudioClip sonidoSinSeleccion;
     protected Stage stage;
     protected VistaTableroJugadores tablero;
-    protected List<Object> modificadores;
     private ObservableList<Node> botonesPoderes;
 
     public ControladorResponder(Stage stage, VistaTableroJugadores tablero, ObservableList<Node> poderes) {
@@ -44,12 +45,12 @@ public abstract class ControladorResponder implements EventHandler<ActionEvent> 
 
 
     protected List<ModificadorIndividual> obtenerModificadoresIndividuales() {
-        actualizarModificadores();
-        return  modificadores.stream()
+        return botonesPoderes.stream()
                 .map(m -> {
-                    if (m instanceof ModificadorIndividual) {
-                        tablero.obtenerJugadorActual().gastar((ModificadorIndividual) m);
-                        return (ModificadorIndividual) m;
+                    if (m instanceof BotonPoderIndividual) {
+                        ModificadorIndividual mod = ((BotonPoderIndividual) m).obtenerModificador();
+                        tablero.obtenerJugadorActual().gastar(mod);
+                        return mod;
                     }
                     return null;
                 })
@@ -58,26 +59,12 @@ public abstract class ControladorResponder implements EventHandler<ActionEvent> 
     }
 
     protected List<ModificadorGlobal> obtenerModificadoresGlobales() {
-        actualizarModificadores();
-        return  modificadores.stream()
+        return botonesPoderes.stream()
                 .map(m -> {
-                    if (m instanceof ModificadorGlobal) {
-                        tablero.obtenerJugadorActual().gastar((ModificadorGlobal) m);
-                        return (ModificadorGlobal) m;
-                    }
-                    return null;
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-    }
-
-    private void actualizarModificadores() {
-        Jugador j = tablero.obtenerJugadorActual();
-        modificadores = botonesPoderes.stream()
-                .map(p -> {
-                    BotonPoder b = (BotonPoder) p;
-                    if (b.isSelected()) {
-                        return ((BotonPoder) p).obtenerModificador( j );
+                    if (m instanceof BotonPoderGlobal) {
+                        ModificadorGlobal mod = ((BotonPoderGlobal) m).obtenerModificador();
+                        tablero.obtenerJugadorActual().gastar(mod);
+                        return mod;
                     }
                     return null;
                 })
@@ -88,7 +75,7 @@ public abstract class ControladorResponder implements EventHandler<ActionEvent> 
     protected void reestablecerPregunta() {
         VistaPregunta vista = (VistaPregunta) stage.getScene();
         vista.restablecerOpciones();
-        vista.restablecerPoderes(tablero.obtenerJugadorActual());
+        vista.restablecerPoderes();
     }
 
     protected void responderPregunta(Respuesta... respuestas) {

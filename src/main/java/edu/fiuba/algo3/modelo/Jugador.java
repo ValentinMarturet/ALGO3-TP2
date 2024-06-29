@@ -27,18 +27,22 @@ public class Jugador {
     }
 
     public void gastar(ModificadorIndividual mod) {
-        if (duplicador.getClass().equals(mod.getClass())) {
-            duplicador = new ModificadorIndividualBase();
-        } else if (triplicador.getClass().equals(mod.getClass())) {
-            triplicador = new ModificadorIndividualBase();
+        if (mod != null) {
+            if (duplicador.getClass().equals(mod.getClass())) {
+                duplicador = new ModificadorIndividualBase();
+            } else if (triplicador.getClass().equals(mod.getClass())) {
+                triplicador = new ModificadorIndividualBase();
+            }
         }
     }
 
     public void gastar(ModificadorGlobal mod) {
-        if (anulador.getClass().equals(mod.getClass())) {
-            anulador = new ModificadorGlobalBase();
-        } else if (exclusividad.getClass().equals(mod.getClass())) {
-            exclusividad = new ModificadorGlobalBase();
+        if (mod != null) {
+            if (anulador.getClass().equals(mod.getClass())) {
+                anulador = new ModificadorGlobalBase();
+            } else if (exclusividad.getClass().equals(mod.getClass())) {
+                exclusividad = new ModificadorGlobalBase();
+            }
         }
     }
 
@@ -59,4 +63,8 @@ public class Jugador {
     public String obtenerNombre() {
         return this.nombre;
     }
+
+    public void porCadaPoderClasico( OperacionPoderesClasicos operacion ) { operacion.operar(anulador,exclusividad);}
+
+    public void porCadaPoderPenalidad( OperacionPoderesPenalidad operacion ) { operacion.operar(anulador,duplicador,triplicador);}
 }

@@ -1,24 +1,13 @@
 package edu.fiuba.algo3.vista;
 
 import edu.fiuba.algo3.controladores.ControladorResponderVF;
-import edu.fiuba.algo3.modelo.Anulador;
-import edu.fiuba.algo3.modelo.Exclusividad;
 import edu.fiuba.algo3.modelo.PreguntaVF;
 import edu.fiuba.algo3.modelo.PreguntaVFPenalidad;
-import edu.fiuba.algo3.vista.elementos.BotonPoder;
 import edu.fiuba.algo3.vista.elementos.BotonVF;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
-import static java.lang.Math.floor;
 import javafx.stage.Stage;
 
 public class VistaPreguntaVF extends VistaPregunta {
@@ -37,7 +26,7 @@ public class VistaPreguntaVF extends VistaPregunta {
         });
         agregarAlPanelOpciones(opciones);
         
-        agregarPoderesClasicos();
+        establecerPoderesClasicos();
 
         VBox poderes = new VBox();
         ControladorResponderVF controlador = new ControladorResponderVF(stage, grupoOpciones, poderes.getChildren(), tablero);
@@ -58,7 +47,7 @@ public class VistaPreguntaVF extends VistaPregunta {
         });
         agregarAlPanelOpciones(opciones);
 
-        agregarPoderesPenalidad();
+        establecerPoderesPenalidad();
 
         VBox poderes = new VBox();
         ControladorResponderVF controlador = new ControladorResponderVF(stage, grupoOpciones, poderes.getChildren(), tablero);

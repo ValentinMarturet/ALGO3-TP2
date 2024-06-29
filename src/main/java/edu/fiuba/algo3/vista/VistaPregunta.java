@@ -3,7 +3,10 @@ package edu.fiuba.algo3.vista;
 import edu.fiuba.algo3.controladores.ControladorResponder;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Pregunta;
-import edu.fiuba.algo3.vista.elementos.BotonPoder;
+import edu.fiuba.algo3.vista.elementos.ConjuntoPoderes;
+import edu.fiuba.algo3.vista.elementos.ConjuntoPoderesClasicos;
+import edu.fiuba.algo3.vista.elementos.ConjuntoPoderesPenalidad;
+import edu.fiuba.algo3.vista.elementos.CustomToggleButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -22,11 +25,11 @@ import static java.lang.Math.floor;
 
 public abstract class VistaPregunta extends Scene {
 
-    protected final VBox poderes;
+    protected ConjuntoPoderes poderes;
     private final StackPane stackInformacionPregunta;
     private final Button botonResponder;
     protected final FlowPane panelOpciones;
-    private final List<BotonPoder> botonesPoderes;
+    private final FlowPane panelBotonesPoderes;
     private final VistaTableroJugadores tablero;
 
     public VistaPregunta(Stage stage, double width, double height, Pregunta pregunta, VistaTableroJugadores tablero) {
@@ -106,18 +109,11 @@ public abstract class VistaPregunta extends Scene {
         botonResponder.setStyle("-fx-background-color: transparent;");
         panelBotonResponder.getChildren().add(botonResponder);
 
-        FlowPane panelBotonesPoderes = new FlowPane();
+        panelBotonesPoderes = new FlowPane();
         panelBotonesPoderes.setPrefHeight(panelBotonesControl.getPrefHeight() - panelBotonResponder.getPrefHeight());
         panelBotonesPoderes.setPrefWidth(panelBotonesControl.getPrefWidth());
         panelBotonesControl.getChildren().add(panelBotonesPoderes);
-        poderes = new VBox();
-        poderes.setPrefHeight(panelBotonesPoderes.getPrefHeight());
-        poderes.setPrefWidth(panelBotonesPoderes.getPrefWidth());
-        poderes.setAlignment(Pos.CENTER);
-        poderes.setPadding(new Insets(margenAlto,0,0,0));
-        poderes.setSpacing(margenAlto/2);
-        panelBotonesPoderes.getChildren().add(poderes);
-        botonesPoderes = new ArrayList<>();
+
     }
 
 
@@ -136,23 +132,23 @@ public abstract class VistaPregunta extends Scene {
     }
 
 
-    protected void agregarPoderesClasicos() {
-        BotonPoder a = new BotonPoder("anulador");
-        BotonPoder e = new BotonPoder("exclusividad");
-        poderes.getChildren().addAll(a,e);
-        restablecerPoderes(tablero.obtenerJugadorActual());
+    protected void establecerPoderesClasicos() {
+        poderes = new ConjuntoPoderesClasicos();
+        poderes.setPrefHeight(panelBotonesPoderes.getPrefHeight());
+        poderes.setPrefWidth(panelBotonesPoderes.getPrefWidth());
+        panelBotonesPoderes.getChildren().add(poderes);
+        poderes.reestablecer(tablero.obtenerJugadorActual());
     }
 
-    protected void agregarPoderesPenalidad() {
-        botonesPoderes.add(new BotonPoder("anulador"));
-        botonesPoderes.add(new BotonPoder("duplicador"));
-        botonesPoderes.add(new BotonPoder("triplicador"));
-        poderes.getChildren().addAll(botonesPoderes);
-        restablecerPoderes(tablero.obtenerJugadorActual());
+    protected void establecerPoderesPenalidad() {
+        poderes = new ConjuntoPoderesPenalidad();
+        poderes.setPrefHeight(panelBotonesPoderes.getPrefHeight());
+        poderes.setPrefWidth(panelBotonesPoderes.getPrefWidth());
+        panelBotonesPoderes.getChildren().add(poderes);
+        poderes.reestablecer(tablero.obtenerJugadorActual());
     }
 
     protected void establecerControladorBotonResponder(ControladorResponder controlador) {
-
         botonResponder.setOnAction(controlador);
     }
 
@@ -164,18 +160,8 @@ public abstract class VistaPregunta extends Scene {
         stackInformacionPregunta.getChildren().add(nodo);
     }
 
-
-    public void restablecerPoderes(Jugador jugador) {
-        poderes.getChildren().forEach(n -> {
-            BotonPoder b = (BotonPoder) n;
-            b.setSelected(false);
-            if (jugador.tieneDisponible(b.obtenerModificador(jugador))) {
-                b.setDisable(false);
-            } else {
-                b.setDisable(true);
-            }
-            b.actualizarGraficos();
-        });
+    public void restablecerPoderes() {
+        poderes.reestablecer(tablero.obtenerJugadorActual());
     }
 
     public abstract void restablecerOpciones();

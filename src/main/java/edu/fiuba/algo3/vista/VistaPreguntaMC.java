@@ -17,20 +17,20 @@ public class VistaPreguntaMC extends VistaPregunta {
 
     public VistaPreguntaMC(Stage stage, double width, double height, PreguntaMC pregunta, VistaTableroJugadores tablero) {
         super(stage, width, height, pregunta, tablero);
+        establecerPoderesClasicos();
         inicializarPreguntaMC(stage, pregunta, tablero);
-        agregarPoderesClasicos();
     }
 
     public VistaPreguntaMC(Stage stage, double width, double height, PreguntaMCParcial pregunta, VistaTableroJugadores tablero) {
         super(stage, width, height, pregunta, tablero);
+        establecerPoderesClasicos();
         inicializarPreguntaMC(stage, pregunta, tablero);
-        agregarPoderesClasicos();
     }
 
     public VistaPreguntaMC(Stage stage, double width, double height, PreguntaMCPenalidad pregunta, VistaTableroJugadores tablero) {
         super(stage, width, height, pregunta, tablero);
+        establecerPoderesPenalidad();
         inicializarPreguntaMC(stage, pregunta, tablero);
-        agregarPoderesPenalidad();
     }
 
     private void inicializarPreguntaMC(Stage stage, Pregunta pregunta, VistaTableroJugadores tablero) {
