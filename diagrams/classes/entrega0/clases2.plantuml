@@ -12,19 +12,27 @@ interface Pregunta {
     + getTematica(): String
     + getTextoRespuesta(): String
 }
-
-class GestorDeTurnos {
-    + inicializarGestorDePreguntas(): void
-    + comenzarNuevaRonda(): void
-    + obtenerPreguntaRondaActual(): Pregunta
-    + jugarRondaActual(j:Jugador ,modsInd:List<ModificadorIndividual> ,modsGlob:List<ModificadorGlobal> ,respuestas:List<Respuesta>): void
-    + terminarRondaActual(): void
-    + agregarJugador(j:Jugador): void
-    + obtenerJugadores(): List<Jugador>
+class AlgoHoot {
+    - instancia: AlgoHoot
+    - maximoPreguntas: int
+    - puntajeMaximo: int
+    + {static}getInstancia(): AlgoHoot
+    + setPuntajeMaximo(int): void
+    + setMaximoPreguntas(int):void
+    + inicializarGestorDePreguntas():void
+    + comenzarNuevaRondaDePreguntas(): void
+    + jugarRondaDePreguntas(j:Jugador ,modsInd:List<ModificadorIndividual> ,modsGlob:List<ModificadorGlobal> ,respuestas:List<Respuesta>): void
+    + terminarRondaDePreguntas(): void
+    + obtenerPreguntaActual(): Pregunta
+    + agregarJugador(jugador:Jugador):void
+    + obtenerJugadores(): TablaDeJugadores
     + reiniciarListaDeJugadores(): void
-    + obtenerJugadorConMayorPuntaje(): Jugador
-
+    + juegoFinalizado(): bool
+    + obtenerGanador(): Jugador
+    - obtenerJugadorConMayorPuntaje(): Jugador
 }
+
+
 
 class RondaDePreguntas {
     - puntajes:List<PuntajeParcial>
@@ -59,24 +67,7 @@ class Respuesta {
     + equals(opcion:String): bool
 }
 
-class AlgoHoot {
-    - instancia: AlgoHoot
-    - maximoPreguntas: int
-    - puntajeMaximo: int
-    + {static}getInstancia(): AlgoHoot
-    + setPuntajeMaximo(int): void
-    + setMaximoPreguntas(int):void
-    + inicializarGestorDePreguntas():void
-    + comenzarNuevaRondaDePreguntas(): void
-    + jugarRondaDePreguntas(j:Jugador ,modsInd:List<ModificadorIndividual> ,modsGlob:List<ModificadorGlobal> ,respuestas:List<Respuesta>): void
-    + terminarRondaDePreguntas(): void
-    + obtenerPreguntaActual(): Pregunta
-    + agregarJugador(jugador:Jugador):void
-    + obtenerJugadores(): List<Jugador>
-    + reiniciarListaDeJugadores(): void
-    + juegoFinalizado(): bool
-    + obtenerGanador(): Jugador
-}
+
 
 class Lector{
     +cargarPreguntas(): List<Pregunta>
@@ -114,17 +105,16 @@ class TablaDeJugadores {
 }
 
 
-GestorDeTurnos -down-> GestorPreguntas
-GestorDeTurnos -down-> "*" RondaDePreguntas
+AlgoHoot -down-> GestorPreguntas
+AlgoHoot -down-> "*" RondaDePreguntas
 GestorPreguntas o-->"*" Pregunta
 GestorPreguntas ..> Lector
 RondaDePreguntas --> Pregunta
 RondaDePreguntas --> "*" Respuesta
-AlgoHoot --> GestorDeTurnos
-TablaDeJugadores -left->"*" Jugador
+TablaDeJugadores -down->"*" Jugador
 PuntajeParcial -left-> Jugador
 Respuesta ..> PuntajeParcial
-GestorDeTurnos -left-> TablaDeJugadores
+AlgoHoot -left-> TablaDeJugadores
 
 PuntajeTotal --> "*" PuntajeParcial
 PuntajeParcial --> "*" ModificadorIndividual
