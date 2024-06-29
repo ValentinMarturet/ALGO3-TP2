@@ -22,6 +22,8 @@ class GestorDeTurnos {
     + agregarJugador(j:Jugador): void
     + obtenerJugadores(): List<Jugador>
     + reiniciarListaDeJugadores(): void
+    + obtenerJugadorConMayorPuntaje(): Jugador
+
 }
 
 class RondaDePreguntas {
@@ -72,6 +74,8 @@ class AlgoHoot {
     + agregarJugador(jugador:Jugador):void
     + obtenerJugadores(): List<Jugador>
     + reiniciarListaDeJugadores(): void
+    + juegoFinalizado(): bool
+    + obtenerGanador(): Jugador
 }
 
 class Lector{
@@ -105,6 +109,10 @@ class PuntajeTotal {
 
 }
 
+class TablaDeJugadores {
+    + obtenerJugadorConMayorPuntaje(): Jugador
+}
+
 
 GestorDeTurnos -down-> GestorPreguntas
 GestorDeTurnos -down-> "*" RondaDePreguntas
@@ -113,9 +121,10 @@ GestorPreguntas ..> Lector
 RondaDePreguntas --> Pregunta
 RondaDePreguntas --> "*" Respuesta
 AlgoHoot --> GestorDeTurnos
-GestorDeTurnos -left->"*" Jugador
-PuntajeParcial --> Jugador
+TablaDeJugadores -left->"*" Jugador
+PuntajeParcial -left-> Jugador
 Respuesta ..> PuntajeParcial
+GestorDeTurnos -left-> TablaDeJugadores
 
 PuntajeTotal --> "*" PuntajeParcial
 PuntajeParcial --> "*" ModificadorIndividual
