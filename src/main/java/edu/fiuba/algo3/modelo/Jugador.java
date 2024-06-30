@@ -60,10 +60,6 @@ public class Jugador {
         return this.puntosTotales.obtenerPuntaje();
     }
 
-    public String obtenerNombre() {
-        return this.nombre;
-    }
-
     public void porCadaPoderClasico( OperacionPoderesClasicos operacion ) { operacion.operar(anulador,exclusividad);}
 
     public void porCadaPoderPenalidad( OperacionPoderesPenalidad operacion ) { operacion.operar(anulador,duplicador,triplicador);}

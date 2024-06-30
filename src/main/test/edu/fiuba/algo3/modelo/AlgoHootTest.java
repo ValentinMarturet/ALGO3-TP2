@@ -23,7 +23,7 @@ public class AlgoHootTest {
 
         Jugador jugadorObtenido = (Jugador) ((LinkedList) algoHoot.obtenerJugadores()).getLast();
         // Assert
-        assertEquals(jugador1.obtenerNombre(), jugadorObtenido.obtenerNombre());
+        assertEquals(jugador1, jugadorObtenido);
     }
 
     @Test

@@ -3,6 +3,7 @@ package edu.fiuba.algo3.vista;
 import edu.fiuba.algo3.modelo.AlgoHoot;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Pregunta;
+import edu.fiuba.algo3.vista.elementos.LabelJugadorConPuntaje;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -17,7 +18,7 @@ import static java.lang.Math.floor;
 
 public class VistaFinal extends Scene {
 
-    public VistaFinal(double width, double height, String ganador) {
+    public VistaFinal(double width, double height, Jugador ganador) {
         super(new FlowPane(), width, height);
         FlowPane root = (FlowPane) this.getRoot();
         BackgroundImage imagenFondo = new BackgroundImage(new Image("file:"+System.getProperty("user.dir") + "/src/main/java/edu/fiuba/algo3/resources/imagenes/background.png"), BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
@@ -25,10 +26,11 @@ public class VistaFinal extends Scene {
         root.setBackground(fondo);
         this.getStylesheets().add("styles.css");
 
-
-        Label titulo = new Label(ganador);
-        titulo.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 24px");
-        root.getChildren().add(titulo);
+        ganador.hacerConNombreYPuntaje( (nombre,puntos) -> {
+            LabelJugadorConPuntaje titulo = new LabelJugadorConPuntaje(nombre,puntos,200,100);
+            titulo.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 24px");
+            root.getChildren().add(titulo);
+        });
     }
 
 }

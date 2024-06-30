@@ -11,7 +11,7 @@ public class CambiadorDeVistas {
         AlgoHoot a = AlgoHoot.getInstancia();
         if(a.juegoFinalizado()){
             Jugador jugadorGanador = a.obtenerGanador();
-            Scene escena = new VistaFinal(1280,720, jugadorGanador.obtenerNombre());
+            Scene escena = new VistaFinal(1280,720, jugadorGanador);
             stage.setScene(escena);
         }else{
             Pregunta pregunta = a.obtenerPreguntaActual();
