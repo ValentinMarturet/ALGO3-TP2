@@ -67,4 +67,6 @@ public class Jugador {
     public void porCadaPoderClasico( OperacionPoderesClasicos operacion ) { operacion.operar(anulador,exclusividad);}
 
     public void porCadaPoderPenalidad( OperacionPoderesPenalidad operacion ) { operacion.operar(anulador,duplicador,triplicador);}
+
+    public void hacerConNombreYPuntaje( OperacionNombrePuntaje operacion ) { operacion.operar(nombre,obtenerPuntaje()); }
 }

@@ -15,7 +15,7 @@ import static java.lang.Math.floor;
 public class VistaTableroJugadores extends ListView<LabelJugadorConPuntaje> {
     private final double ancho;
     private final double alto;
-    private List<LabelJugadorConPuntaje> vistasJugadores;
+    private final List<LabelJugadorConPuntaje> vistasJugadores;
     private ListIterator<LabelJugadorConPuntaje> cursorVista;
     private LabelJugadorConPuntaje vistaActual;
     private final List<Jugador> jugadores;
@@ -70,14 +70,14 @@ public class VistaTableroJugadores extends ListView<LabelJugadorConPuntaje> {
     public void actualizarTabla(){
         this.vistasJugadores.clear();
         jugadores.forEach(this::agregarJugador);
+        this.getItems().setAll(vistasJugadores);
     }
 
     private void agregarJugador(Jugador unJugador) {
-        String nombreDeJugador = unJugador.obtenerNombre();
-        int puntosDeJugador = unJugador.obtenerPuntaje();
-        LabelJugadorConPuntaje nuevoJugadorEnVista = new LabelJugadorConPuntaje(nombreDeJugador,puntosDeJugador,ancho*4/5,floor(alto/8));
-        vistasJugadores.add(nuevoJugadorEnVista);
-        this.getItems().setAll(vistasJugadores);
+        unJugador.hacerConNombreYPuntaje(
+                (nombre, puntos) ->
+                vistasJugadores.add(new LabelJugadorConPuntaje(nombre,puntos,ancho*4/5,floor(alto/8)))
+        );
     }
 
 }
