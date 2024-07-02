@@ -18,7 +18,7 @@ public class PreguntaMCParcial implements Pregunta {
 
     public PuntajeParcial responder(Respuesta... respuestas) {
 
-        // Si hay una respuesta incorrecta -> return 0
+        //Si hay una respuesta incorrecta -> return 0
 
         Optional<Opcion> opcionIncorrectaSeleccionada = Arrays.stream(respuestas)
                 .flatMap(r -> opciones.stream()

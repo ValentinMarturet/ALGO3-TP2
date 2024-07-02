@@ -32,7 +32,7 @@ public class PreguntaMC implements Pregunta{
     @Override
     public PuntajeParcial responder(Respuesta... respuestas) {
 
-        // Si hay una respuesta incorrecta -> return 0
+        //Si hay una respuesta incorrecta -> return 0
 
         Optional<Opcion> opcionIncorrectaSeleccionada = Arrays.stream(respuestas)
                 .flatMap(r -> opciones.stream()
@@ -43,7 +43,7 @@ public class PreguntaMC implements Pregunta{
             return new PuntajeParcial(0);
         }
 
-        // Si hay alguna opcion correcta sin seleccionar -> return 0
+        //Si hay alguna opcion correcta sin seleccionar -> return 0
 
         Optional<Opcion> opcionSinSeleccionar = opciones.stream()
                 .filter(op -> op instanceof OpcionCorrecta)
