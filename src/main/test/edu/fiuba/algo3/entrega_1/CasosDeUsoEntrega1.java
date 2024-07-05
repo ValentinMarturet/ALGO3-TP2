@@ -90,6 +90,21 @@ public class CasosDeUsoEntrega1 {
     }
 
     @Test
+    public void testMCRespuestaIncorrectaSola() {
+        // Arrange
+        PreguntaMC p = new PreguntaMC("Animal alado?", "CIENCIAS", "No se tiene un solo registro de un perro con alas",
+                new OpcionCorrecta("Pato"),
+                new OpcionCorrecta("Aguila"),
+                new OpcionIncorrecta("Perro"));
+        PuntajeParcial puntosEsperados = new PuntajeParcial(0);
+
+        // Act
+        PuntajeParcial puntosObtenidos = p.responder( new Respuesta("Perro"));
+
+        // Assert
+        assertEquals( puntosObtenidos, puntosEsperados );
+    }
+    @Test
     public void testMCRespuestaIncorrecta() {
         // Arrange
         PreguntaMC p = new PreguntaMC("Animal alado?","CIENCIAS", "No se tiene un solo registro de un perro con alas",
