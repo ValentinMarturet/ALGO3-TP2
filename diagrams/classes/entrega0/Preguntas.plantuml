@@ -4,57 +4,123 @@ skinparam monochrome true
 hide circle
 skinparam classAttributeIconSize 0
 
-abstract Pregunta <<Abstract>> {
-    - pregunta: String
+interface Pregunta <<Interface>> {
+    + getPregunta(): String
+    + getOpciones(): List<Opcion>
+    + getTipo():String
+    + getTematica():String
+    + getTextoRespuesta(): String
+    + responder(respuestas: List<Respuesta>): PuntajeParcial
+}
+
+class PreguntaVF {
+    - pregunta:String
+    - opcionCorrecta:OpcionCorrecta
+    - opcionIncorrecta:OpcionIncorrecta
     - tematica: String
+    - textoRespuesta: String
+    + PreguntaVF()
+    + getPregunta(): String
+    + getOpciones(): List<Opcion>
+    + getTipo():String
+    + getTematica():String
+    + getTextoRespuesta(): String
+    + responder(respuestas: List<Respuesta>): PuntajeParcial
+}
+
+class PreguntaVFPenalidad{
+    - pregunta:String
+    - opcionCorrecta:OpcionCorrecta
+    - opcionIncorrecta:OpcionIncorrecta
+    - tematica: String
+    - textoRespuesta: String
+    + PreguntaVFPenalidad()
+    + getPregunta(): String
+    + getOpciones(): List<Opcion>
+    + getTipo():String
+    + getTematica():String
+    + getTextoRespuesta(): String
+    + responder(respuestas: List<Respuesta>): PuntajeParcial
+}
+
+class PreguntaMC {
+    - pregunta:String
     - opciones: List<Opcion>
-    + mostrarPanel()
-    + validarSeleccion(s: Seleccion): Puntaje
+    - tematica: String
+    - textoRespuesta: String
+    + PreguntaMC()
+    + getPregunta(): String
+    + getOpciones(): List<Opcion>
+    + responder(List<Repuesta> respuestas):PuntajeParcial
+    + getTipo():String
+    + getTematica():String
+    + getTextoRespuesta(): String
 }
 
-class VerdaderoFalso {
-    - opcionCorrecta: Opcion
-    + mostrarPanel()
-    + validarSeleccion(s: Seleccion): Puntaje
-
+class PreguntaMCParcial {
+    - pregunta:String
+    - opciones: List<Opcion>
+    - tematica: String
+    - textoRespuesta: String
+    + PreguntaMCParcial()
+    + getPregunta(): String
+    + getOpciones(): List<Opcion>
+    + responder(List<Repuesta> respuestas):PuntajeParcial
+    + getTipo():String
+    + getTematica():String
+    + getTextoRespuesta(): String
 }
 
-class MultipleChoice {
-    + mostrarPanel()
-    + validarSeleccion(s: Seleccion): Puntaje
-
+class PreguntaMCPenalidad {
+    - pregunta:String
+    - opciones: List<Opcion>
+    - tematica: String
+    - textoRespuesta: String
+    + PreguntaMCPenalidad()
+    + getPregunta(): String
+    + getOpciones(): List<Opcion>
+    + responder(List<Repuesta> respuestas):PuntajeParcial
+    + getTipo():String
+    + getTematica():String
+    + getTextoRespuesta(): String
 }
 
-class OrderedChoice {
-    - ordenCorrecto
-    + mostrarPanel()
-    + validarSeleccion(s: Seleccion): Puntaje
-
+class PreguntaOC {
+    - pregunta:String
+    - opciones: List<Opcion>
+    - ordenCorrecto: Orden
+    - tematica: String
+    - textoRespuesta: String
+    + PreguntaOC()
+    + getPregunta(): String
+    + getOpciones(): List<Opcion>
+    + responder(respuestas: List<Respuesta>): PuntajeParcial
+    + getTipo():String
+    + getTematica():String
+    + getTextoRespuesta(): String
 }
 
-class GroupChoice {
-    - separacionCorrecta
-    + mostrarPanel()
-    + validarSeleccion(s: Seleccion): Puntaje
-
+class PreguntaGC {
+    - pregunta:String
+    - unGrupo: Grupo
+    - otroGrupo: Grupo
+    - tematica: String
+    - textoRespuesta: String
+    + PreguntaGC()
+    + getPregunta(): String
+    + getOpciones(): List<Opcion>
+    + responder(respuestas: List<Respuesta>): PuntajeParcial
+    + getTipo():String
+    + getTematica():String
+    + getTextoRespuesta(): String
 }
 
-Pregunta <|-down- VerdaderoFalso
-Pregunta <|-down- MultipleChoice
-Pregunta <|-left- OrderedChoice
-Pregunta <|-right- GroupChoice
+Pregunta <|.down. PreguntaVF
+Pregunta <|.down. PreguntaVFPenalidad
+Pregunta <|.down. PreguntaMC
+Pregunta <|.left. PreguntaOC
+Pregunta <|.right. PreguntaGC
+Pregunta <|.up.. PreguntaMCParcial
+Pregunta <|.up.. PreguntaMCPenalidad
 
-interface TipoVF <<Interface>> {
-    + devolverPuntaje(Boolean acierta): Puntaje
-}
-
-VerdaderoFalso -left-> TipoVF
-
-abstract TipoMC <<Abstract>> {
-    - opcionesCorrectas
-    + TipoMC(opcionesCorrectas)
-    + validarSeleccion(s: Seleccion): Puntaje
-}
-
-MultipleChoice -right-> TipoMC
 @enduml
