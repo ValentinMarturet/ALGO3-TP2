@@ -1,0 +1,93 @@
+@startuml
+
+
+package Modelo {
+class AlgoHoot
+class RondaDePreguntas
+class GestorDePreguntas
+
+
+class TablaDeJugadores
+class Jugador
+class PuntajeParcial
+class PuntajeTotal
+interface ModificadorIndividual
+interface ModificadorGlobal
+class Respuesta
+
+class Lector
+interface Pregunta
+}
+
+
+package Modelo.Preguntas {
+class PreguntaGC
+class PreguntaMC
+class PreguntaMCParcial
+class PreguntaMCPenalidad
+class PreguntaOC
+class PreguntaVF
+class PreguntaVFPenalidad
+
+
+}
+
+package Vistas {
+class CambiadorDeVistas
+class FabricaVistasPreguntas
+class VistaConfigurarPartida
+class VistaFinal
+class VistaFinPregunta
+class VistaMenuPrincipal
+class VistaPregunta
+
+}
+
+package Controladores {
+class ControladorConfigurarPartida
+class ControladorInicio
+class ControladorPrincipal
+class ControladorResponder
+class ControladorResponderGC
+class ControladorResponderMC
+class ControladorResponderOC
+class ControladorResponderVF
+
+}
+
+Modelo .up.> Vistas
+Controladores .down.> Modelo
+Vistas .right.> Controladores
+Controladores .left.> Vistas
+
+Pregunta <|.. PreguntaGC
+Pregunta <|.. PreguntaMC
+Pregunta <|.. PreguntaMCParcial
+Pregunta <|.. PreguntaMCPenalidad
+Pregunta <|.. PreguntaOC
+Pregunta <|.. PreguntaVF
+Pregunta <|.. PreguntaVFPenalidad
+
+
+
+
+
+AlgoHoot -down-> GestorDePreguntas
+AlgoHoot -down-> "*" RondaDePreguntas
+GestorDePreguntas o-->"*" Pregunta
+GestorDePreguntas ..> Lector
+RondaDePreguntas --> Pregunta
+RondaDePreguntas --> "*" Respuesta
+TablaDeJugadores -down->"*" Jugador
+PuntajeParcial -left-> Jugador
+Respuesta ..> PuntajeParcial
+AlgoHoot -left-> TablaDeJugadores
+
+PuntajeTotal --> "*" PuntajeParcial
+PuntajeParcial --> "*" ModificadorIndividual
+
+Jugador --> "2" ModificadorIndividual
+RondaDePreguntas -->"*" ModificadorGlobal
+
+
+@enduml

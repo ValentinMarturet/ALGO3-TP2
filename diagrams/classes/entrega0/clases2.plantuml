@@ -42,7 +42,7 @@ class RondaDePreguntas {
     + getPregunta(): Pregunta
 }
 
-class GestorPreguntas {
+class GestorDePreguntas {
     - contador: int
     + GestorPreguntas()
     + obtenerSiguientePregunta(): Pregunta
@@ -105,10 +105,10 @@ class TablaDeJugadores {
 }
 
 
-AlgoHoot -down-> GestorPreguntas
+AlgoHoot -down-> GestorDePreguntas
 AlgoHoot -down-> "*" RondaDePreguntas
-GestorPreguntas o-->"*" Pregunta
-GestorPreguntas ..> Lector
+GestorDePreguntas o-->"*" Pregunta
+GestorDePreguntas ..> Lector
 RondaDePreguntas --> Pregunta
 RondaDePreguntas --> "*" Respuesta
 TablaDeJugadores -down->"*" Jugador
