@@ -167,7 +167,21 @@ public class CasosDeUsoEntrega1 {
         // Assert
         assertEquals( puntosObtenidos, puntosEsperados );
     }
+    @Test
+    public void testMCPenalidad2RespuestasIncorrecta() {
+        // Arrange
+        PreguntaMCPenalidad p = new PreguntaMCPenalidad("Animal alado?","CIENCIAS", "No se tiene un solo registro de un perro con alas",
+                new OpcionCorrecta("Pato"),
+                new OpcionIncorrecta("Vaca"),
+                new OpcionIncorrecta("Perro"));
+        PuntajeParcial puntosEsperados = new PuntajeParcial(-2);
 
+        // Act
+        PuntajeParcial puntosObtenidos = p.responder( new Respuesta("Vaca"), new Respuesta("Perro"));
+
+        // Assert
+        assertEquals( puntosObtenidos, puntosEsperados );
+    }
 }
 
 
