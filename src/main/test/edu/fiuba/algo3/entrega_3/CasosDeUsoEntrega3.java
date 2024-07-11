@@ -4,9 +4,9 @@ import edu.fiuba.algo3.modelo.AlgoHoot.Jugador;
 import edu.fiuba.algo3.modelo.AlgoHoot.RondaDePreguntas;
 import edu.fiuba.algo3.modelo.Preguntas.PreguntaVFPenalidad;
 import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.*;
-import edu.fiuba.algo3.modelo.Respuestas.OpcionCorrecta;
-import edu.fiuba.algo3.modelo.Respuestas.OpcionIncorrecta;
-import edu.fiuba.algo3.modelo.Respuestas.Respuesta;
+import edu.fiuba.algo3.modelo.Preguntas.OpcionCorrecta;
+import edu.fiuba.algo3.modelo.Preguntas.OpcionIncorrecta;
+import edu.fiuba.algo3.modelo.Preguntas.Respuesta;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

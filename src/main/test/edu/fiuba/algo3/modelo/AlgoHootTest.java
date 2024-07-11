@@ -3,12 +3,9 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.AlgoHoot.AlgoHoot;
 import edu.fiuba.algo3.modelo.AlgoHoot.Jugador;
 import edu.fiuba.algo3.modelo.Preguntas.Pregunta;
-import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorGlobal;
-import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorGlobalBase;
-import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorIndividual;
-import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorIndividualBase;
-import edu.fiuba.algo3.modelo.Respuestas.Opcion;
-import edu.fiuba.algo3.modelo.Respuestas.Respuesta;
+import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.*;
+import edu.fiuba.algo3.modelo.Preguntas.Opcion;
+import edu.fiuba.algo3.modelo.Preguntas.Respuesta;
 import edu.fiuba.algo3.modelo.excepciones.ArchivoInexistente;
 import org.junit.jupiter.api.Test;
 
@@ -41,8 +38,6 @@ public class AlgoHootTest {
         AlgoHoot algoHoot = AlgoHoot.getInstancia();
         algoHoot.inicializarGestorDePreguntas();
 
-
-
         // Act
         Pregunta pregunta = algoHoot.obtenerPreguntaActual();
         //System.out.println(pregunta.getPregunta());
@@ -54,6 +49,7 @@ public class AlgoHootTest {
     @Test
     public void test03jugarUnTurno() throws ArchivoInexistente{
         //Arrange
+        AlgoHoot.reiniciarInstancia();
         AlgoHoot algoHoot = AlgoHoot.getInstancia();
         algoHoot.inicializarGestorDePreguntas(false);
 
@@ -98,5 +94,30 @@ public class AlgoHootTest {
         assertEquals(puntosEsperadosJ3, j3.obtenerPuntaje());
     }
 
+    @Test
+    public void test04jugarUnTurnoUsandoExclusividadModificaCorrectamenteElPuntaje() throws ArchivoInexistente {
+        //Arrange
+        AlgoHoot.reiniciarInstancia();
+        AlgoHoot algoHoot = AlgoHoot.getInstancia();
+        algoHoot.inicializarGestorDePreguntas(false);
+        algoHoot.reiniciarListaDeJugadores();
+        Jugador j1 = new Jugador("J1");
+        algoHoot.agregarJugador(j1);
+        algoHoot.comenzarNuevaRondaDePreguntas();
+        int puntosEsperadosJ1 = 2;
+
+        //Act
+        ArrayList<ModificadorIndividual> modsInd = new ArrayList<>();
+        modsInd.add(new ModificadorIndividualBase());
+
+        ArrayList<ModificadorGlobal> modsGlob = new ArrayList<>();
+        modsGlob.add(new Exclusividad());
+
+        algoHoot.jugarRondaDePreguntas(j1, modsInd, modsGlob, new Respuesta("Microondas"), new Respuesta("Televisor de tubo CRT"), new Respuesta("Heladera"), new Respuesta("Imanes del delivery"));
+        algoHoot.terminarRondaDePreguntas();
+        
+        //Arrange
+        assertEquals(puntosEsperadosJ1, j1.obtenerPuntaje());
+    }
 
 }

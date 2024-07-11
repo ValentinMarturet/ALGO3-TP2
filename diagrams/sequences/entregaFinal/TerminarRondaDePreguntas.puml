@@ -1,0 +1,25 @@
+@startuml TerminarRondaDePreguntas
+skinparam monochrome true
+hide footbox
+skinparam classAttributeIconSize 0
+
+actor AlgoHoot as ah
+participant ":RondaDePreguntas" as r
+participant ":ModificadorGlobal" as mg
+participant ":PuntajeParcial" as pp
+
+ah -> r: terminar()
+activate r
+    loop por cada modificador global usado en la ronda
+        r -> mg: modificar(listaPuntajesParciales)
+        activate mg
+        deactivate mg
+    end
+    loop por cada puntaje parcial
+        r -> pp: sumarAlPuntajeDelJugador()
+        activate pp
+        deactivate pp
+    end
+deactivate
+
+@enduml

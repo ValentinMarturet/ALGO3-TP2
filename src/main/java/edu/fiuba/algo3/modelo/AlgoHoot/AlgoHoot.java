@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo.AlgoHoot;
 import edu.fiuba.algo3.modelo.Preguntas.Pregunta;
 import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorGlobal;
 import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorIndividual;
-import edu.fiuba.algo3.modelo.Respuestas.Respuesta;
+import edu.fiuba.algo3.modelo.Preguntas.Respuesta;
 import edu.fiuba.algo3.modelo.excepciones.ArchivoInexistente;
 
 import java.util.LinkedList;

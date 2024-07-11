@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.Preguntas.Pregunta;
 import edu.fiuba.algo3.modelo.Preguntas.PreguntaMC;
 import edu.fiuba.algo3.modelo.Preguntas.PreguntaMCParcial;
 import edu.fiuba.algo3.modelo.Preguntas.PreguntaMCPenalidad;
-import edu.fiuba.algo3.modelo.Respuestas.Opcion;
+import edu.fiuba.algo3.modelo.Preguntas.Opcion;
 import edu.fiuba.algo3.vista.elementos.BotonMC;
 import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
 import javafx.geometry.Pos;

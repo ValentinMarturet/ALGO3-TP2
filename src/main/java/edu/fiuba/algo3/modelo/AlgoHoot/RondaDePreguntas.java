@@ -4,7 +4,7 @@ import edu.fiuba.algo3.modelo.Preguntas.Pregunta;
 import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorGlobal;
 import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorIndividual;
 import edu.fiuba.algo3.modelo.Puntuacion.Puntajes.PuntajeParcial;
-import edu.fiuba.algo3.modelo.Respuestas.Respuesta;
+import edu.fiuba.algo3.modelo.Preguntas.Respuesta;
 
 import java.util.ArrayList;
 import java.util.List;

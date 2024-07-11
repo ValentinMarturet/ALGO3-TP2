@@ -2,8 +2,8 @@ package edu.fiuba.algo3.modelo.Fabricas;
 
 import edu.fiuba.algo3.modelo.Preguntas.Pregunta;
 import edu.fiuba.algo3.modelo.Preguntas.PreguntaGC;
-import edu.fiuba.algo3.modelo.Respuestas.Grupo;
-import edu.fiuba.algo3.modelo.Respuestas.Opcion;
+import edu.fiuba.algo3.modelo.Preguntas.Grupo;
+import edu.fiuba.algo3.modelo.Preguntas.Opcion;
 import org.json.JSONObject;
 
 import java.util.List;

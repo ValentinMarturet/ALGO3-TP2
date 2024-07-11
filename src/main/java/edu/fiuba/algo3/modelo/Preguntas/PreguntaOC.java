@@ -1,9 +1,6 @@
 package edu.fiuba.algo3.modelo.Preguntas;
 
 import edu.fiuba.algo3.modelo.Puntuacion.Puntajes.PuntajeParcial;
-import edu.fiuba.algo3.modelo.Respuestas.Opcion;
-import edu.fiuba.algo3.modelo.Respuestas.Orden;
-import edu.fiuba.algo3.modelo.Respuestas.Respuesta;
 
 import java.util.LinkedList;
 import java.util.List;

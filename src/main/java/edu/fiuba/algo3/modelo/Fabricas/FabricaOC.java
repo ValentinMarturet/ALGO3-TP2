@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Fabricas;
 
-import edu.fiuba.algo3.modelo.Respuestas.Opcion;
+import edu.fiuba.algo3.modelo.Preguntas.Opcion;
 import edu.fiuba.algo3.modelo.Preguntas.Pregunta;
 import edu.fiuba.algo3.modelo.Preguntas.PreguntaOC;
 import org.json.JSONObject;

@@ -1,10 +1,10 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Preguntas.*;
-import edu.fiuba.algo3.modelo.Respuestas.Grupo;
-import edu.fiuba.algo3.modelo.Respuestas.Opcion;
-import edu.fiuba.algo3.modelo.Respuestas.OpcionCorrecta;
-import edu.fiuba.algo3.modelo.Respuestas.OpcionIncorrecta;
+import edu.fiuba.algo3.modelo.Preguntas.Grupo;
+import edu.fiuba.algo3.modelo.Preguntas.Opcion;
+import edu.fiuba.algo3.modelo.Preguntas.OpcionCorrecta;
+import edu.fiuba.algo3.modelo.Preguntas.OpcionIncorrecta;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;

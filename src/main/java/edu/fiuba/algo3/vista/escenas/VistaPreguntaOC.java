@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.vista.escenas;
 
 import edu.fiuba.algo3.controladores.ControladorResponderOC;
-import edu.fiuba.algo3.modelo.Respuestas.Opcion;
+import edu.fiuba.algo3.modelo.Preguntas.Opcion;
 import edu.fiuba.algo3.modelo.Preguntas.PreguntaOC;
 import edu.fiuba.algo3.vista.elementos.CeldaOrdenable;
 import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;

@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Respuestas;
+package edu.fiuba.algo3.modelo.Preguntas;
 
 import edu.fiuba.algo3.modelo.Puntuacion.Puntajes.PuntajeParcial;
 

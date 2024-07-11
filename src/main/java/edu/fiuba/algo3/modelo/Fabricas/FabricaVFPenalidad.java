@@ -2,8 +2,8 @@ package edu.fiuba.algo3.modelo.Fabricas;
 
 import edu.fiuba.algo3.modelo.Preguntas.Pregunta;
 import edu.fiuba.algo3.modelo.Preguntas.PreguntaVFPenalidad;
-import edu.fiuba.algo3.modelo.Respuestas.OpcionCorrecta;
-import edu.fiuba.algo3.modelo.Respuestas.OpcionIncorrecta;
+import edu.fiuba.algo3.modelo.Preguntas.OpcionCorrecta;
+import edu.fiuba.algo3.modelo.Preguntas.OpcionIncorrecta;
 import org.json.JSONObject;
 
 public class FabricaVFPenalidad implements Fabrica {

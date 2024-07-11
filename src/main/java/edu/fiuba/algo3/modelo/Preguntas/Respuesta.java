@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Respuestas;
+package edu.fiuba.algo3.modelo.Preguntas;
 
 public class Respuesta {
     private String respuesta;

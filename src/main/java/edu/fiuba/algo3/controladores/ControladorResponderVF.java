@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.controladores;
 
-import edu.fiuba.algo3.modelo.Respuestas.Respuesta;
+import edu.fiuba.algo3.modelo.Preguntas.Respuesta;
 import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.AlgoHoot.Jugador;
 import edu.fiuba.algo3.modelo.Preguntas.Pregunta;
 import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorGlobal;
 import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorIndividual;
-import edu.fiuba.algo3.modelo.Respuestas.Respuesta;
+import edu.fiuba.algo3.modelo.Preguntas.Respuesta;
 import edu.fiuba.algo3.vista.escenas.VistaFinPregunta;
 import edu.fiuba.algo3.vista.escenas.VistaPregunta;
 import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
