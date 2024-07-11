@@ -35,10 +35,10 @@ public class PreguntaMC implements Pregunta{
     public PuntajeParcial responder(Respuesta... respuestas) {
 
         //Si hay una respuesta incorrecta -> return 0
-
+        Opcion filtroOpcionIncorrecta = new OpcionIncorrecta("");
         Optional<Opcion> opcionIncorrectaSeleccionada = Arrays.stream(respuestas)
                 .flatMap(r -> opciones.stream()
-                        .filter(op -> op instanceof OpcionIncorrecta && op.equals(r)))
+                        .filter(op -> op.getClass().equals(filtroOpcionIncorrecta.getClass()) && op.equals(r)))
                 .findAny();
 
         if (opcionIncorrectaSeleccionada.isPresent()) {
@@ -46,9 +46,9 @@ public class PreguntaMC implements Pregunta{
         }
 
         //Si hay alguna opcion correcta sin seleccionar -> return 0
-
+        Opcion filtroOpcionCorrecta = new OpcionCorrecta("");
         Optional<Opcion> opcionSinSeleccionar = opciones.stream()
-                .filter(op -> op instanceof OpcionCorrecta)
+                .filter(op -> op.getClass().equals(filtroOpcionCorrecta.getClass()))
                 .filter(op -> Arrays.stream(respuestas)
                         .noneMatch(op::equals))
                 .findAny();

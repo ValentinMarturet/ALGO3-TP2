@@ -1,8 +1,8 @@
-@startuml TerminarRondaDePreguntas
+@startuml test04jugarUnTurnoUsandoExclusividadModificaCorrectamenteElPuntaje
 skinparam monochrome true
 hide footbox
 skinparam classAttributeIconSize 0
-actor ":ControladorResponder" as cr
+actor "TestCase" as test
 participant ":AlgoHoot" as ah
 participant ":RondaDePreguntas" as r
 participant ":ModificadorGlobal" as mg
@@ -22,5 +22,4 @@ activate r
         deactivate pp
     end
 deactivate r
-
 @enduml

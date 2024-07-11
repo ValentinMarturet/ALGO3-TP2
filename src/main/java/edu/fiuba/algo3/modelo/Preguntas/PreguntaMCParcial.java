@@ -21,10 +21,10 @@ public class PreguntaMCParcial implements Pregunta {
     public PuntajeParcial responder(Respuesta... respuestas) {
 
         //Si hay una respuesta incorrecta -> return 0
-
+        Opcion filtroOpcionIncorrecta = new OpcionIncorrecta("");
         Optional<Opcion> opcionIncorrectaSeleccionada = Arrays.stream(respuestas)
                 .flatMap(r -> opciones.stream()
-                        .filter(op -> op instanceof OpcionIncorrecta && op.equals(r)))
+                        .filter(op -> op.getClass().equals(filtroOpcionIncorrecta.getClass()) && op.equals(r)))
                 .findAny();
 
         if (opcionIncorrectaSeleccionada.isPresent()) {

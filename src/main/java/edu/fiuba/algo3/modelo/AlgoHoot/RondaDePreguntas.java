@@ -41,7 +41,7 @@ public class RondaDePreguntas {
 
         modificadoresGlobales.forEach(m -> m.aplicar(puntajes));
 
-        puntajes.forEach(PuntajeParcial::actualizarPuntajeDelJugador);
+        puntajes.forEach(PuntajeParcial::sumarPuntajeDelJugador);
     }
 
     public Pregunta getPregunta() {
