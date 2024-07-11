@@ -1,0 +1,52 @@
+@startuml
+
+
+class Opcion {
+    - opcion: String
+    + Opcion(opcion: String)
+    + getOpcion(): String
+    + equals(res: Respuesta): bool
+    + puntuar(res: Respuesta): PuntajeParcial
+}
+
+class OpcionCorrecta {
+    + puntuar(res: Respuesta): PuntajeParcial
+}
+
+class OpcionIncorrecta {
+    + puntuar(res: Respuesta): PuntajeParcial
+}
+
+class Orden {
+    + Orden()
+    + puntuar(respuesta: Respuesta[]): PuntajeParcial
+    + equals(respuesta: Respuesta[]): bool
+}
+
+class Grupo {
+    - nombre: String
+    + Grupo(nombre: String, opciones: Opcion[])
+    + Grupo(opciones: Opcion[])
+    + puntuar(respuesta: Respuesta[]): PuntajeParcial
+    + getNombre(): String
+    + getOpciones(): List<Opcion>
+}
+
+class Respuesta {
+    - respuesta:String
+    + Respuesta(respuesta:String)
+    + equals(opcion:String): bool
+}
+
+
+Opcion <|-- OpcionCorrecta
+Opcion <|-- OpcionIncorrecta
+
+Opcion "*" <-up- Orden
+Opcion "*" <-up- Grupo
+
+Respuesta <.. Opcion
+Respuesta <.. Orden
+Respuesta <.. Grupo
+
+@enduml

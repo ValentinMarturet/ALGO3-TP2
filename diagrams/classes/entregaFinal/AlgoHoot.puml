@@ -58,24 +58,31 @@ class Jugador {
     + hacerConNombreYPuntaje(:OperacionNombrePuntaje):void
 }
 
-class Respuesta {
-    - respuesta:String
-    + Respuesta(respuesta:String)
-    + equals(opcion:String): bool
-}
+
 
 class TablaDeJugadores {
     + obtenerJugadorConMayorPuntaje(): Jugador
 }
 
+interface OperacionPoderesClasicos {
+    + operar(anulador: ModificadorGlobal, exclusividad: ModificadorGlobal): void
+}
+interface OperacionNombrePuntaje {
+    + operar(nombre: String, puntos: int): void
+}
+interface OperacionPoderesPenalidad {
+    + operar(anulador: ModificadorGlobal, duplicador: ModificadorIndividual, triplicador: ModificadorIndividual)
+}
+
 
 AlgoHoot --> "*" RondaDePreguntas
 AlgoHoot --> GestorDePreguntas
-AlgoHoot -right-> TablaDeJugadores
+AlgoHoot ---> TablaDeJugadores
 
-TablaDeJugadores --> "*" Jugador
+TablaDeJugadores -right-> "*" Jugador
 
-RondaDePreguntas ..> Respuesta
-
+Jugador .> OperacionNombrePuntaje
+Jugador .> OperacionPoderesClasicos
+Jugador ..> OperacionPoderesPenalidad
 
 @enduml
