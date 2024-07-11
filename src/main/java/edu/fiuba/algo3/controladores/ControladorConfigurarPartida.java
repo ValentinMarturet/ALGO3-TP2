@@ -41,6 +41,16 @@ public class ControladorConfigurarPartida implements EventHandler<ActionEvent>  
 
     @Override
     public void handle(ActionEvent actionEvent) {
+        AlgoHoot a = AlgoHoot.getInstancia();
+        try {
+            a.inicializarGestorDePreguntas();
+        } catch (ArchivoInexistente e) {
+            Alert archivoInexistente = new Alert(Alert.AlertType.ERROR);
+            archivoInexistente.setTitle("Archivo no encontrado");
+            archivoInexistente.setHeaderText("No se encontró el archivo de preguntas.");
+            archivoInexistente.show();
+        }
+
         if (jugadores.getItems().isEmpty() || limitePreguntas.getText().isEmpty() || limitePuntaje.getText().isEmpty()) {
             if (!sonidoError.isPlaying()) sonidoError.play();
             if (jugadores.getItems().isEmpty()) {
@@ -55,23 +65,21 @@ public class ControladorConfigurarPartida implements EventHandler<ActionEvent>  
                 highlight(limitePuntaje);
                 temblor(limitePuntaje);
             }
+        } else if (limitePreguntas.obtenerNumero() > a.obtenerMaximoPreguntas()) {
+            if (!sonidoError.isPlaying()) sonidoError.play();
+            Alert maximoPreguntasExcedido = new Alert(Alert.AlertType.ERROR);
+            maximoPreguntasExcedido.setTitle("Máximo de Preguntas Excedido");
+            maximoPreguntasExcedido.setHeaderText("No hay suficientes preguntas cargadas para jugar.");
+            maximoPreguntasExcedido.setContentText("Por favor ingresar un número igual o menor a " + a.obtenerMaximoPreguntas() + ".");
+            maximoPreguntasExcedido.show();
         } else {
-            AlgoHoot a = AlgoHoot.getInstancia();
-            try {
-                a.inicializarGestorDePreguntas();
                 jugadores.getItems().forEach(j -> {
                     a.agregarJugador(new Jugador(j));
                 });
                 VistaTableroJugadores tablero = new VistaTableroJugadores(a.obtenerJugadores(), 368,640);
-                a.setMaximoPreguntas(Integer.parseInt(limitePreguntas.getText()));
-                a.setPuntajeMaximo(Integer.parseInt(limitePuntaje.getText()));
+                a.setMaximoPreguntas(limitePreguntas.obtenerNumero());
+                a.setPuntajeMaximo(limitePuntaje.obtenerNumero());
                 CambiadorDeVistas.cambiarVistaANuevaPregunta(stage,tablero);
-            } catch (ArchivoInexistente e) {
-                Alert archivoInexistente = new Alert(Alert.AlertType.ERROR);
-                archivoInexistente.setTitle("Archivo no encontrado");
-                archivoInexistente.setHeaderText("No se encontró el archivo de preguntas.");
-                archivoInexistente.show();
-            }
         }
     }
 

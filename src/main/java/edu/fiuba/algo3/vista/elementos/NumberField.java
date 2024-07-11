@@ -27,4 +27,8 @@ public class NumberField extends TextField {
                 "-fx-font-size: 32;" +
                 "-fx-text-alignment: center;");
     }
+
+    public int obtenerNumero() {
+        return Integer.parseInt(getText());
+    }
 }

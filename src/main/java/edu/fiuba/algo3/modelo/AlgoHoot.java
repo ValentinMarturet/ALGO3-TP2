@@ -106,4 +106,5 @@ public class AlgoHoot {
         return null;
     }
 
+    public int obtenerMaximoPreguntas() {return gestorDePreguntas.obtenerMaximoPreguntas();}
 }

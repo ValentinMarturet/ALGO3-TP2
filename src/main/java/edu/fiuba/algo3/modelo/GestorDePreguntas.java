@@ -70,5 +70,8 @@ public class GestorDePreguntas {
         }
         return listaCopia;
     }
-    
+
+    public int obtenerMaximoPreguntas() {
+        return preguntas.size();
+    }
 }
