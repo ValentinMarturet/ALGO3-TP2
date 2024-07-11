@@ -1,9 +1,10 @@
-package edu.fiuba.algo3.vista;
+package edu.fiuba.algo3.vista.escenas;
 
 import edu.fiuba.algo3.controladores.ControladorResponderGC;
 import edu.fiuba.algo3.modelo.Opcion;
 import edu.fiuba.algo3.modelo.PreguntaGC;
 import edu.fiuba.algo3.vista.elementos.BotonGC;
+import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

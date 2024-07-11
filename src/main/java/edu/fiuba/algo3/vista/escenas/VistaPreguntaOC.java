@@ -1,9 +1,10 @@
-package edu.fiuba.algo3.vista;
+package edu.fiuba.algo3.vista.escenas;
 
 import edu.fiuba.algo3.controladores.ControladorResponderOC;
 import edu.fiuba.algo3.modelo.Opcion;
 import edu.fiuba.algo3.modelo.PreguntaOC;
 import edu.fiuba.algo3.vista.elementos.CeldaOrdenable;
+import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;

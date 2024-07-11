@@ -1,21 +1,10 @@
 package edu.fiuba.algo3;
 
 import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.vista.*;
-import edu.fiuba.algo3.vista.elementos.LogoMenu;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
+import edu.fiuba.algo3.vista.escenas.*;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
-import java.util.Random;
 
 public class AppTests extends Application {
 

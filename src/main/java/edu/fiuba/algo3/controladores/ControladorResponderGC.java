@@ -1,9 +1,7 @@
 package edu.fiuba.algo3.controladores;
 
 import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.modelo.excepciones.JugadorInexistente;
-import edu.fiuba.algo3.vista.CambiadorDeVistas;
-import edu.fiuba.algo3.vista.VistaTableroJugadores;
+import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
 import edu.fiuba.algo3.vista.elementos.BotonGC;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

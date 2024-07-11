@@ -1,8 +1,9 @@
-package edu.fiuba.algo3.vista;
+package edu.fiuba.algo3.vista.escenas;
 
 import edu.fiuba.algo3.controladores.ControladorResponderMC;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.vista.elementos.BotonMC;
+import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;

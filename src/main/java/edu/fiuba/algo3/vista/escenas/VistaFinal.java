@@ -1,9 +1,10 @@
-package edu.fiuba.algo3.vista;
+package edu.fiuba.algo3.vista.escenas;
 
 import edu.fiuba.algo3.modelo.AlgoHoot;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.vista.elementos.BotonVF;
 import edu.fiuba.algo3.vista.elementos.LabelJugadorConPuntaje;
+import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;

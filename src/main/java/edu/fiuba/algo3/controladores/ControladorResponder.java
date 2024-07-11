@@ -1,12 +1,11 @@
 package edu.fiuba.algo3.controladores;
 
 import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.vista.CambiadorDeVistas;
-import edu.fiuba.algo3.vista.VistaPregunta;
-import edu.fiuba.algo3.vista.VistaTableroJugadores;
+import edu.fiuba.algo3.vista.escenas.VistaFinPregunta;
+import edu.fiuba.algo3.vista.escenas.VistaPregunta;
+import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
 import edu.fiuba.algo3.vista.elementos.BotonPoderGlobal;
 import edu.fiuba.algo3.vista.elementos.BotonPoderIndividual;
-import edu.fiuba.algo3.vista.elementos.CustomToggleButton;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -86,12 +85,20 @@ public abstract class ControladorResponder implements EventHandler<ActionEvent> 
             Jugador jugadorActual = tablero.obtenerJugadorActual();
             a.jugarRondaDePreguntas(jugadorActual,mi,mg,respuestas);
             a.terminarRondaDePreguntas();
-            CambiadorDeVistas.cambiarAVistaFin(stage,tablero);
+            cambiarAVistaFin(stage,tablero);
         }else{
             Jugador jugadorActual = tablero.obtenerJugadorActual();
             a.jugarRondaDePreguntas(jugadorActual,mi,mg,respuestas);
             tablero.siguienteJugador();
             reestablecerPregunta();
         }
+    }
+
+    private void cambiarAVistaFin(Stage stage, VistaTableroJugadores tablero){
+        AlgoHoot a = AlgoHoot.getInstancia();
+        Pregunta pregunta = a.obtenerPreguntaActual();
+        tablero.actualizarTabla();
+        VistaFinPregunta nuevaVista = new VistaFinPregunta(stage,1280,720, pregunta.getTextoRespuesta(),tablero);
+        stage.setScene(nuevaVista);
     }
 }

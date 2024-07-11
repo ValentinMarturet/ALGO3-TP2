@@ -1,7 +1,6 @@
 package edu.fiuba.algo3;
 
-import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.vista.*;
+import edu.fiuba.algo3.vista.escenas.VistaMenuPrincipal;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;

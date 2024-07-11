@@ -1,12 +1,8 @@
-package edu.fiuba.algo3.vista;
+package edu.fiuba.algo3.vista.escenas;
 
 import edu.fiuba.algo3.controladores.ControladorResponder;
-import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Pregunta;
-import edu.fiuba.algo3.vista.elementos.ConjuntoPoderes;
-import edu.fiuba.algo3.vista.elementos.ConjuntoPoderesClasicos;
-import edu.fiuba.algo3.vista.elementos.ConjuntoPoderesPenalidad;
-import edu.fiuba.algo3.vista.elementos.CustomToggleButton;
+import edu.fiuba.algo3.vista.elementos.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -17,9 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.Math.floor;
 

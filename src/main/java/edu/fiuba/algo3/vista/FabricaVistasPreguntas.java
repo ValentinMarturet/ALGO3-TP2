@@ -1,6 +1,11 @@
 package edu.fiuba.algo3.vista;
 
 import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
+import edu.fiuba.algo3.vista.escenas.VistaPreguntaGC;
+import edu.fiuba.algo3.vista.escenas.VistaPreguntaMC;
+import edu.fiuba.algo3.vista.escenas.VistaPreguntaOC;
+import edu.fiuba.algo3.vista.escenas.VistaPreguntaVF;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
