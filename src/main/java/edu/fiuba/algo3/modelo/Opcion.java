@@ -22,4 +22,3 @@ public class Opcion {
         return new PuntajeParcial(0);
     }
 }
-

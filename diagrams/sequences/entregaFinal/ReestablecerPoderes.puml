@@ -1,0 +1,35 @@
+@startuml ReestablecerPoderesParaJugadorActual
+skinparam monochrome true
+hide footbox
+skinparam classAttributeIconSize 0
+
+
+actor ":ControladorResponder" as cr
+participant "v:VistaPregunta" as v
+participant "c:ConjuntoPoderesClasicos" as c
+participant "bP:ArrayList<>" as bP
+participant "actual:Jugador" as ja
+participant "ba:BotonAnulador" as ba
+participant "be:BotonExclusividad" as be
+
+
+cr -> v: reestablecerPoderes()
+activate v
+    v -> c: reestablecer(actual)
+    activate c
+        c -> ja: porCadaPoderClasico(\n(a,e) -> {\nbP.add(new BotonAnulador(a));\nbP.add(new BotonExclusividad(e))}
+        activate ja
+            create ba
+            ja -> ba: BotonAnulador(anulador)
+            ja -> bP: add(ba)
+            activate bP
+            deactivate bP
+            create be
+            ja -> be: BotonExclusividad(exclusividad)
+            ja -> bP: add(be)
+            activate bP
+            deactivate bP
+        deactivate ja
+    deactivate c
+deactivate v
+@enduml

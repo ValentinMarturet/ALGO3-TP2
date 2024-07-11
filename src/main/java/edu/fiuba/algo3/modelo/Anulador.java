@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo;
 import java.util.List;
 
 public class Anulador implements ModificadorGlobal{
-    private Jugador jugador;
+    private final Jugador jugador;
     public Anulador(Jugador jugador) {
         this.jugador = jugador;
     }

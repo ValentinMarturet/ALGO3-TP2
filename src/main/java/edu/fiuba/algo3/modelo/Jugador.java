@@ -46,12 +46,6 @@ public class Jugador {
         }
     }
 
-    public boolean tieneDisponible(Object mod) {
-        return exclusividad.getClass().equals(mod.getClass()) || anulador.getClass().equals(mod.getClass()) ||
-                duplicador.getClass().equals(mod.getClass()) || triplicador.getClass().equals(mod.getClass());
-    }
-
-
     public void sumarPuntos(PuntajeParcial puntos) {
         this.puntosTotales.agregar(puntos);
     }
