@@ -15,7 +15,7 @@ package Modelo.Puntuacion {
 package Modelo.AlgoHoot {
 }
 
-package Modelo.Respuestas {
+package Modelo.Preguntas.Respuestas {
 
 }
 
@@ -35,15 +35,17 @@ package Controladores {
 }
 
 AlgoHoot -right-> Puntajes
-AlgoHoot --> Preguntas
+AlgoHoot -left-> Preguntas
 AlgoHoot ..> Fabricas
 Puntajes --> AlgoHoot
 Fabricas ..> Preguntas
 Puntajes --> Modificadores
 AlgoHoot --> Modificadores
-AlgoHoot ..> Respuestas
-Preguntas -> Respuestas
-Fabricas ..> Respuestas
+'AlgoHoot ..> Respuestas
+'Preguntas -> Respuestas
+'Fabricas ..> Respuestas
+Preguntas ..> Puntajes
+
 
 
 Modelo .up.> Vistas
