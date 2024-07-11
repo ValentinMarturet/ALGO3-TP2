@@ -49,9 +49,7 @@ public abstract class ControladorResponder implements EventHandler<ActionEvent> 
                     if (m instanceof BotonPoderIndividual) {
                         // Si está seleccionado devuelve el modificador correspondiente
                         // si no devuelve null
-                        ModificadorIndividual mod = ((BotonPoderIndividual) m).obtenerModificador();
-                        tablero.obtenerJugadorActual().gastar(mod);
-                        return mod;
+                        return ((BotonPoderIndividual) m).obtenerModificador();
                     }
                     return null;
                 })
@@ -65,9 +63,7 @@ public abstract class ControladorResponder implements EventHandler<ActionEvent> 
                     if (m instanceof BotonPoderGlobal) {
                         // Si está seleccionado devuelve el modificador correspondiente
                         // si no devuelve null
-                        ModificadorGlobal mod = ((BotonPoderGlobal) m).obtenerModificador();
-                        tablero.obtenerJugadorActual().gastar(mod);
-                        return mod;
+                        return ((BotonPoderGlobal) m).obtenerModificador();
                     }
                     return null;
                 })

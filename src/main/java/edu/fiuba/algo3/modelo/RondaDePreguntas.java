@@ -20,9 +20,13 @@ public class RondaDePreguntas {
 
         puntos.establecerJugador(j);
 
-        modsInd.forEach(puntos::agregarModificador);
+        modsInd.forEach(mi -> {
+            puntos.agregarModificador(mi);
+            j.gastar(mi);
+        });
 
         modificadoresGlobales.addAll(modsGlob);
+        modsGlob.forEach(j::gastar);
 
         puntajes.add(puntos);
     }
