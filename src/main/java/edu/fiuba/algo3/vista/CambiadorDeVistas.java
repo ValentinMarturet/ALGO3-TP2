@@ -10,8 +10,7 @@ public class CambiadorDeVistas {
     public static void cambiarVistaANuevaPregunta(Stage stage, VistaTableroJugadores tablero){
         AlgoHoot a = AlgoHoot.getInstancia();
         if(a.juegoFinalizado()){
-            Jugador jugadorGanador = a.obtenerGanador();
-            Scene escena = new VistaFinal(1280,720, jugadorGanador);
+            Scene escena = new VistaFinal(stage,1280,720, tablero);
             stage.setScene(escena);
         }else{
             Pregunta pregunta = a.obtenerPreguntaActual();

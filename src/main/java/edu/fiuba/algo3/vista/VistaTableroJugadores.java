@@ -6,9 +6,7 @@ import javafx.event.Event;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 import static java.lang.Math.floor;
 
@@ -78,6 +76,12 @@ public class VistaTableroJugadores extends ListView<LabelJugadorConPuntaje> {
                 (nombre, puntos) ->
                 vistasJugadores.add(new LabelJugadorConPuntaje(nombre,puntos,ancho*4/5,floor(alto/8)))
         );
+    }
+
+    public void ordenarPorPuntajes() {
+        jugadores.sort(Comparator.comparingInt(Jugador::obtenerPuntaje));
+        Collections.reverse(jugadores);
+        actualizarTabla();
     }
 
 }

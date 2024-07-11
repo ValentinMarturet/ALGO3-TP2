@@ -36,7 +36,6 @@ public class FabricaMCParcial implements Fabrica {
                     opcionesTotales.add(new OpcionIncorrecta(opcionActual));
                 }
             }catch (Exception e){
-                System.out.println("No existe la opcion en "+pregunta);
             }
         }
         Opcion[] opciones = opcionesTotales.toArray(new Opcion[opcionesTotales.size()]);

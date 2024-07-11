@@ -48,7 +48,6 @@ public class FabricaMCPenalidad implements Fabrica{
                 }
 
             }catch (Exception e){ /*JSONException*/
-                System.out.println("No existe la opcion en "+pregunta);
             }
         }
         Opcion[] opciones = opcionesTotales.toArray(new Opcion[opcionesTotales.size()]);

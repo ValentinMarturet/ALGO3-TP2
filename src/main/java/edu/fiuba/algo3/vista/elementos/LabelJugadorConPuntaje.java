@@ -34,7 +34,7 @@ public class LabelJugadorConPuntaje extends FlowPane {
 
     public void resaltar() {
         this.setStyle(
-                "-fx-background-color: dodgerblue;"
+                "-fx-background-color: deepskyblue;"
         );
     }
 

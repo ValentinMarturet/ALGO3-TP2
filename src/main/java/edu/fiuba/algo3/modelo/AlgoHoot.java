@@ -33,6 +33,10 @@ public class AlgoHoot {
         return instancia;
     }
 
+    public static void reiniciarInstancia() {
+        instancia = new AlgoHoot();
+    }
+
     public void setPuntajeMaximo(int puntajeMaximo) {this.puntajeMaximo = puntajeMaximo;}
     public void setMaximoPreguntas(int maximoPreguntas) {this.maximoPreguntas = maximoPreguntas;}
 
