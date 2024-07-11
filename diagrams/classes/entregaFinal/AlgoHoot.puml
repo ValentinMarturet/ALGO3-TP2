@@ -1,0 +1,81 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class AlgoHoot {
+    - instancia: AlgoHoot
+    - maximoPreguntas: int
+    - puntajeMaximo: int
+    + {static}getInstancia(): AlgoHoot
+    + setPuntajeMaximo(int): void
+    + setMaximoPreguntas(int):void
+    + inicializarGestorDePreguntas():void
+    + comenzarNuevaRondaDePreguntas(): void
+    + jugarRondaDePreguntas(j:Jugador ,modsInd:List<ModificadorIndividual> ,modsGlob:List<ModificadorGlobal> ,respuestas:List<Respuesta>): void
+    + terminarRondaDePreguntas(): void
+    + obtenerPreguntaActual(): Pregunta
+    + agregarJugador(jugador:Jugador):void
+    + obtenerJugadores(): TablaDeJugadores
+    + reiniciarListaDeJugadores(): void
+    + juegoFinalizado(): bool
+    + obtenerGanador(): Jugador
+    - obtenerJugadorConMayorPuntaje(): Jugador
+}
+
+class RondaDePreguntas {
+    - pregunta: Pregunta
+    - puntajes:List<PuntajeParcial>
+    - modificadoresGlobales: List<ModificadorGlobal>
+    + RondaDePreguntas(pregunta:Pregunta, ordenDeRonda:OrdenDeRonda)
+    + jugar(j:Jugador,modsInd:List<ModificadorIndividual> ,modsGlob:List<ModificadorGlobal>,respuestas: List<Respuesta>): void
+    + terminar(): void
+    + getPregunta(): Pregunta
+}
+
+class GestorDePreguntas {
+    - contador: int
+    - preguntas: List<Pregunta>
+    + GestorPreguntas()
+    + obtenerSiguientePregunta(): Pregunta
+    - mezclarPreguntas(preguntas:List<Pregunta>): void
+    - insertarEnLaLista(listaNormal:List<Pregunta>, listaDeNoAgregados:List<Pregunta>): List<Pregunta>
+}
+
+class Jugador {
+    - nombre: str
+    - puntosTotales: PuntajeTotal
+    - duplicador: ModificadorIndividual
+    - triplicador: ModificadorIndividual
+    - anulador: ModificadorGlobal
+    - exclusividad: ModificadorGlobal
+    + Jugador(nombre:String):void
+    + gastar(mod:ModificadorIndividual):void
+    + obtenerPuntaje(): int
+    + sumarPuntos(puntaje:int):void
+    + equals(jugador:Jugador): bool
+    + tieneNombre(String): bool
+    + porCadaPoderClasico(:OperacionPoderesClasicos): void
+    + porCadaPoderPenalidad(:OperacionPoderesPenalidad):void
+    + hacerConNombreYPuntaje(:OperacionNombrePuntaje):void
+}
+
+class Respuesta {
+    - respuesta:String
+    + Respuesta(respuesta:String)
+    + equals(opcion:String): bool
+}
+
+class TablaDeJugadores {
+    + obtenerJugadorConMayorPuntaje(): Jugador
+}
+
+
+AlgoHoot --> "*" RondaDePreguntas
+AlgoHoot --> GestorDePreguntas
+AlgoHoot -right-> TablaDeJugadores
+
+TablaDeJugadores --> "*" Jugador
+
+RondaDePreguntas ..> Respuesta
+
+
+@enduml

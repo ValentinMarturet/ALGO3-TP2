@@ -1,0 +1,131 @@
+@startuml clasesGenerales
+
+skinparam monochrome false
+/'skinparam monochrome true'/
+/'hide circle '/
+skinparam classAttributeIconSize 0
+
+interface Pregunta {
+    + getPregunta(): String
+    + getOpciones(): List<Opcion>
+    + responder(respuestas:List<Respuesta>): PuntajeParcial
+    + getTematica(): String
+    + getTextoRespuesta(): String
+}
+class AlgoHoot {
+    - instancia: AlgoHoot
+    - maximoPreguntas: int
+    - puntajeMaximo: int
+    + {static}getInstancia(): AlgoHoot
+    + setPuntajeMaximo(int): void
+    + setMaximoPreguntas(int):void
+    + inicializarGestorDePreguntas():void
+    + comenzarNuevaRondaDePreguntas(): void
+    + jugarRondaDePreguntas(j:Jugador ,modsInd:List<ModificadorIndividual> ,modsGlob:List<ModificadorGlobal> ,respuestas:List<Respuesta>): void
+    + terminarRondaDePreguntas(): void
+    + obtenerPreguntaActual(): Pregunta
+    + agregarJugador(jugador:Jugador):void
+    + obtenerJugadores(): TablaDeJugadores
+    + reiniciarListaDeJugadores(): void
+    + juegoFinalizado(): bool
+    + obtenerGanador(): Jugador
+    - obtenerJugadorConMayorPuntaje(): Jugador
+}
+
+
+
+class RondaDePreguntas {
+    + RondaDePreguntas(pregunta:Pregunta, ordenDeRonda:OrdenDeRonda)
+    + jugar(j:Jugador,modsInd:List<ModificadorIndividual> ,modsGlob:List<ModificadorGlobal>,respuestas: List<Respuesta>): void
+    + terminar(): void
+    + getPregunta(): Pregunta
+}
+
+class GestorDePreguntas {
+    - contador: int
+    + GestorPreguntas()
+    + obtenerSiguientePregunta(): Pregunta
+    - mezclarPreguntas(preguntas:List<Pregunta>): void
+    - insertarEnLaLista(listaNormal:List<Pregunta>, listaDeNoAgregados:List<Pregunta>): List<Pregunta>
+}
+
+class Jugador {
+    - nombre: str
+    + Jugador(nombre:String):void
+    + gastar(mod:ModificadorIndividual):void
+    + obtenerPuntaje(): int
+    + sumarPuntos(puntaje:int):void
+    + equals(jugador:Jugador): bool
+    + obtenerNombre(): String
+}
+
+class Respuesta {
+    - respuesta:String
+    + Respuesta(respuesta:String)
+    + equals(opcion:String): bool
+}
+
+
+
+class Lector{
+    +cargarPreguntas(): List<Pregunta>
+}
+
+interface ModificadorIndividual{
+    + {abstract} modificar(unPuntaje:int): int
+}
+
+interface ModificadorGlobal{
+    +aplicar(puntajes:List<PuntajeParcial>): void
+}
+
+class PuntajeParcial{
+    -puntajeBase:int
+    +PuntajeParcial()
+    +PuntajeParcial(puntajeInicial:int)
+    +sumar(otroPuntaje:PuntajeParcial):void
+    +establecerJugador(jugador:Jugador):void
+    +agregarModificador(mod:ModificadorIndividual):void
+    +obtenerPuntos():int
+    +equals(puntaje:Object):
+    +perteneceA(j:Jugador):bool
+    +actualizarPuntajeDelJugador():void
+}
+
+class PuntajeTotal {
+    + agregar(puntos: PuntajeParcial): void
+    + obtenerPuntaje(): int
+
+}
+
+class TablaDeJugadores {
+    + obtenerJugadorConMayorPuntaje(): Jugador
+}
+
+
+AlgoHoot -down-> GestorDePreguntas
+AlgoHoot -down-> "*" RondaDePreguntas
+GestorDePreguntas o-->"*" Pregunta
+GestorDePreguntas ..> Lector
+RondaDePreguntas --> Pregunta
+RondaDePreguntas ..> Respuesta
+TablaDeJugadores -down->"*" Jugador
+PuntajeParcial -left-> Jugador
+RondaDePreguntas --> "*" PuntajeParcial
+Pregunta ..> Respuesta
+AlgoHoot -left-> TablaDeJugadores
+
+Jugador -up-> PuntajeTotal
+
+Jugador --> "2" ModificadorGlobal
+
+PuntajeTotal --> "*" PuntajeParcial
+PuntajeParcial --> "*" ModificadorIndividual
+
+Jugador --> "2" ModificadorIndividual
+RondaDePreguntas -->"*" ModificadorGlobal
+
+ModificadorGlobal ..> PuntajeParcial
+
+
+@enduml

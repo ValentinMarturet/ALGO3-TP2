@@ -1,0 +1,50 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package Fabricas {
+
+    class Lector {
+        + cargarPreguntas(): List<Pregunta>
+    }
+
+    interface Fabrica {
+        + crearPregunta(datos: JSONObject): Pregunta
+    }
+
+    class FabricaGC {
+        + crearPregunta(datos: JSONObject): Pregunta
+    }
+    class FabricaMC {
+        + crearPregunta(datos: JSONObject): Pregunta
+    }
+    class FabricaMCParcial {
+        + crearPregunta(datos: JSONObject): Pregunta
+    }
+    class FabricaMCPenalidad {
+        + crearPregunta(datos: JSONObject): Pregunta
+    }
+    class FabricaOC {
+        + crearPregunta(datos: JSONObject): Pregunta
+    }
+    class FabricaVF {
+        + crearPregunta(datos: JSONObject): Pregunta
+    }
+    class FabricaVFPenalidad {
+        + crearPregunta(datos: JSONObject): Pregunta
+    }
+
+}
+
+Lector ..> Fabrica
+
+Fabrica <|.up. FabricaGC
+Fabrica <|.up. FabricaMC
+Fabrica <|.left. FabricaMCParcial
+Fabrica <|.. FabricaMCPenalidad
+Fabrica <|.. FabricaOC
+Fabrica <|.. FabricaVF
+Fabrica <|.right. FabricaVFPenalidad
+
+
+
+@enduml

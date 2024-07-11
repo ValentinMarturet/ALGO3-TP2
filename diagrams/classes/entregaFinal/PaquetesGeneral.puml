@@ -1,0 +1,57 @@
+@startuml
+
+
+package Modelo <<Frame>> {
+
+}
+
+
+package Modelo.Preguntas {
+}
+package Modelo.Fabricas {
+}
+package Modelo.Puntuacion {
+}
+package Modelo.AlgoHoot {
+}
+
+package Modelo.Puntuacion.Modificadores {
+
+}
+package Modelo.Puntuacion.Puntajes {
+
+}
+package Vistas {
+
+
+}
+
+package Controladores {
+
+}
+
+AlgoHoot -right-> Puntajes
+AlgoHoot --> Preguntas
+AlgoHoot ..> Fabricas
+Puntajes --> AlgoHoot
+Fabricas ..> Preguntas
+Puntajes --> Modificadores
+AlgoHoot --> Modificadores
+
+
+Modelo .up.> Vistas
+Controladores .down.> Modelo
+Vistas .right.> Controladores
+Controladores .left.> Vistas
+
+
+
+
+
+
+
+
+
+
+
+@enduml

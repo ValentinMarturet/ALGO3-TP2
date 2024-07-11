@@ -1,0 +1,82 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package Puntuacion {
+
+
+    interface ModificadorIndividual{
+        + {abstract} modificar(unPuntaje:int): int
+    }
+
+    class ModificadorNulo {
+        +modificar(unPuntaje: int): int
+    }
+
+    class ModificadorIndividualBase {
+        + modificar(unPuntaje: int): int
+    }
+
+    class Duplicador {
+        + modificar(unPuntaje: int): int
+    }
+
+    class Triplicador {
+        + modificar()(unPuntaje: int): int
+    }
+
+    interface ModificadorGlobal{
+        + aplicar(puntajes:List<PuntajeParcial>): void
+    }
+
+    class ModificadorGlobalBase {
+        + aplicar(puntajes:List<PuntajeParcial>): void
+    }
+
+    class Anulador {
+        - jugador: Jugador
+        + Anulador(jugador: Jugador)
+        + aplicar(puntajes:List<PuntajeParcial>): void
+    }
+
+    class Exclusividad {
+        + aplicar(puntajes:List<PuntajeParcial>): void
+    }
+
+    class PuntajeParcial{
+        - puntajeBase:int
+        - jugador: Jugador
+        + PuntajeParcial()
+        + PuntajeParcial(puntajeInicial:int)
+        + sumar(otroPuntaje:PuntajeParcial):void
+        + establecerJugador(jugador:Jugador):void
+        + agregarModificador(mod:ModificadorIndividual):void
+        + obtenerPuntos():int
+        + equals(puntaje:Object):
+        + perteneceA(j:Jugador):bool
+        + actualizarPuntajeDelJugador():void
+    }
+
+    class PuntajeTotal {
+        + PuntajeTotal()
+        + agregar(puntos: PuntajeParcial): void
+        + obtenerPuntaje(): int
+    }
+
+}
+
+
+PuntajeTotal --> "*" PuntajeParcial
+PuntajeParcial --> "*" ModificadorIndividual
+
+ModificadorGlobal <|.. ModificadorGlobalBase
+ModificadorGlobal <|.. Anulador
+ModificadorGlobal <|.. Exclusividad
+
+ModificadorGlobal ..> PuntajeParcial
+
+ModificadorIndividual <|.. ModificadorNulo
+ModificadorIndividual <|.. ModificadorIndividualBase
+ModificadorIndividual <|.. Duplicador
+ModificadorIndividual <|.. Triplicador
+
+@enduml
