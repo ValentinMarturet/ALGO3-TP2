@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.controladores;
 
-import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.AlgoHoot.AlgoHoot;
+import edu.fiuba.algo3.modelo.Preguntas.*;
 import edu.fiuba.algo3.vista.escenas.*;
 import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
 import javafx.scene.Scene;

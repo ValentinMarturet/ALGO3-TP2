@@ -1,8 +1,12 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Preguntas.*;
+import edu.fiuba.algo3.modelo.Respuestas.Grupo;
+import edu.fiuba.algo3.modelo.Respuestas.Opcion;
+import edu.fiuba.algo3.modelo.Respuestas.OpcionCorrecta;
+import edu.fiuba.algo3.modelo.Respuestas.OpcionIncorrecta;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;

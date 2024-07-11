@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.vista.elementos;
 
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.AlgoHoot.Jugador;
 import javafx.event.Event;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;

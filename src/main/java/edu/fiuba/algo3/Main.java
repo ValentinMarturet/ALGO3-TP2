@@ -1,7 +1,7 @@
 package edu.fiuba.algo3;
 
-import edu.fiuba.algo3.modelo.Lector;
-import edu.fiuba.algo3.modelo.Pregunta;
+import edu.fiuba.algo3.modelo.Fabricas.Lector;
+import edu.fiuba.algo3.modelo.Preguntas.Pregunta;
 
 import java.util.ArrayList;
 

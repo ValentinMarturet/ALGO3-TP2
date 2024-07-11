@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.vista.elementos;
 
-import edu.fiuba.algo3.modelo.Anulador;
-import edu.fiuba.algo3.modelo.ModificadorGlobal;
+import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.Anulador;
+import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorGlobal;
 import javafx.scene.image.Image;
 
 public class BotonAnulador extends CustomToggleButton implements BotonPoderGlobal {

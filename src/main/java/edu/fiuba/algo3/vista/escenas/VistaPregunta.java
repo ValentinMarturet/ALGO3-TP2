@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.vista.escenas;
 
 import edu.fiuba.algo3.controladores.ControladorResponder;
-import edu.fiuba.algo3.modelo.Pregunta;
+import edu.fiuba.algo3.modelo.Preguntas.Pregunta;
 import edu.fiuba.algo3.vista.elementos.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

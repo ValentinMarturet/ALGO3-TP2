@@ -1,7 +1,15 @@
 package edu.fiuba.algo3.entrega_1;
 
+import edu.fiuba.algo3.modelo.Preguntas.PreguntaMC;
+import edu.fiuba.algo3.modelo.Preguntas.PreguntaMCPenalidad;
+import edu.fiuba.algo3.modelo.Preguntas.PreguntaVF;
+import edu.fiuba.algo3.modelo.Preguntas.PreguntaVFPenalidad;
+import edu.fiuba.algo3.modelo.Puntuacion.Puntajes.PuntajeParcial;
+import edu.fiuba.algo3.modelo.Respuestas.OpcionCorrecta;
+import edu.fiuba.algo3.modelo.Respuestas.OpcionIncorrecta;
+import edu.fiuba.algo3.modelo.Respuestas.Respuesta;
 import org.junit.jupiter.api.Test;
-import edu.fiuba.algo3.modelo.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CasosDeUsoEntrega1 {

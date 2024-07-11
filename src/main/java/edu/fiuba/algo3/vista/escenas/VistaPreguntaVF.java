@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.vista.escenas;
 
 import edu.fiuba.algo3.controladores.ControladorResponderVF;
-import edu.fiuba.algo3.modelo.PreguntaVF;
-import edu.fiuba.algo3.modelo.PreguntaVFPenalidad;
+import edu.fiuba.algo3.modelo.Preguntas.PreguntaVF;
+import edu.fiuba.algo3.modelo.Preguntas.PreguntaVFPenalidad;
 import edu.fiuba.algo3.vista.elementos.BotonVF;
 import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
 import javafx.geometry.Pos;

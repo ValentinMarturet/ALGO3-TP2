@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.vista.escenas;
 
 import edu.fiuba.algo3.controladores.CambiadorDeVistas;
-import edu.fiuba.algo3.modelo.AlgoHoot;
+import edu.fiuba.algo3.modelo.AlgoHoot.AlgoHoot;
 import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
 import javafx.geometry.Insets;
 import javafx.scene.Node;

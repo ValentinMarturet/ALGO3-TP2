@@ -1,6 +1,15 @@
 package edu.fiuba.algo3;
 
-import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.AlgoHoot.AlgoHoot;
+import edu.fiuba.algo3.modelo.AlgoHoot.Jugador;
+import edu.fiuba.algo3.modelo.Preguntas.PreguntaGC;
+import edu.fiuba.algo3.modelo.Preguntas.PreguntaMC;
+import edu.fiuba.algo3.modelo.Preguntas.PreguntaOC;
+import edu.fiuba.algo3.modelo.Preguntas.PreguntaVF;
+import edu.fiuba.algo3.modelo.Respuestas.Grupo;
+import edu.fiuba.algo3.modelo.Respuestas.Opcion;
+import edu.fiuba.algo3.modelo.Respuestas.OpcionCorrecta;
+import edu.fiuba.algo3.modelo.Respuestas.OpcionIncorrecta;
 import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
 import edu.fiuba.algo3.vista.escenas.*;
 import javafx.application.Application;

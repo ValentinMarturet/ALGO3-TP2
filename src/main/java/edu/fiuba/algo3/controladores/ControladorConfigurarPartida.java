@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.controladores;
 
-import edu.fiuba.algo3.modelo.AlgoHoot;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.AlgoHoot.AlgoHoot;
+import edu.fiuba.algo3.modelo.AlgoHoot.Jugador;
 import edu.fiuba.algo3.modelo.excepciones.ArchivoInexistente;
 import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
 import edu.fiuba.algo3.vista.elementos.NumberField;

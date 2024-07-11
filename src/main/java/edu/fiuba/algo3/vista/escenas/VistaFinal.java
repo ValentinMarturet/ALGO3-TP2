@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.vista.escenas;
 
-import edu.fiuba.algo3.modelo.AlgoHoot;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.AlgoHoot.AlgoHoot;
+import edu.fiuba.algo3.modelo.AlgoHoot.Jugador;
 import edu.fiuba.algo3.vista.elementos.BotonVF;
 import edu.fiuba.algo3.vista.elementos.LabelJugadorConPuntaje;
 import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;

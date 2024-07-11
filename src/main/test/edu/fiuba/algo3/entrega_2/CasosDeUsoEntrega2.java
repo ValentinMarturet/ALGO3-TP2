@@ -1,6 +1,10 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.AlgoHoot.Jugador;
+import edu.fiuba.algo3.modelo.Preguntas.*;
+import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.*;
+import edu.fiuba.algo3.modelo.Puntuacion.Puntajes.PuntajeParcial;
+import edu.fiuba.algo3.modelo.Respuestas.*;
 import org.junit.jupiter.api.Test;
 
 

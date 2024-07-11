@@ -1,5 +1,14 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.AlgoHoot.AlgoHoot;
+import edu.fiuba.algo3.modelo.AlgoHoot.Jugador;
+import edu.fiuba.algo3.modelo.Preguntas.Pregunta;
+import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorGlobal;
+import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorGlobalBase;
+import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorIndividual;
+import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorIndividualBase;
+import edu.fiuba.algo3.modelo.Respuestas.Opcion;
+import edu.fiuba.algo3.modelo.Respuestas.Respuesta;
 import edu.fiuba.algo3.modelo.excepciones.ArchivoInexistente;
 import org.junit.jupiter.api.Test;
 

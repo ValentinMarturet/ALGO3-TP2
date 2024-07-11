@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.vista.elementos;
 
-import edu.fiuba.algo3.modelo.Duplicador;
-import edu.fiuba.algo3.modelo.ModificadorIndividual;
+import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.Duplicador;
+import edu.fiuba.algo3.modelo.Puntuacion.Modificadores.ModificadorIndividual;
 import javafx.scene.image.Image;
 
 public class BotonDuplicador extends CustomToggleButton implements BotonPoderIndividual {

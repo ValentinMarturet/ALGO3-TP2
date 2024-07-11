@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.AlgoHoot.GestorDePreguntas;
+import edu.fiuba.algo3.modelo.Preguntas.Pregunta;
 import edu.fiuba.algo3.modelo.excepciones.ArchivoInexistente;
 import org.junit.jupiter.api.Test;
 
