@@ -9,8 +9,8 @@ participant ":AlgoHoot" as ah
 participant ":RondaDePreguntas" as r
 participant ":Exclusividad" as ex
 participant ":Anulador" as an
-participant "listaPP:ListaDePuntajeParcial>" as pp
-participant "unPuntaje:PuntajeParcial" as uP
+participant ":PuntajeParcial" as uP
+participant "listaPP:ListaDePuntajeParcial" as pp
 
 
 test -> ah: terminarRondaDePreguntas()
@@ -19,16 +19,19 @@ ah -> r: terminar()
 activate r
     loop por cada modificador global usado en la ronda
         alt es Exclusividad
-        r -> ex: modificar(listaPP)
+        r -> ex: aplicar(listaPP)
         activate ex
-            ex -> pp: obtenerUnicoPuntajeNoNulo()
+            ex -> pp: contarPuntajesNoNulos()
             activate pp
-                alt hay un unico puntaje no nulo
-                    ex <-- pp: unPuntaje
+            ex <-- pp: cantidadPuntajesNulos
+            deactivate pp
+                alt cantidadPuntajesNulos == 1
+                    loop para cada puntaje de la lista
 
                     ex -> uP: agregarModificador(new Duplicador())
-
-                    note right
+                    activate uP
+                    deactivate uP
+                    note left
                         se agrega un
                         Duplicador
                         (multilpicador x2)
@@ -36,22 +39,21 @@ activate r
                         modificadores
                         del puntaje
                     endnote
-                    activate uP
-                    deactivate uP
+                    end
+
+
                 end
-                alt no hay ningun puntaje no nulo \n|| hay mas de un puntaje no nulo
-                    ex <-- pp: null
-                end
-            deactivate pp
+
+
         deactivate ex
 
         end
         alt es Anulador
-        r -> an: modificar(listaPP)
+        r -> an: aplicar(listaPP)
         activate an
             loop para cada jugador que no haya usado el Anulador
                 an -> uP: agregarModificador(new ModificadorNulo())
-                note right
+                note left
                     se agrega un
                     ModificadorNulo
                     (multilpicador x0)
@@ -66,9 +68,9 @@ activate r
         end
     end
     loop por cada puntaje parcial
-        r -> pp: forEach(PuntajeParcial::sumarAlPuntajeDelJugador)
-        activate pp
-        deactivate pp
+        r -> uP: sumarAlPuntajeDelJugador()
+        activate uP
+        deactivate uP
     end
 deactivate r
 @enduml
