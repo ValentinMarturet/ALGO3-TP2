@@ -1,0 +1,29 @@
+@startuml iniciarRondaDePreguntas
+skinparam monochrome true
+hide footbox
+skinparam classAttributeIconSize 0
+
+actor "Controlador" as cr
+participant "ah:AlgoHoot" as ah
+participant "gp:GestorDePreguntas" as gp
+participant "rp:RondaDePreguntas" as rp
+participant "puntajes:List" as puntajes
+participant "modificadoresGlobales:List" as modificadoresGlobales
+
+
+cr -> ah:comenzarNuevaRondaDePreguntas()
+activate ah
+
+ah -> gp: obtenerSiguientePregunta()
+activate gp
+    gp --> ah: pr
+deactivate gp
+
+create rp
+    ah -> rp:new RondaDePreguntas(pr)
+    create puntajes
+        rp -> puntajes: new ArrayList()
+    create modificadoresGlobales
+        rp -> modificadoresGlobales: new ArrayList()
+
+@enduml

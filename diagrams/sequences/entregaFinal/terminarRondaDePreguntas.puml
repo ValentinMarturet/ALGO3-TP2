@@ -1,0 +1,74 @@
+@startuml terminarRondaDePreguntas
+skinparam monochrome true
+hide footbox
+skinparam classAttributeIconSize 0
+
+
+actor "Controlador" as test
+participant ":AlgoHoot" as ah
+participant ":RondaDePreguntas" as r
+participant ":Exclusividad" as ex
+participant ":Anulador" as an
+participant "listaPP:ListaDePuntajeParcial>" as pp
+participant "unPuntaje:PuntajeParcial" as uP
+
+
+test -> ah: terminarRondaDePreguntas()
+activate ah
+ah -> r: terminar()
+activate r
+    loop por cada modificador global usado en la ronda
+        alt es Exclusividad
+        r -> ex: modificar(listaPP)
+        activate ex
+            ex -> pp: obtenerUnicoPuntajeNoNulo()
+            activate pp
+                alt hay un unico puntaje no nulo
+                    ex <-- pp: unPuntaje
+
+                    ex -> uP: agregarModificador(new Duplicador())
+
+                    note right
+                        se agrega un
+                        Duplicador
+                        (multilpicador x2)
+                        a la lista de
+                        modificadores
+                        del puntaje
+                    endnote
+                    activate uP
+                    deactivate uP
+                end
+                alt no hay ningun puntaje no nulo \n|| hay mas de un puntaje no nulo
+                    ex <-- pp: null
+                end
+            deactivate pp
+        deactivate ex
+
+        end
+        alt es Anulador
+        r -> an: modificar(listaPP)
+        activate an
+            loop para cada jugador que no haya usado el Anulador
+                an -> uP: agregarModificador(new ModificadorNulo())
+                note right
+                    se agrega un
+                    ModificadorNulo
+                    (multilpicador x0)
+                    a la lista de
+                    modificadores
+                    del puntaje
+                endnote
+                activate uP
+                deactivate uP
+            end
+        deactivate an
+        end
+    end
+    loop por cada puntaje parcial
+        r -> pp: forEach(PuntajeParcial::sumarAlPuntajeDelJugador)
+        activate pp
+        deactivate pp
+    end
+deactivate r
+@enduml

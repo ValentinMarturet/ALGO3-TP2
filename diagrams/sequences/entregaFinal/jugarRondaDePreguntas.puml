@@ -1,0 +1,61 @@
+@startuml jugarRondaDePreguntas
+skinparam monochrome true
+hide footbox
+skinparam classAttributeIconSize 0
+
+
+actor "Controlador" as cr
+participant ":AlgoHoot" as ah
+
+participant ":RondaDePreguntas" as rp
+participant "puntajes:List" as puntajes
+participant "pu:PuntajeParcial" as pu
+participant "jug:Jugador" as j
+participant "pr:PreguntaVF" as pr
+participant ":OpcionCorrecta" as oc
+
+
+
+cr -> ah: jugarRondaDePreguntas(jug, modsIndividuales,\n modsGlobales,\n respuesta)
+
+ah -> rp: jugar(jug, modsIndividuales,\n modsGlobales,\n respuesta)
+activate rp
+    rp -> pr: responder(respuesta)
+        activate pr
+            pr -> oc: puntuar(respuesta)
+            create pu
+            activate oc
+                oc -> pu: new PuntajeParcial(1)
+                pr <-- oc: pu
+                note left
+                    El jugador responde
+                    correctamente, entonces
+                    se puntua con un punto
+                endnote
+            deactivate oc
+        pr --> rp: pu
+        deactivate pr
+
+    rp -> pu: establecerJugador(jug)
+    activate pu
+    deactivate pu
+    loop para cada ModificadorIndividual "m" de mi
+        rp -> pu :agregarModificador(m)
+        activate pu
+        deactivate pu
+
+        rp -> j: gastar(m)
+        activate j
+        deactivate j
+
+    end
+    loop para cada ModificadorGlobal "m" de mg
+            rp -> rp: almacenar(m)
+            rp -> j: gastar(m)
+            activate j
+            deactivate j
+
+        end
+
+
+@enduml
