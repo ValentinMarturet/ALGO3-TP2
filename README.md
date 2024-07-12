@@ -22,3 +22,5 @@ Este repositorio se encuentra bajo la Licencia MIT.
 ## Informe
 
 El informe puede encontrarse en [este enlace](https://es.overleaf.com/read/zzttxpfxgpbh#42b585)
+
+El PDF del informe se puede encontrar [aqui](TP2-AlgoHoot-Grupo06.pdf).
