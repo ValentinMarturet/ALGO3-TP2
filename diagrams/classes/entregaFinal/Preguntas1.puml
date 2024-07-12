@@ -7,7 +7,8 @@ package Preguntas {
 interface Pregunta {
     + getPregunta(): String
     + getOpciones(): List<Opcion>
-    + responder(respuestas:List<Respuesta>): PuntajeParcial
+    + responder(rtas: List<Respuesta>): PuntajeParcial
+    + getTipo():String
     + getTematica(): String
     + getTextoRespuesta(): String
 }
@@ -18,13 +19,13 @@ class PreguntaVF {
     - opcionIncorrecta:OpcionIncorrecta
     - tematica: String
     - textoRespuesta: String
-    + PreguntaVF()
+    + PreguntaVF(p:String, t:String, rta:String,\nopC:OpcionCorrecta, opI:OpcionIncorrecta)
     + getPregunta(): String
     + getOpciones(): List<Opcion>
     + getTipo():String
     + getTematica():String
     + getTextoRespuesta(): String
-    + responder(respuestas: List<Respuesta>): PuntajeParcial
+    + responder(rtas: List<Respuesta>): PuntajeParcial
 }
 
 class PreguntaVFPenalidad{
@@ -33,13 +34,13 @@ class PreguntaVFPenalidad{
     - opcionIncorrecta:OpcionIncorrecta
     - tematica: String
     - textoRespuesta: String
-    + PreguntaVFPenalidad()
+    + PreguntaVFPenalidad(p:String, t:String, rta:String,\nopC:OpcionCorrecta, opI:OpcionIncorrecta)
     + getPregunta(): String
     + getOpciones(): List<Opcion>
     + getTipo():String
     + getTematica():String
     + getTextoRespuesta(): String
-    + responder(respuestas: List<Respuesta>): PuntajeParcial
+    + responder(rtas: List<Respuesta>): PuntajeParcial
 }
 
 class PreguntaMC {
@@ -47,10 +48,10 @@ class PreguntaMC {
     - opciones: List<Opcion>
     - tematica: String
     - textoRespuesta: String
-    + PreguntaMC()
+    + PreguntaMC(p:String, t:String, rta:String,\n ops:List<Opcion>)
     + getPregunta(): String
     + getOpciones(): List<Opcion>
-    + responder(List<Repuesta> respuestas):PuntajeParcial
+    + responder(rtas: List<Respuesta>):PuntajeParcial
     + getTipo():String
     + getTematica():String
     + getTextoRespuesta(): String
@@ -61,10 +62,10 @@ class PreguntaMCParcial {
     - opciones: List<Opcion>
     - tematica: String
     - textoRespuesta: String
-    + PreguntaMCParcial()
+    + PreguntaMCParcial(p:String, t:String, rta:String,\n ops:List<Opcion>)
     + getPregunta(): String
     + getOpciones(): List<Opcion>
-    + responder(List<Repuesta> respuestas):PuntajeParcial
+    + responder(rtas: List<Respuesta>):PuntajeParcial
     + getTipo():String
     + getTematica():String
     + getTextoRespuesta(): String
@@ -75,10 +76,10 @@ class PreguntaMCPenalidad {
     - opciones: List<Opcion>
     - tematica: String
     - textoRespuesta: String
-    + PreguntaMCPenalidad()
+    + PreguntaMCPenalidad(p:String, t:String, rta:String,\n ops:List<Opcion>)
     + getPregunta(): String
     + getOpciones(): List<Opcion>
-    + responder(List<Repuesta> respuestas):PuntajeParcial
+    + responder(rtas: List<Respuesta>):PuntajeParcial
     + getTipo():String
     + getTematica():String
     + getTextoRespuesta(): String
@@ -90,10 +91,10 @@ class PreguntaOC {
     - ordenCorrecto: Orden
     - tematica: String
     - textoRespuesta: String
-    + PreguntaOC()
+    + PreguntaOC(p:String, t:String, rta:String,\n ops:List<Opcion>
     + getPregunta(): String
     + getOpciones(): List<Opcion>
-    + responder(respuestas: List<Respuesta>): PuntajeParcial
+    + responder(rtas: List<Respuesta>): PuntajeParcial
     + getTipo():String
     + getTematica():String
     + getTextoRespuesta(): String
@@ -105,10 +106,10 @@ class PreguntaGC {
     - otroGrupo: Grupo
     - tematica: String
     - textoRespuesta: String
-    + PreguntaGC()
+    + PreguntaGC(p:String, t:String, rta:String,\n unGrupo:Grupo, otroGrupo:Grupo)
     + getPregunta(): String
     + getOpciones(): List<Opcion>
-    + responder(respuestas: List<Respuesta>): PuntajeParcial
+    + responder(rtas: List<Respuesta>): PuntajeParcial
     + getTipo():String
     + getTematica():String
     + getTextoRespuesta(): String

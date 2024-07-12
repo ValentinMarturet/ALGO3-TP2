@@ -10,15 +10,22 @@ participant ":AlgoHoot" as ah
 participant ":RondaDePreguntas" as rp
 participant "puntajes:List" as puntajes
 participant "pu:PuntajeParcial" as pu
-participant "jug:Jugador" as j
+participant "j:Jugador" as j
 participant "pr:PreguntaVF" as pr
 participant ":OpcionCorrecta" as oc
 
 
 
-cr -> ah: jugarRondaDePreguntas(jug, modsIndividuales,\n modsGlobales,\n respuesta)
-
-ah -> rp: jugar(jug, modsIndividuales,\n modsGlobales,\n respuesta)
+cr -> ah: jugarRondaDePreguntas(j, modsInd,\n modsGlob, respuesta)
+ah -> rp: jugar(j, modsInd,\n modsGlob, respuesta)
+note left
+    modsInd es una lista
+    de ModificadorIndividual
+    (Duplicador, Triplicador)
+    modsGlob es una lista
+    de ModificadorGlobal
+    (Anulador, Exclusividad)
+endnote
 activate rp
     rp -> pr: responder(respuesta)
         activate pr
@@ -39,7 +46,7 @@ activate rp
     rp -> pu: establecerJugador(jug)
     activate pu
     deactivate pu
-    loop para cada ModificadorIndividual "m" de mi
+    loop para cada ModificadorIndividual "m" de modsInd
         rp -> pu :agregarModificador(m)
         activate pu
         deactivate pu
@@ -49,7 +56,7 @@ activate rp
         deactivate j
 
     end
-    loop para cada ModificadorGlobal "m" de mg
+    loop para cada ModificadorGlobal "m" de modsGlob
             rp -> rp: almacenar(m)
             rp -> j: gastar(m)
             activate j

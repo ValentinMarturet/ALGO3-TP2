@@ -42,9 +42,8 @@ public class AlgoHoot {
     }
 
     public void setPuntajeMaximo(int puntajeMaximo) {this.puntajeMaximo = puntajeMaximo;}
+
     public void setMaximoPreguntas(int maximoPreguntas) {this.maximoPreguntas = maximoPreguntas;}
-
-
 
     public void inicializarGestorDePreguntas() throws ArchivoInexistente {
         gestorDePreguntas = new GestorDePreguntas();
@@ -91,24 +90,14 @@ public class AlgoHoot {
         tablaDeJugadores.clear();
     }
 
-    private Jugador obtenerJugadorConMayorPuntaje(){
-        return tablaDeJugadores.obtenerJugadorConMayorPuntaje();
-    }
-
     public boolean juegoFinalizado(){
-        if(obtenerJugadorConMayorPuntaje().obtenerPuntaje()>=puntajeMaximo || preguntasJugadas>=maximoPreguntas){
-            return true;
-        } else{
-            return false;
-        }
+        return tablaDeJugadores.obtenerGanador() != null;
     }
 
     public Jugador obtenerGanador(){
-        if(this.juegoFinalizado()){
-            return obtenerJugadorConMayorPuntaje();
-        }
-        return null;
+        return tablaDeJugadores.obtenerGanador();
     }
 
     public int obtenerMaximoPreguntas() {return gestorDePreguntas.obtenerMaximoPreguntas();}
+    public int obtenerPuntosParaGanar() {return puntajeMaximo;}
 }

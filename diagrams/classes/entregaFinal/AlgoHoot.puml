@@ -6,12 +6,14 @@ class AlgoHoot {
     - instancia: AlgoHoot
     - maximoPreguntas: int
     - puntajeMaximo: int
+    - AlgoHoot()
     + {static}getInstancia(): AlgoHoot
+    + {static}reiniciarInstancia(): void
     + setPuntajeMaximo(int): void
     + setMaximoPreguntas(int):void
     + inicializarGestorDePreguntas():void
     + comenzarNuevaRondaDePreguntas(): void
-    + jugarRondaDePreguntas(j:Jugador ,modsInd:List<ModificadorIndividual> ,modsGlob:List<ModificadorGlobal> ,respuestas:List<Respuesta>): void
+    + jugarRondaDePreguntas(j:Jugador ,modsInd:List<ModificadorIndividual>,\nmodsGlob:List<ModificadorGlobal>, respuestas:List<Respuesta>): void
     + terminarRondaDePreguntas(): void
     + obtenerPreguntaActual(): Pregunta
     + agregarJugador(jugador:Jugador):void
@@ -19,15 +21,16 @@ class AlgoHoot {
     + reiniciarListaDeJugadores(): void
     + juegoFinalizado(): bool
     + obtenerGanador(): Jugador
-    - obtenerJugadorConMayorPuntaje(): Jugador
+    + obtenerMaximoPreguntas(): int
+    + obtenerPuntosParaGanar(): int
 }
 
 class RondaDePreguntas {
     - pregunta: Pregunta
     - puntajes:List<PuntajeParcial>
     - modificadoresGlobales: List<ModificadorGlobal>
-    + RondaDePreguntas(pregunta:Pregunta, ordenDeRonda:OrdenDeRonda)
-    + jugar(j:Jugador,modsInd:List<ModificadorIndividual> ,modsGlob:List<ModificadorGlobal>,respuestas: List<Respuesta>): void
+    + RondaDePreguntas(pregunta:Pregunta)
+    + jugar(j:Jugador,modsInd:List<ModificadorIndividual>,\nmodsGlob:List<ModificadorGlobal>, respuestas: List<Respuesta>): void
     + terminar(): void
     + getPregunta(): Pregunta
 }
@@ -38,7 +41,7 @@ class GestorDePreguntas {
     + GestorPreguntas()
     + obtenerSiguientePregunta(): Pregunta
     - mezclarPreguntas(preguntas:List<Pregunta>): void
-    - insertarEnLaLista(listaNormal:List<Pregunta>, listaDeNoAgregados:List<Pregunta>): List<Pregunta>
+    - insertarEnLaLista(listaNormal:List<Pregunta>,\n listaDeNoAgregados:List<Pregunta>): List<Pregunta>
 }
 
 class Jugador {
@@ -48,43 +51,48 @@ class Jugador {
     - triplicador: ModificadorIndividual
     - anulador: ModificadorGlobal
     - exclusividad: ModificadorGlobal
-    + Jugador(nombre:String):void
-    + gastar(mod:ModificadorIndividual):void
+    + Jugador(nombre:String)
+    + gastar(mod:ModificadorIndividual): void
+    + gastar(mod:ModificadorGlobal): void
     + obtenerPuntaje(): int
-    + sumarPuntos(puntaje:int):void
+    + sumarPuntos(puntos:PuntajeParcial):void
     + equals(jugador:Jugador): bool
-    + tieneNombre(String): bool
-    + porCadaPoderClasico(:OperacionPoderesClasicos): void
-    + porCadaPoderPenalidad(:OperacionPoderesPenalidad):void
-    + hacerConNombreYPuntaje(:OperacionNombrePuntaje):void
+    + tieneNombre(n:String): bool
+    + porCadaPoderClasico(o:OperacionPoderesClasicos): void
+    + porCadaPoderPenalidad(o:OperacionPoderesPenalidad):void
+    + hacerConNombreYPuntaje(o:OperacionNombrePuntaje):void
 }
 
 
 
 class TablaDeJugadores {
-    + obtenerJugadorConMayorPuntaje(): Jugador
+    - obtenerJugadorConMayorPuntaje(): Jugador
+    + obtenerGanador(): Jugador
 }
 
 interface OperacionPoderesClasicos {
-    + operar(anulador: ModificadorGlobal, exclusividad: ModificadorGlobal): void
+    + operar(anulador: ModificadorGlobal,\n            exclusividad: ModificadorGlobal): void
 }
 interface OperacionNombrePuntaje {
     + operar(nombre: String, puntos: int): void
 }
 interface OperacionPoderesPenalidad {
-    + operar(anulador: ModificadorGlobal, duplicador: ModificadorIndividual, triplicador: ModificadorIndividual)
+    + operar(anulador: ModificadorGlobal,\n            duplicador: ModificadorIndividual,\n            triplicador: ModificadorIndividual)
 }
 
 
 
 AlgoHoot --> "*" RondaDePreguntas
-AlgoHoot --> GestorDePreguntas
-AlgoHoot ---> TablaDeJugadores
+AlgoHoot -down->"1" GestorDePreguntas
+
+TablaDeJugadores .left.> AlgoHoot
+AlgoHoot -right->"1   " TablaDeJugadores
 
 TablaDeJugadores -right-> "*" Jugador
 
-Jugador .> OperacionNombrePuntaje
-Jugador .> OperacionPoderesClasicos
-Jugador ..> OperacionPoderesPenalidad
+
+Jugador ..> OperacionNombrePuntaje
+Jugador .up.> OperacionPoderesClasicos
+Jugador .up.> OperacionPoderesPenalidad
 
 @enduml

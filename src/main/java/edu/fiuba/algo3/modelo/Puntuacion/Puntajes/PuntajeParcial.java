@@ -57,7 +57,7 @@ public class PuntajeParcial {
         return this.jugador.equals(j);
     }
 
-    public void sumarPuntajeDelJugador() {
+    public void sumarAlJugador() {
         jugador.sumarPuntos( this );
     }
 }

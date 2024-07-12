@@ -53,7 +53,7 @@ package Puntuacion {
         + obtenerPuntos():int
         + equals(puntaje:Object):
         + perteneceA(j:Jugador):bool
-        + actualizarPuntajeDelJugador():void
+        + sumarAlJugador():void
     }
 
     class PuntajeTotal {

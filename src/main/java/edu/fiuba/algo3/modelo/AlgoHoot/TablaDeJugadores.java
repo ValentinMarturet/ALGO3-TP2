@@ -5,10 +5,18 @@ import java.util.LinkedList;
 
 public class TablaDeJugadores extends LinkedList<Jugador> {
 
-    public Jugador obtenerJugadorConMayorPuntaje(){
+
+    private Jugador obtenerJugadorConMayorPuntaje(){
         return  this.stream()
                 .max(Comparator.comparingInt(Jugador::obtenerPuntaje))
                 .orElse(null);
     }
 
+    public Jugador obtenerGanador() {
+        Jugador primero = obtenerJugadorConMayorPuntaje();
+
+        if (primero.obtenerPuntaje() >= AlgoHoot.getInstancia().obtenerPuntosParaGanar())
+            return primero;
+        return null;
+    }
 }
