@@ -3,40 +3,116 @@ skinparam monochrome true
 hide footbox
 skinparam classAttributeIconSize 0
 
+participant "jug:Jugador" as j
+actor "ControladorResponder" as cr
+participant "ah:AlgoHoot" as ah
 
-actor "AlgoHoot" as ah
-participant "gt:GestorDeTurnos" as gt
-participant "t:Turno" as t
-participant "pr:Pregunta" as pr
-participant "pu:Puntaje" as pu
+participant "gp:GestorDePreguntas" as gp
+participant "rp:RondaDePreguntas" as rp
+participant "puntajes:List" as puntajes
+participant "modificadoresGlobales:List" as modificadoresGlobales
+participant "pr:PreguntaVF" as pr
+participant "ocs:OpcionCorrecta" as oc
+participant "pu:PuntajeParcial" as pu
+participant "mg:Anulador" as mg
+participant "mn:ModificadorNulo" as mn
 
-ah -> gt: jugarTurnoActual(j, mi, mg, respuestas)
+'create ah
+    'cr -> ah: new AlgoHoot()
+    cr -> ah:comenzarNuevaRondaDePreguntas()
+    activate ah
+create gp
+    ah -> gp: new GestorDePreguntas()
 
-activate gt
-    gt -> t: jugar(j, mi, mg, respuestas)
+ah -> gp: obtenerSiguientePregunta()
+activate gp
+    gp --> ah: pr
+deactivate gp
+
+create oc
+
+activate pr
+pr -> oc:new OpcionCorrecta()
+deactivate pr
+
+create rp
+    ah -> rp:new RondaDePreguntas()
+    create puntajes
+        rp -> puntajes: new ArrayList()
+    create modificadoresGlobales
+        rp -> modificadoresGlobales: new ArrayList()
+
+cr -> ah: jugarRondaDePreguntas(jug, mi, mg, respuestas)
+
+ah -> rp: jugar(jug, mi, mg, respuestas)
+activate rp
     note left
-    j es un Jugador
     mi es un ModificadorIndividual
     (Duplicador, Triplicador)
     mg es un ModificadorGlobal
     (Anulador, Exclusividad)
     end note
-    activate t
-        t -> pr: puntuar(respuestas)
+    rp -> pr: responder(respuestas)
         activate pr
+            pr -> oc: puntuar(respuestas)
             create pu
-            pr -> pu: Puntaje(1)
-            t <-- pr: pu
+            activate oc
+                oc -> pu: new PuntajeParcial()
+            deactivate oc
+        pr --> rp: pu
         deactivate pr
-        t -> pu: establecerJugador(j)
-        activate pu
-        deactivate pu
-        t -> pu: agregarModificador(mi)
-        activate pu
-        deactivate pu
-        t -> t: agregarModificadorGlobal(gi)
-        t -> t: guardarPuntaje(pu)
+    activate pu
+    rp -> pu: establecerJugador(jug)
+    loop "para todos los modificadores individuales usados"
+        rp -> pu :agregarModificador(mi)
+        rp -> j: gastar(mi)
+    end
+    deactivate pu
 
+    activate j
+    deactivate j
+    rp -> modificadoresGlobales: addAll(mg)
+    activate modificadoresGlobales
+    deactivate modificadoresGlobales
+    rp -> puntajes: add(pu)
+    activate puntajes
+    deactivate puntajes
+
+cr -> ah: terminarRondaDePreguntas()
+
+
+ah -> rp: getLast()
+ah -> rp: terminar()
+loop "para todos los modificadores"
+    rp -> mg: aplicar(puntajes)
+    activate mg
+        activate pu
+            note right
+            perteneceA() se niega dentro del metodo.
+            puntajes.stream()
+                            .filter(p -> !p.perteneceA(jugador))
+                            .forEach(p -> p.agregarModificador(new ModificadorNulo()));
+            end note
+            mg -> pu: perteneceA(otroJug)
+            pu -> j: equals(otroJug)
+            activate j
+                j --> pu: false
+            deactivate j
+            pu --> mg: true
+            create mn
+            mg -> mn : new ModificadorNulo()
+            mg -> pu: agregarModificador(mn)
+        deactivate pu
+    deactivate mg
+end
+loop "para todos los puntajes"
+    rp -> pu: actualizarPuntajeDelJugador()
+deactivate rp
+    activate pu
+    pu -> j: sumarPuntos(this)
+    deactivate pu
+end
+deactivate rp
 
 
 @enduml
