@@ -11,13 +11,17 @@ import edu.fiuba.algo3.vista.escenas.VistaPregunta;
 import edu.fiuba.algo3.vista.elementos.VistaTableroJugadores;
 import edu.fiuba.algo3.vista.elementos.BotonPoderGlobal;
 import edu.fiuba.algo3.vista.elementos.BotonPoderIndividual;
+import javafx.animation.*;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
+import javafx.scene.control.Label;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.util.List;
@@ -106,4 +110,38 @@ public abstract class ControladorResponder implements EventHandler<ActionEvent> 
         VistaFinPregunta nuevaVista = new VistaFinPregunta(stage,1280,720, pregunta.getTextoRespuesta(),tablero);
         stage.setScene(nuevaVista);
     }
+
+    protected void mostrarPopUp(String message) {
+        Popup popup = new Popup();
+
+        Label label = new Label(message);
+        label.setMaxWidth(stage.getWidth()/5);
+        label.setWrapText(true);
+        label.setStyle("-fx-background-color: white;" +
+                "-fx-border-width: 4px;" +
+                "-fx-text-fill: black;" +
+                "-fx-font-size: 24;" +
+                "-fx-font-family: 'Comic Sans MS';" +
+                "-fx-text-alignment: center;" +
+                "-fx-border-color: red;");
+
+        popup.getContent().add(label);
+        popup.setAutoHide(true);
+        popup.show(stage, stage.getX()+stage.getWidth()/2, stage.getY()+stage.getHeight()/3);
+        temblor(label);
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> popup.hide());
+        delay.play();
+    }
+
+    private void temblor(Node nodo){
+        TranslateTransition translate = new TranslateTransition();
+        translate.setNode(nodo);
+        translate.setByX(2);
+        translate.setAutoReverse(true);
+        translate.setDuration(Duration.millis(65));
+        translate.setCycleCount(10);
+        translate.play();
+    }
+
 }

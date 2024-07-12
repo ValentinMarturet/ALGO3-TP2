@@ -42,8 +42,7 @@ public class ControladorResponderGC extends ControladorResponder {
         if (opcionesSeleccionadas.size() != opciones.size()) {
             if (sonidoSinSeleccion.isPlaying()) {sonidoSinSeleccion.stop();}
             sonidoSinSeleccion.play();
-            // falta seleccionar alguna opcion
-            System.out.println("falta seleccionar alguna opcion");
+            mostrarPopUp("te falta seleccionar alguna opción!");
 
         } else {
             sonidoResponder.play();

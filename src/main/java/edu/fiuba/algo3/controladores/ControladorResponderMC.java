@@ -36,8 +36,7 @@ public class ControladorResponderMC extends ControladorResponder {
         if (opcionesSeleccionadas.isEmpty()) {
             if (sonidoSinSeleccion.isPlaying()) {sonidoSinSeleccion.stop();}
             sonidoSinSeleccion.play();
-            // no se seleccionó ninguna opción
-            System.out.println("no seleccionaste ninguna opcion");
+            mostrarPopUp("no seleccionaste ninguna opción!");
 
         } else {
             sonidoResponder.play();

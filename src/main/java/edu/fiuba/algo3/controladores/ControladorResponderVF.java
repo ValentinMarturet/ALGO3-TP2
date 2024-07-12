@@ -21,8 +21,7 @@ public class ControladorResponderVF extends ControladorResponder {
         if (eleccion == null) {
             if (sonidoSinSeleccion.isPlaying()) {sonidoSinSeleccion.stop();}
             sonidoSinSeleccion.play();
-            // no se seleccionó ninguna opción
-            System.out.println("no seleccionaste ninguna opcion");
+            mostrarPopUp("no seleccionaste ninguna opción!");
 
         } else {
             sonidoResponder.play();
