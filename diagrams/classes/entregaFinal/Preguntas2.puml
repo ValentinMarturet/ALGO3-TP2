@@ -1,5 +1,6 @@
 @startuml
 
+package Preguntas {
 
 class Opcion {
     - opcion: String
