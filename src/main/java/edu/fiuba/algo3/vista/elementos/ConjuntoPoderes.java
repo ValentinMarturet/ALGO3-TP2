@@ -13,7 +13,7 @@ public abstract class ConjuntoPoderes extends VBox {
     public ConjuntoPoderes() {
         botonesPoderes = new ArrayList<>();
         setAlignment(Pos.CENTER);
-        setPadding(new Insets(40,0,0,0));
+        setPadding(new Insets(20,0,0,0));
         setSpacing(20);
     }
 

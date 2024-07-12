@@ -43,7 +43,7 @@ public class VistaPreguntaMC extends VistaPregunta {
         opciones.setPrefHeight(panelOpciones.getPrefHeight());
         opciones.setPrefWidth(panelOpciones.getPrefWidth());
         opciones.setAlignment(Pos.CENTER);
-        opciones.setSpacing(25);
+        opciones.setSpacing(15);
 
         stringOpciones = pregunta.getOpciones().stream().map(Opcion::getOpcion).collect(Collectors.toList());
         restablecerOpciones();

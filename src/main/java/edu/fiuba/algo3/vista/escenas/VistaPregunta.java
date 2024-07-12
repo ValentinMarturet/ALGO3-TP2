@@ -56,6 +56,7 @@ public abstract class VistaPregunta extends Scene {
         Label textoPregunta = new Label(pregunta.getPregunta());
         textoPregunta.setPrefHeight(height*2/5 - 2*margenAlto);
         textoPregunta.setPrefWidth(width * 2/3 - 2*margenAncho);
+        textoPregunta.setMinSize(width * 2/3 - 2*margenAncho, height*2/5 - 2*margenAlto);
         textoPregunta.setWrapText(true);
         establecerEstilo(textoPregunta);
         cambiarTamanoFuente(textoPregunta, 32);
